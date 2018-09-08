@@ -1,0 +1,21 @@
+# NServiceBus learning transport storage
+.learningtransport/
+
+# Bower components
+**/wwwroot/lib/
+
+# User-specific files
+*.suo
+*.user
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 2015 cache/options directory
+.vs/
