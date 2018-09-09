@@ -8,7 +8,8 @@
             "Projects": {
                 "WebApp": {},
                 "Sales.Api": {},
-                "Marketing.Api": {}
+                "Marketing.Api": {},
+                "Warehouse.Api": {}
             }
         }
     }
