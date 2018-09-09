@@ -1,15 +1,14 @@
 {
     "Version": 3,
-
     "ListAllProjects": false,
-
     "MultiProjectConfigurations": {
         "Demo": {
             "Projects": {
                 "WebApp": {},
                 "Sales.Api": {},
                 "Marketing.Api": {},
-                "Warehouse.Api": {}
+                "Warehouse.Api": {},
+                "Shipping.Api": {}
             }
         }
     }
