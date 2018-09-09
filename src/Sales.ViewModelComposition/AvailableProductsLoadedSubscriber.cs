@@ -1,5 +1,5 @@
-﻿using ITOps.ViewModelComposition;
-using ITOps.ViewModelComposition.Json;
+﻿using ServiceComposer.ViewModelComposition;
+using ServiceComposer.ViewModelComposition.Json;
 using Marketing.ViewModelComposition.Events;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;

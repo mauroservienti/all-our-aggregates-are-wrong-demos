@@ -9,9 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\it-ops-shared\ITOps.ViewModelComposition.Json\ITOps.ViewModelComposition.Json.csproj" />
-    <ProjectReference Include="..\it-ops-shared\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
     <ProjectReference Include="..\Marketing.ViewModelComposition.Events\Marketing.ViewModelComposition.Events.csproj" />
+    <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition.Json\ServiceComposer.ViewModelComposition.Json.csproj" />
+    <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition\ServiceComposer.ViewModelComposition.csproj" />
   </ItemGroup>
 
 </Project>
