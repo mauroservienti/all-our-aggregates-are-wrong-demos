@@ -1,5 +1,5 @@
-﻿using ITOps.ViewModelComposition;
-using ITOps.ViewModelComposition.Mvc;
+﻿using ServiceComposer.ViewModelComposition;
+using ServiceComposer.ViewModelComposition.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -19,12 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\it-ops-shared\ITOps.ViewModelComposition.Json\ITOps.ViewModelComposition.Json.csproj" />
-    <ProjectReference Include="..\it-ops-shared\ITOps.ViewModelComposition.Mvc\ITOps.ViewModelComposition.Mvc.csproj" />
-    <ProjectReference Include="..\it-ops-shared\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
+    <ProjectReference Include="..\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
     <ProjectReference Include="..\Marketing.ViewModelComposition\Marketing.ViewModelComposition.csproj" />
     <ProjectReference Include="..\NServiceBus.Shared\NServiceBus.Shared.csproj" />
     <ProjectReference Include="..\Sales.ViewModelComposition\Sales.ViewModelComposition.csproj" />
+    <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition.Json\ServiceComposer.ViewModelComposition.Json.csproj" />
+    <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition.Mvc\ServiceComposer.ViewModelComposition.Mvc.csproj" />
+    <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition\ServiceComposer.ViewModelComposition.csproj" />
+    <ProjectReference Include="..\Warehouse.ViewModelComposition\Warehouse.ViewModelComposition.csproj" />
   </ItemGroup>
 
 </Project>

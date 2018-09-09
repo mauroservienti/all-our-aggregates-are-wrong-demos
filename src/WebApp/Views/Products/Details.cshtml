@@ -2,7 +2,7 @@
     ViewData["Title"] = Model.ProductName;
 }
 <div class="jumbotron">
-    <form action="/products/addtocart/@Model.ProductId" method="post">
+    <form action="/products/addtocart/@Model.Id" method="post">
         <h1>@Model.ProductName</h1>
         <h2>@Model.ProductDescription</h2>
         <select name="quantity" id="quantity">
@@ -15,16 +15,16 @@
         <hr />
         <h3>Price: @Model.ProductPrice $</h3>
         <h3>
-            @if (Model.ProductInStock)
-            {
-                <span class="label label-success">Available</span>
-            }
-            else
+            @if (Model.ProductOutOfStock)
             {
                 <span class="label label-danger">Out of stock</span>
             }
+            else
+            {
+                <span class="label label-success">@Model.ProductInventory item(s) left in stock.</span>
+            }
         </h3>
-        <h4>
+        @*<h4>
             Shipping:
             @if (Model.ProductEligibleForFreeShipping)
             {
@@ -34,8 +34,8 @@
             {
                 <span class="label label-default">@Model.ProductShippingCost $</span>
             }
-        </h4>
+        </h4>*@
         <hr />
-        <h4>Product #@Model.ProductId</h4>
+        <h4>Product #@Model.Id</h4>
     </form>
 </div>
