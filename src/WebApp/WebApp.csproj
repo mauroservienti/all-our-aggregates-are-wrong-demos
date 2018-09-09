@@ -26,6 +26,7 @@
     <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition.Json\ServiceComposer.ViewModelComposition.Json.csproj" />
     <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition.Mvc\ServiceComposer.ViewModelComposition.Mvc.csproj" />
     <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition\ServiceComposer.ViewModelComposition.csproj" />
+    <ProjectReference Include="..\Shipping.ViewModelComposition\Shipping.ViewModelComposition.csproj" />
     <ProjectReference Include="..\Warehouse.ViewModelComposition\Warehouse.ViewModelComposition.csproj" />
   </ItemGroup>
 

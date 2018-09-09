@@ -24,17 +24,9 @@
                 <span class="label label-success">@Model.ProductInventory item(s) left in stock.</span>
             }
         </h3>
-        @*<h4>
-            Shipping:
-            @if (Model.ProductEligibleForFreeShipping)
-            {
-                <span class="label label-success">Free Shipping</span>
-            }
-            else
-            {
-                <span class="label label-default">@Model.ProductShippingCost $</span>
-            }
-        </h4>*@
+        <h4>
+            Shipping: @Model.ProductShippingOptions
+        </h4>
         <hr />
         <h4>Product #@Model.Id</h4>
     </form>
