@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace ITOps.ViewModelComposition.Mvc
+namespace ServiceComposer.ViewModelComposition.Mvc
 {
     public static class MvcBuilderExtensions
     {

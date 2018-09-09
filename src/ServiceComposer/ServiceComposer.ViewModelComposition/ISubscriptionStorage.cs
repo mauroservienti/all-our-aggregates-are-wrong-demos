@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Threading.Tasks;
 
-namespace ITOps.ViewModelComposition
+namespace ServiceComposer.ViewModelComposition
 {
     public interface ISubscriptionStorage
     {

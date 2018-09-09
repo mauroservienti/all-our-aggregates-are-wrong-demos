@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
+    <ProjectReference Include="..\ServiceComposer.ViewModelComposition\ServiceComposer.ViewModelComposition.csproj" />
   </ItemGroup>
 
 </Project>

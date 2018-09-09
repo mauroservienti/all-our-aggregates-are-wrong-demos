@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System;
 
-namespace ITOps.ViewModelComposition
+namespace ServiceComposer.ViewModelComposition
 {
     public static class AssemblyLoader
     {

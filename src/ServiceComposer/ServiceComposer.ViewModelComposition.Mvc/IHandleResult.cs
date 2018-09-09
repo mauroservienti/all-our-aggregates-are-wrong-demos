@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
 
-namespace ITOps.ViewModelComposition.Mvc
+namespace ServiceComposer.ViewModelComposition.Mvc
 {
     public interface IHandleResult : IInterceptRoutes
     {

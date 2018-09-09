@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ITOps.ViewModelComposition.Mvc
+namespace ServiceComposer.ViewModelComposition.Mvc
 {
     class CompositionActionFilter : IAsyncResultFilter
     {

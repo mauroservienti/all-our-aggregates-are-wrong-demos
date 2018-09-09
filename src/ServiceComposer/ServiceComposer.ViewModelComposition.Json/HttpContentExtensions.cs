@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ITOps.ViewModelComposition.Json
+namespace ServiceComposer.ViewModelComposition.Json
 {
     public static class HttpContentExtensions
     {
