@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
-using NServiceBus.Shared;
 
 namespace Sales.Api.Services
 {

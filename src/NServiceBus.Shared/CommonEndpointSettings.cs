@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Shared
+﻿namespace NServiceBus
 {
     public static class CommonEndpointSettings
     {
