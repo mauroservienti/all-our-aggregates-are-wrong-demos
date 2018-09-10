@@ -37,7 +37,7 @@ namespace Warehouse.Service.Handlers
                     }
 
                     var stockItem = db.StockItems
-                        .Where(o => o.Id == message.ItemId)
+                        .Where(o => o.ProductId == message.ItemId)
                         .Single();
 
                     cart.Items.Add(new ShoppingCartItem()

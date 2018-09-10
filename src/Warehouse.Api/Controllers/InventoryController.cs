@@ -17,7 +17,7 @@ namespace Warehouse.Api.Controllers
             using (var db = WarehouseContext.Create())
             {
                 var item = db.StockItems
-                    .Where(o => o.Id == id)
+                    .Where(o => o.ProductId == id)
                     .SingleOrDefault();
 
                 return item;
@@ -32,7 +32,7 @@ namespace Warehouse.Api.Controllers
             {
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
                 var items = db.StockItems
-                    .Where(status => productIds.Any(id => id == status.Id))
+                    .Where(status => productIds.Any(id => id == status.ProductId))
                     .ToArray();
 
                 return items;

@@ -49,12 +49,12 @@ namespace Warehouse.Data
                 {
                     new StockItem()
                     {
-                        Id = 1,
+                        ProductId = 1,
                         Inventory = 4,
                     },
                     new StockItem()
                     {
-                        Id = 2,
+                        ProductId = 2,
                         Inventory = 0,
                     }
                 };
