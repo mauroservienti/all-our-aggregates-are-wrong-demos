@@ -18,6 +18,8 @@ namespace Shipping.Data
 
         public DbSet<ProductShippingOptions> ProductShippingOptions { get; set; }
 
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Shipping;Integrated Security=True");
@@ -38,6 +40,16 @@ namespace Shipping.Data
             shippingOptionsEntity.HasData(Initial.ShippingOptions());
             productShippingOptionsEntity.HasData(Initial.ProductShippingOptions());
 
+            var shoppingCartItemEntity = modelBuilder.Entity<ShoppingCartItem>();
+            var shoppingCartEntity = modelBuilder.Entity<ShoppingCart>();
+
+            shoppingCartItemEntity
+                .HasOne<ShoppingCart>()
+                .WithMany(sc => sc.Items)
+                .IsRequired()
+                .HasForeignKey(so => so.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -51,19 +63,25 @@ namespace Shipping.Data
                     {
                         Id = 1,
                         ProductShippingOptionsId = 1,
-                        Option = "Express Delivery"
+                        Option = "Express Delivery",
+                        EstimatedMinDeliveryDays = 1,
+                        EstimatedMaxDeliveryDays = 3,
                     },
                     new ShippingOption()
                     {
                         Id = 2,
                         ProductShippingOptionsId = 1,
-                        Option = "Regular mail"
+                        Option = "Regular mail",
+                        EstimatedMinDeliveryDays = 4,
+                        EstimatedMaxDeliveryDays = 12,
                     },
                     new ShippingOption()
                     {
                         Id = 3,
                         ProductShippingOptionsId = 2,
-                        Option = "Fantasy Delivery"
+                        Option = "Fantasy Delivery",
+                        EstimatedMinDeliveryDays = int.MaxValue,
+                        EstimatedMaxDeliveryDays = int.MaxValue,
                     },
                 };
             }
@@ -74,11 +92,11 @@ namespace Shipping.Data
                 {
                     new ProductShippingOptions()
                     {
-                        Id = 1,
+                        ProductId = 1,
                     },
                     new ProductShippingOptions()
                     {
-                        Id = 2,
+                        ProductId = 2,
                     }
                 };
             }

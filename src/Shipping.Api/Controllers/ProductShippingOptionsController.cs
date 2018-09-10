@@ -19,7 +19,7 @@ namespace Shipping.Api.Controllers
             {
                 var item = db.ProductShippingOptions
                     .Include(pso => pso.Options)
-                    .Where(o => o.Id == id)
+                    .Where(o => o.ProductId == id)
                     .SingleOrDefault();
 
                 return item;
@@ -35,7 +35,7 @@ namespace Shipping.Api.Controllers
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
                 var items = db.ProductShippingOptions
                     .Include(pso => pso.Options)
-                    .Where(status => productIds.Any(id => id == status.Id))
+                    .Where(status => productIds.Any(id => id == status.ProductId))
                     .ToArray();
 
                 return items;
