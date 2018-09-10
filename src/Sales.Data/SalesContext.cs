@@ -17,6 +17,8 @@ namespace Sales.Data
 
         public DbSet<ProductPrice> ProductsPrices { get; set; }
 
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Sales;Integrated Security=True");
@@ -26,18 +28,15 @@ namespace Sales.Data
         {
             modelBuilder.Entity<ProductPrice>().HasData(Initial.Data());
 
-            //var cartEntity = modelBuilder.Entity<ShoppingCart>();
+            var shoppingCartItemEntity = modelBuilder.Entity<ShoppingCartItem>();
+            var shoppingCartEntity = modelBuilder.Entity<ShoppingCart>();
 
-            //cartEntity
-            //    .HasKey(c => c.Id)
-            //    .HasMany(c => c.Items)
-            //    .WithRequired()
-            //    .HasForeignKey(k => k.CartId)
-            //    .WillCascadeOnDelete();
-
-            //cartEntity
-            //    .Property(c => c.Id)
-            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            shoppingCartItemEntity
+                .HasOne<ShoppingCart>()
+                .WithMany(sc => sc.Items)
+                .IsRequired()
+                .HasForeignKey(so => so.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

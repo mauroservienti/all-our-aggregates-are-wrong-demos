@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Warehouse.ViewModelComposition
 {
-    class SingleItemGetIdApender : IHandleRequests
+    class SingleItemGetIdAppender : IHandleRequests
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {

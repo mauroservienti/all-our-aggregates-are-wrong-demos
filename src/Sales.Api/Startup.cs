@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sales.Api.Services;
 
 namespace Sales.Api
 {
@@ -25,6 +26,7 @@ namespace Sales.Api
                 });
             });
 
+            services.AddNServiceBus();
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

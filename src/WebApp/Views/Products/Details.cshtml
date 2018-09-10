@@ -2,7 +2,7 @@
     ViewData["Title"] = Model.ProductName;
 }
 <div class="jumbotron">
-    <form action="/products/addtocart/@Model.Id" method="post">
+    <form action="/shoppingcart/add/@Model.Id" method="post">
         <h1>@Model.ProductName</h1>
         <h2>@Model.ProductDescription</h2>
         <select name="quantity" id="quantity">
