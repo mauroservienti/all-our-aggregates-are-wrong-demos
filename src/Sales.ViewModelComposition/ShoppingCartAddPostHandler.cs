@@ -36,7 +36,7 @@ namespace Sales.ViewModelComposition
         {
             var postData = new
             {
-                ItemId = (string)routeData.Values["id"],
+                ProductId = (string)routeData.Values["id"],
                 Quantity = int.Parse(request.Form["quantity"][0]),
                 CartId = request.Cookies["cart-id"]
             };

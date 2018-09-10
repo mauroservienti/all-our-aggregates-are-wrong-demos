@@ -37,14 +37,14 @@ namespace Warehouse.Service.Handlers
                     }
 
                     var stockItem = db.StockItems
-                        .Where(o => o.ProductId == message.ItemId)
+                        .Where(o => o.ProductId == message.ProductId)
                         .Single();
 
                     cart.Items.Add(new ShoppingCartItem()
                     {
                         CartId = message.CartId,
                         RequestId = message.RequestId,
-                        ItemId = message.ItemId,
+                        ProductId = message.ProductId,
                         Inventory = stockItem.Inventory,
                         Quantity = message.Quantity
                     });

@@ -26,7 +26,7 @@ namespace Sales.Api.Controllers
         public async Task<IActionResult> AddToCart(dynamic data)
         {
             var cartId = new Guid(data.CartId);
-            var itemId = (int)data.ItemId;
+            var productId = (int)data.ProductId;
             var quantity = (int)data.Quantity;
             var requestId = Request.Headers["request-id"].Single();
 
@@ -57,14 +57,14 @@ namespace Sales.Api.Controllers
                     }
 
                     var product = db.ProductsPrices
-                        .Where(o => o.Id == itemId)
+                        .Where(o => o.Id == productId)
                         .Single();
 
                     cart.Items.Add(new ShoppingCartItem()
                     {
                         CartId = cartId,
                         RequestId = requestId,
-                        ItemId = itemId,
+                        ProductId = productId,
                         CurrentPrice = product.Price,
                         LastPrice = product.Price,
                         Quantity = quantity
@@ -73,7 +73,7 @@ namespace Sales.Api.Controllers
                     await messageSession.Publish<ItemAddedToCart>(e =>
                     {
                         e.CartId = cartId;
-                        e.ItemId = itemId;
+                        e.ProductId = productId;
                     });
 
                     await db.SaveChangesAsync();

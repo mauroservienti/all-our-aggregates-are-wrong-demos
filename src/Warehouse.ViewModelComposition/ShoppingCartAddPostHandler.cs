@@ -37,7 +37,7 @@ namespace Warehouse.ViewModelComposition
         {
             return messageSession.Send("Warehouse.Service", new AddItemToCart()
             {
-                ItemId = int.Parse((string)routeData.Values["id"]),
+                ProductId = int.Parse((string)routeData.Values["id"]),
                 Quantity = int.Parse(request.Form["quantity"][0]),
                 CartId = new Guid(request.Cookies["cart-id"]),
                 RequestId= requestId,
