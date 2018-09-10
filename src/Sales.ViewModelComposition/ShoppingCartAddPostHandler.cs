@@ -65,7 +65,6 @@ namespace Sales.ViewModelComposition
         {
             return messageSession.Send("Sales.Service", new CleanupFailedCartRequest()
             {
-                ProductId = int.Parse((string)routeData.Values["id"]),
                 CartId = new Guid(request.Cookies["cart-id"]),
                 RequestId = requestId
             });
