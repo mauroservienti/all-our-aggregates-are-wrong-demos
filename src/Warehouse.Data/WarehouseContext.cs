@@ -17,6 +17,8 @@ namespace Warehouse.Data
 
         public DbSet<StockItem> StockItems { get; set; }
 
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Warehouse;Integrated Security=True");
@@ -25,6 +27,16 @@ namespace Warehouse.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StockItem>().HasData(Initial.Data());
+
+            var shoppingCartItemEntity = modelBuilder.Entity<ShoppingCartItem>();
+            var shoppingCartEntity = modelBuilder.Entity<ShoppingCart>();
+
+            shoppingCartItemEntity
+                .HasOne<ShoppingCart>()
+                .WithMany(sc => sc.Items)
+                .IsRequired()
+                .HasForeignKey(so => so.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
