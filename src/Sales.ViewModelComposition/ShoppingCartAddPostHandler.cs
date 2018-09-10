@@ -63,10 +63,10 @@ namespace Sales.ViewModelComposition
 
         public Task OnRequestError(string requestId, Exception ex, dynamic vm, RouteData routeData, HttpRequest request)
         {
-            return messageSession.Send("Sales.Services", new CleanupCart()
+            return messageSession.Send("Sales.Service", new CleanupFailedCartRequest()
             {
                 ProductId = int.Parse((string)routeData.Values["id"]),
-                CartId = request.Cookies["cart-id"],
+                CartId = new Guid(request.Cookies["cart-id"]),
                 RequestId = requestId
             });
         }
