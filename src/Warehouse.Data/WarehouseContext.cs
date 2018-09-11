@@ -17,7 +17,7 @@ namespace Warehouse.Data
 
         public DbSet<StockItem> StockItems { get; set; }
 
-        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,14 +29,7 @@ namespace Warehouse.Data
             modelBuilder.Entity<StockItem>().HasData(Initial.Data());
 
             var shoppingCartItemEntity = modelBuilder.Entity<ShoppingCartItem>();
-            var shoppingCartEntity = modelBuilder.Entity<ShoppingCart>();
-
-            shoppingCartItemEntity
-                .HasOne<ShoppingCart>()
-                .WithMany(sc => sc.Items)
-                .IsRequired()
-                .HasForeignKey(so => so.CartId)
-                .OnDelete(DeleteBehavior.Cascade);
+            shoppingCartItemEntity.Property(i => i.Id).ValueGeneratedOnAdd();
 
             base.OnModelCreating(modelBuilder);
         }
@@ -49,11 +42,13 @@ namespace Warehouse.Data
                 {
                     new StockItem()
                     {
+                        Id = 1,
                         ProductId = 1,
                         Inventory = 4,
                     },
                     new StockItem()
                     {
+                        Id = 2,
                         ProductId = 2,
                         Inventory = 0,
                     }

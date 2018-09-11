@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Warehouse.Service": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -3,12 +3,6 @@ using System.Collections.Generic;
 
 namespace Warehouse.Data.Models
 {
-    public class ShoppingCart
-    {
-        public Guid Id { get; set; }
-        public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
-    }
-
     public class ShoppingCartItem
     {
         public int Id { get; set; }
