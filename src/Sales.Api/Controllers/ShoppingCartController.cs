@@ -69,7 +69,7 @@ namespace Sales.Api.Controllers
                         Quantity = quantity
                     });
 
-                    await messageSession.Publish<ItemAddedToCart>(e =>
+                    await messageSession.Publish<ProductAddedToCart>(e =>
                     {
                         e.CartId = cartId;
                         e.ProductId = productId;
