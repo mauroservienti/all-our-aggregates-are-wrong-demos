@@ -14,6 +14,17 @@
                 "Warehouse.Service": {},
                 "Shipping.Service": {}
             }
+        },
+        "Demo (failed services)": {
+            "Projects": {
+                "WebApp": {},
+                "Sales.Api": {},
+                "Marketing.Api": {},
+                "Warehouse.Api": {},
+                "Shipping.Api": {},
+                "Sales.Service": {},
+                "Marketing.Service": {}
+            }
         }
     }
 }

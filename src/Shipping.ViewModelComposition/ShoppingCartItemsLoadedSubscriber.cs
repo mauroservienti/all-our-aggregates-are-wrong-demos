@@ -33,10 +33,20 @@ namespace Shipping.ViewModelComposition
                 var response = await client.GetAsync(url);
 
                 dynamic[] shippingDetails = await response.Content.AsExpandoArray();
-
-                foreach (dynamic detail in shippingDetails)
+                if (shippingDetails == null || shippingDetails.Length == 0)
                 {
-                    @event.CartItemsViewModel[detail.ProductId].DeliveryEstimate = detail.DeliveryEstimate;
+                    //eventual consitency is making fun of us
+                    foreach (var item in @event.CartItemsViewModel.Values)
+                    {
+                        item.DeliveryEstimate = "not yet available";
+                    }
+                }
+                else
+                {
+                    foreach (dynamic detail in shippingDetails)
+                    {
+                        @event.CartItemsViewModel[detail.ProductId].DeliveryEstimate = detail.DeliveryEstimate;
+                    }
                 }
             });
         }

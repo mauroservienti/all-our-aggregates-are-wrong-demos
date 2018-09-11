@@ -33,10 +33,20 @@ namespace Warehouse.ViewModelComposition
                 var response = await client.GetAsync(url);
 
                 dynamic[] inventoryDetails = await response.Content.AsExpandoArray();
-
-                foreach (dynamic detail in inventoryDetails)
+                if (inventoryDetails == null || inventoryDetails.Length == 0)
                 {
-                    @event.CartItemsViewModel[detail.ProductId].Inventory = detail.Inventory;
+                    //eventual consitency is making fun of us
+                    foreach (var item in @event.CartItemsViewModel.Values)
+                    {
+                        item.Inventory = "evaulation in progress";
+                    }
+                }
+                else
+                {
+                    foreach (dynamic detail in inventoryDetails)
+                    {
+                        @event.CartItemsViewModel[detail.ProductId].Inventory = $"{detail.Inventory} item(s) left in stock";
+                    }
                 }
             });
         }
