@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Shipping.Service": {
+      "commandName": "Project"
+    }
+  }
+}

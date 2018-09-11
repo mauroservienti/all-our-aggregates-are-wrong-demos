@@ -17,26 +17,14 @@ namespace Shipping.Service.Handlers
         {
             using (var db = ShippingContext.Create())
             {
-                var requestAlreadyHandled = await db.ShoppingCarts
-                    .Where(o => o.Items.Any(i => i.RequestId == message.RequestId))
-                    .AnyAsync();
+                var requestAlreadyHandled = await db.ShoppingCartItems
+                    .Where(o => o.RequestId == message.RequestId)
+                    .SingleOrDefaultAsync() != null;
 
                 if (!requestAlreadyHandled)
                 {
-                    var cart = db.ShoppingCarts
-                        .Include(c => c.Items)
-                        .Where(o => o.Id == message.CartId)
-                        .SingleOrDefault();
-
-                    if (cart == null)
-                    {
-                        cart = db.ShoppingCarts.Add(new ShoppingCart()
-                        {
-                            Id = message.CartId
-                        }).Entity;
-                    }
-
                     var shippingOptions = db.ProductShippingOptions
+                        .Include(so => so.Options)
                         .Where(o => o.ProductId == message.ProductId)
                         .Single();
 
@@ -52,7 +40,7 @@ namespace Shipping.Service.Handlers
                         estimate = $"between {shortest} and {longest} days";
                     }
 
-                    cart.Items.Add(new ShoppingCartItem()
+                    db.ShoppingCartItems.Add(new ShoppingCartItem()
                     {
                         CartId = message.CartId,
                         RequestId = message.RequestId,

@@ -13,19 +13,13 @@ namespace Shipping.Service.Handlers
         {
             using (var db = ShippingContext.Create())
             {
-                var requestWasHandled = await db.ShoppingCarts
-                    .Where(o => o.Items.Any(i => i.RequestId == message.RequestId))
-                    .AnyAsync();
+                var requestItem = await db.ShoppingCartItems
+                    .Where(o => o.RequestId == message.RequestId)
+                    .SingleOrDefaultAsync();
 
-                if (requestWasHandled)
+                if (requestItem != null)
                 {
-                    var cart = db.ShoppingCarts
-                        .Include(c => c.Items)
-                        .Where(c => c.Id == message.CartId)
-                        .Single();
-
-                    var itemToRemove = cart.Items.Single(item => item.RequestId == message.RequestId);
-                    cart.Items.Remove(itemToRemove);
+                    db.ShoppingCartItems.Remove(requestItem);
                     await db.SaveChangesAsync();
                 }
             }
