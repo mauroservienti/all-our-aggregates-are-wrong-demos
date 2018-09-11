@@ -6,6 +6,7 @@
         {
             config.UseSerialization<NewtonsoftSerializer>();
             config.UseTransport<LearningTransport>();
+            config.UsePersistence<LearningPersistence>();
 
             config.AuditProcessedMessagesTo("audit");
             config.SendFailedMessagesTo("error");

@@ -1,9 +1,8 @@
 ﻿using NServiceBus;
 using Sales.Messages.Events;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
+using Console = Colorful.Console;
 
 namespace Marketing.Service.Handlers
 {
@@ -11,7 +10,7 @@ namespace Marketing.Service.Handlers
     {
         public Task Handle(ShoppingCartGotStale message, IMessageHandlerContext context)
         {
-            Console.WriteLine("Cart got stale, let's annoy user with an email :-)");
+            Console.WriteLine("Cart got stale, let's annoy user with an email :-)", Color.Yellow);
 
             return Task.CompletedTask;
         }
