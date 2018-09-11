@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Sales.Service": {
+      "commandName": "Project"
+    }
+  }
+}
