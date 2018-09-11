@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shipping.Data.Models;
-using System.Collections.Generic;
 
 namespace Shipping.Data
 {

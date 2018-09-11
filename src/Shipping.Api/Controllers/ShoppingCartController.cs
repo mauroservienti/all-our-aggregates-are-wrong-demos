@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shipping.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Shipping.Data;
 
 namespace Shipping.Api.Controllers
 {

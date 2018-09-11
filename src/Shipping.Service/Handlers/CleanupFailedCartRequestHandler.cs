@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NServiceBus;
-using System.Linq;
-using System.Threading.Tasks;
 using Shipping.Data;
 using Shipping.Messages;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shipping.Service.Handlers
 {

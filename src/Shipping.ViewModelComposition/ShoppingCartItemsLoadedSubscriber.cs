@@ -4,9 +4,7 @@ using Sales.ViewModelComposition.Events;
 using ServiceComposer.ViewModelComposition;
 using ServiceComposer.ViewModelComposition.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace Shipping.ViewModelComposition
 {

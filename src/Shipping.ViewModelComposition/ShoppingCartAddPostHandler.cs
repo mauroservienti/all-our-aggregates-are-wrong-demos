@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NServiceBus;
-using Shipping.Messages;
 using ServiceComposer.ViewModelComposition;
+using Shipping.Messages;
+using Shipping.Messages.Commands;
 using System;
 using System.Threading.Tasks;
-using Shipping.Messages.Commands;
 
 namespace Shipping.ViewModelComposition
 {
@@ -36,7 +36,7 @@ namespace Shipping.ViewModelComposition
                 ProductId = int.Parse((string)routeData.Values["id"]),
                 Quantity = int.Parse(request.Form["quantity"][0]),
                 CartId = new Guid(request.Cookies["cart-id"]),
-                RequestId= requestId,
+                RequestId = requestId,
             });
         }
 

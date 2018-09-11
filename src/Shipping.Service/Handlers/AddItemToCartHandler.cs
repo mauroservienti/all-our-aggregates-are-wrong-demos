@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NServiceBus;
 using Shipping.Data;
 using Shipping.Data.Models;
 using Shipping.Messages.Commands;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Shipping.Service.Handlers
 {

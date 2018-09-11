@@ -1,8 +1,6 @@
-﻿using ServiceComposer.ViewModelComposition;
-using ServiceComposer.ViewModelComposition.Json;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Http;
+using ServiceComposer.ViewModelComposition;
 using System.Threading.Tasks;
 
 namespace Warehouse.ViewModelComposition

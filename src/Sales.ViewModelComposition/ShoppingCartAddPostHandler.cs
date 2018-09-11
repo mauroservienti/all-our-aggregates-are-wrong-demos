@@ -5,7 +5,6 @@ using NServiceBus;
 using Sales.Messages;
 using ServiceComposer.ViewModelComposition;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,8 +46,8 @@ namespace Sales.ViewModelComposition
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, url)
             {
                 Content = new StringContent(
-                    JsonConvert.SerializeObject(postData), 
-                    Encoding.UTF8, 
+                    JsonConvert.SerializeObject(postData),
+                    Encoding.UTF8,
                     "application/json")
             };
             requestMessage.Headers.Add("request-id", requestId);

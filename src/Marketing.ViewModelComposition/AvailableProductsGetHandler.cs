@@ -1,8 +1,8 @@
-﻿using ServiceComposer.ViewModelComposition;
-using ServiceComposer.ViewModelComposition.Json;
-using Marketing.ViewModelComposition.Events;
+﻿using Marketing.ViewModelComposition.Events;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using ServiceComposer.ViewModelComposition;
+using ServiceComposer.ViewModelComposition.Json;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Warehouse.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Warehouse.Data;
 
 namespace Warehouse.Api.Controllers
 {

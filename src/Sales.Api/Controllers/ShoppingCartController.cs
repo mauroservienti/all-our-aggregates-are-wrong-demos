@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NServiceBus;
 using Sales.Data;
 using Sales.Data.Models;
 using Sales.Messages.Events;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sales.Api.Controllers
 {
@@ -77,7 +76,7 @@ namespace Sales.Api.Controllers
                     });
 
                     await db.SaveChangesAsync();
-                }                
+                }
             }
 
             return StatusCode(200);

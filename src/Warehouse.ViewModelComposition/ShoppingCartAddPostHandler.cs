@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Newtonsoft.Json;
 using NServiceBus;
-using Warehouse.Messages;
 using ServiceComposer.ViewModelComposition;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using Warehouse.Messages;
 using Warehouse.Messages.Commands;
 
 namespace Warehouse.ViewModelComposition
@@ -40,7 +36,7 @@ namespace Warehouse.ViewModelComposition
                 ProductId = int.Parse((string)routeData.Values["id"]),
                 Quantity = int.Parse(request.Form["quantity"][0]),
                 CartId = new Guid(request.Cookies["cart-id"]),
-                RequestId= requestId,
+                RequestId = requestId,
             });
         }
 

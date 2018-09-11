@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NServiceBus;
+using System.Linq;
+using System.Threading.Tasks;
 using Warehouse.Data;
 using Warehouse.Data.Models;
 using Warehouse.Messages.Commands;

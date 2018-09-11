@@ -1,11 +1,11 @@
-﻿using ServiceComposer.ViewModelComposition;
-using ServiceComposer.ViewModelComposition.Json;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Http;
-using System.Threading.Tasks;
+using ServiceComposer.ViewModelComposition;
+using ServiceComposer.ViewModelComposition.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Shipping.ViewModelComposition
 {
@@ -36,7 +36,7 @@ namespace Shipping.ViewModelComposition
                 .Select(o => o.Option)
                 .ToArray();
 
-            vm.ProductShippingOptions = string.Join(", ",options);
+            vm.ProductShippingOptions = string.Join(", ", options);
         }
     }
 }
