@@ -22,10 +22,10 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPost]
-        [Route("/")]
+        [Route("")]
         public async Task<IActionResult> AddToCart(dynamic data)
         {
-            var cartId = new Guid(data.CartId);
+            var cartId = new Guid((string)data.CartId);
             var productId = (int)data.ProductId;
             var quantity = (int)data.Quantity;
             var requestId = Request.Headers["request-id"].Single();
@@ -81,6 +81,35 @@ namespace Sales.Api.Controllers
             }
 
             return StatusCode(200);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public dynamic GetCart(Guid id)
+        {
+            using (var db = SalesContext.Create())
+            {
+                var cartItems = db.ShoppingCarts
+                    .Include(c => c.Items)
+                    .Where(o => o.Id == id)
+                    .SelectMany(cart => cart.Items)
+                    .ToArray()
+                    .GroupBy(cartItem => cartItem.ProductId)
+                    .Select(group => new
+                    {
+                        ProductId = group.Key,
+                        Quantity = group.Sum(cartItem => cartItem.Quantity),
+                        CurrentPrice = group.FirstOrDefault()?.CurrentPrice,
+                        LastPrice = group.FirstOrDefault()?.LastPrice,
+                    })
+                    .ToArray();
+
+                return new
+                {
+                    CartId = id,
+                    Items = cartItems
+                };
+            }
         }
     }
 }

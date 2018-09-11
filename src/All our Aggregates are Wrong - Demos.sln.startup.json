@@ -8,7 +8,10 @@
                 "Sales.Api": {},
                 "Marketing.Api": {},
                 "Warehouse.Api": {},
-                "Shipping.Api": {}
+                "Shipping.Api": {},
+                "Sales.Service": {},
+                "Warehouse.Service": {},
+                "Shipping.Service": {}
             }
         }
     }

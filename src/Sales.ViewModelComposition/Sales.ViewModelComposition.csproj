@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Marketing.ViewModelComposition.Events\Marketing.ViewModelComposition.Events.csproj" />
     <ProjectReference Include="..\Sales.Messages\Sales.Messages.csproj" />
+    <ProjectReference Include="..\Sales.ViewModelComposition.Events\Sales.ViewModelComposition.Events.csproj" />
     <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition.Json\ServiceComposer.ViewModelComposition.Json.csproj" />
     <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition\ServiceComposer.ViewModelComposition.csproj" />
   </ItemGroup>

@@ -12,22 +12,20 @@
         <ul>
             @foreach (var item in Model.CartItems)
             {
-                <li>
-                    <h3><a href="/products/details/@item.ProductId">@item.ProductName</a></h3>
-                    <h5>@item.ProductDescription</h5>
-                    <h4>Q.ty: @item.Quantity, Item $ @item.ProductPrice, Total $ @item.TotalPrice</h4>
-                    <h4>
-                        Shipping:
-                        @if (item.ProductEligibleForFreeShipping)
-                        {
-                            <span class="label label-success">Free</span>
-                        }
-                        else
-                        {
-                            <span>@item.ProductShippingCost $</span>
-                        }
-                    </h4>
-                </li>
+            <li>
+                <h3><a href="/products/details/@item.ProductId">@item.ProductName</a></h3>
+                <h5>@item.ProductDescription</h5>
+                <h4>Q.ty: @item.Quantity, Item $ @item.CurrentPrice, Total $ @item.TotalPrice</h4>
+                <h4>Shipping estimate: @item.DeliveryEstimate</h4>
+                @if (@item.Inventory == 0)
+                {
+                    <h4>bummer! this is gone.</h4>
+                }
+                else
+                {
+                    <h4>@item.Inventory item(s) left in stock</h4>
+                }
+            </li>
             }
         </ul>
     }
