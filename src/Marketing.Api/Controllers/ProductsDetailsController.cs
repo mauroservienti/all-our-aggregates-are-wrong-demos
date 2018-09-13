@@ -16,8 +16,6 @@ namespace Marketing.Api.Controllers
         {
             using (var db = MarketingContext.Create())
             {
-                db.Database.EnsureCreated();
-
                 var item = db.ProductsDetails
                     .Where(o => o.Id == id)
                     .SingleOrDefault();
@@ -32,8 +30,6 @@ namespace Marketing.Api.Controllers
         {
             using (var db = MarketingContext.Create())
             {
-                db.Database.EnsureCreated();
-
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
                 var items = db.ProductsDetails
                     .Where(status => productIds.Any(id => id == status.Id))

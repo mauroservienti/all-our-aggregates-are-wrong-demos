@@ -30,8 +30,6 @@ namespace Sales.Api.Controllers
         {
             using (var db = SalesContext.Create())
             {
-                db.Database.EnsureCreated();
-
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
                 var items = db.ProductsPrices
                     .Where(status => productIds.Any(id => id == status.Id))
