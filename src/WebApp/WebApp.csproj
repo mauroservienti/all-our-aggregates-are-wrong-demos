@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ITOps.Middlewares\ITOps.Middlewares.csproj" />
     <ProjectReference Include="..\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
     <ProjectReference Include="..\Marketing.ViewModelComposition\Marketing.ViewModelComposition.csproj" />
     <ProjectReference Include="..\NServiceBus.Shared\NServiceBus.Shared.csproj" />
