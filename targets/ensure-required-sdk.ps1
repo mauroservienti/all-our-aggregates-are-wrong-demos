@@ -12,6 +12,5 @@ if ($current_version -ge $required_version) {
 else {
     Write-Host "Installed SDK version doesn't match required one. Proceeding to install required SDK."
     $ScriptToRun= $PSScriptRoot+"\dotnet-install.ps1 -Version $required_version -InstallDir .dotnet"
-    Write-Host $ScriptToRun
     Invoke-Expression $ScriptToRun
 }
