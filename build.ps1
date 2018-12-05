@@ -28,3 +28,4 @@ elseif($current_version -lt $required_version){
 }
 
 ExecuteBuild
+Exit $LASTEXITCODE
