@@ -4,7 +4,8 @@ param (
 
 function ExecuteBuild {
     Write-Host "Starting the build..." -ForegroundColor Green
-    (dotnet run --project targets --no-launch-profile -- $target)
+    $result = (dotnet run --project targets --no-launch-profile -- $target)
+    Write-Host $result.ExitCode
 }
 
 $current_version = (dotnet --version)
@@ -28,4 +29,3 @@ elseif($current_version -lt $required_version){
 }
 
 ExecuteBuild
-Exit $LASTEXITCODE
