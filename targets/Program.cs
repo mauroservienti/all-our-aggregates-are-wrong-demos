@@ -3,22 +3,33 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 using Console = Colorful.Console;
 
 internal class Program
 {
-    static string customSdkInstallDir = ".dotnet";
+    static readonly string customSdkInstallDir = ".dotnet";
+    static readonly string buildSupportDir = ".build";
     public static void Main(string[] args)
     {
-        Target("default",
+        Target("default", DependsOn("verify-OS-is-suppported"),
             Directory.EnumerateFiles("src", "*.sln", SearchOption.AllDirectories),
             solution =>
             {
                 var (customSdk, sdkPath, sdkVersion) = EnsureRequiredSdkIsInstalled();
                 Console.WriteLine($"Build will be executed using {(customSdk ? "user defined SDK" : "default SDK")}, Version '{sdkVersion}'.{(customSdk ? $" Installed at '{sdkPath}'" : "")}");
                 Run($"{sdkPath}dotnet", $"build \"{solution}\" --configuration Debug");
+            });
+
+        Target("verify-OS-is-suppported",
+            () =>
+            {
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    throw new InvalidOperationException("Build is supported on Windows only, at this time.");
+                }
             });
 
         RunTargets(args);
@@ -54,11 +65,11 @@ internal class Program
 
         Console.WriteLine("Downloading dotnet-install.ps1 script.");
 
-        Directory.CreateDirectory(".build");
-        new WebClient().DownloadFile("https://dot.net/v1/dotnet-install.ps1", @".build\dotnet-install.ps1");
+        Directory.CreateDirectory(buildSupportDir);
+        new WebClient().DownloadFile("https://dot.net/v1/dotnet-install.ps1", $@"{buildSupportDir}\dotnet-install.ps1");
 
         Console.WriteLine($"Ready to install custom SDK, version {requiredSdkVersion}.");
-        Run("powershell", $@".\.build\dotnet-install.ps1 -Version {requiredSdkVersion} -InstallDir {customSdkInstallDir}");
+        Run("powershell", $@".\{buildSupportDir}\dotnet-install.ps1 -Version {requiredSdkVersion} -InstallDir {customSdkInstallDir}");
 
         return (true, $@"{customSdkInstallDir}\", requiredSdkVersion);
     }
