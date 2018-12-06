@@ -1,7 +1,3 @@
-param (
-    [Parameter(Mandatory=$true)][string]$repo_root
- )
-
 $current_version = (dotnet --version)
 if (!(Test-Path ".required-sdk") ) {
     Write-Host "No special SDK required for this build, will use '$current_version'." -ForegroundColor Green
@@ -18,6 +14,4 @@ elseif($current_version -lt $required_version){
     Write-Host "Installed SDK version, '$current_version', doesn't match required one, '$required_version'. Proceeding to install required SDK." -ForegroundColor Yellow
     $ScriptToRun= $PSScriptRoot+"\dotnet-install.ps1 -Version $required_version -InstallDir .dotnet"
     Invoke-Expression $ScriptToRun
-    $env:DOTNET_INSTALL_DIR = "$repo_root\.dotnetsdk"
-    Write-Host "DOTNET_INSTALL_DIR: $env:DOTNET_INSTALL_DIR"
 }
