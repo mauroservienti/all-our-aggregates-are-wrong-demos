@@ -1,16 +1,6 @@
-param (
-    [string]$target = "default"
- )
-
-function ExecuteBuild {
-    Write-Host "Starting the build..." -ForegroundColor Green
-    (dotnet run --project targets --no-launch-profile -- $target)
-}
-
 $current_version = (dotnet --version)
 if (!(Test-Path ".required-sdk") ) {
     Write-Host "No special SDK required for this build, will use '$current_version'." -ForegroundColor Green
-    ExecuteBuild
     return
 }
 
@@ -26,5 +16,3 @@ elseif($current_version -lt $required_version){
     $ScriptToRun= $PSScriptRoot+"\targets\dotnet-install.ps1 -Version $required_version -InstallDir .dotnet"
     Invoke-Expression $ScriptToRun
 }
-
-ExecuteBuild
