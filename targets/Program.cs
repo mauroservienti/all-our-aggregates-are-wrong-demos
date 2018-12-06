@@ -50,7 +50,7 @@ internal class Program
                 break;
         }
 
-        Run("powershell", $"dotnet-install.ps1 -Version {requiredSdkVersion} -InstallDir {customSdkInstallDir}");
+        Run("powershell", $@".\targets\dotnet-install.ps1 -Version {requiredSdkVersion} -InstallDir {customSdkInstallDir}");
 
         return (true, $@"{customSdkInstallDir}\", requiredSdkVersion);
     }
