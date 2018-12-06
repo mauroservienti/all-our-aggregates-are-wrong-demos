@@ -11,6 +11,7 @@ if %errorlevel% EQU -1 goto SDK_mismatch
 :add_env_var
 set DOTNET_INSTALL_DIR=%cd%"\.dotnet"
 echo Set DOTNET_INSTALL_DIR path
+echo %DOTNET_INSTALL_DIR%
 goto :build
 
 :SDK_mismatch
