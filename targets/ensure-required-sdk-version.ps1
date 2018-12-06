@@ -13,6 +13,6 @@ if ($current_version -gt $required_version) {
 }
 elseif($current_version -lt $required_version){
     Write-Host "Installed SDK version, '$current_version', doesn't match required one, '$required_version'. Proceeding to install required SDK." -ForegroundColor Yellow
-    $ScriptToRun= $PSScriptRoot+"\targets\dotnet-install.ps1 -Version $required_version -InstallDir .dotnet"
+    $ScriptToRun= $PSScriptRoot+"\dotnet-install.ps1 -Version $required_version -InstallDir .dotnet"
     Invoke-Expression $ScriptToRun
 }
