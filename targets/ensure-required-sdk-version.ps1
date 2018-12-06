@@ -12,7 +12,6 @@ $required_version = (Get-Content ".required-sdk" -Raw)
 Write-Host  "Build requires a specific SDK (found in '.required-sdk' file) version: '$required_version'." -ForegroundColor Green
 if ($current_version -gt $required_version) {
     Write-Host "Current installed SDK version, '$current_version', is greater than required SDK version, '$required_version'. Use 'global.json' to specify a SDk version to use if current is not suitable, or remove the '.required-sdk' file." -ForegroundColor Red
-    Write-Host "Build stopped." -ForegroundColor Red
     return
 }
 elseif($current_version -lt $required_version){
