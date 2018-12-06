@@ -13,11 +13,10 @@ set DOTNET_INSTALL_DIR=%cd%"\.dotnet"
 echo Set DOTNET_INSTALL_DIR path
 goto :build
 
-:build
-echo Ready to run the build
-dotnet run --project targets --no-launch-profile -- %*
-Exit 0
-
 :SDK_mismatch
 echo SDK mismatch
 Exit -1
+
+:build
+echo Ready to run the build
+dotnet run --project targets --no-launch-profile -- %*
