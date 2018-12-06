@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 using Console = Colorful.Console;
@@ -30,6 +31,7 @@ internal class Program
 
         if (string.IsNullOrWhiteSpace(requiredSdkFile))
         {
+            Console.WriteLine("No custom SDK is required.");
             return (false, "", currentSdkVersion);
         }
 
@@ -50,7 +52,13 @@ internal class Program
                 break;
         }
 
-        Run("powershell", $@".\targets\dotnet-install.ps1 -Version {requiredSdkVersion} -InstallDir {customSdkInstallDir}");
+        Console.WriteLine("Downloading dotnet-install.ps1 script.");
+
+        Directory.CreateDirectory(".build");
+        new WebClient().DownloadFile("https://dot.net/v1/dotnet-install.ps1", @".build\dotnet-install.ps1");
+
+        Console.WriteLine($"Ready to install custom SDK, version {requiredSdkVersion}.");
+        Run("powershell", $@".\.build\dotnet-install.ps1 -Version {requiredSdkVersion} -InstallDir {customSdkInstallDir}");
 
         return (true, $@"{customSdkInstallDir}\", requiredSdkVersion);
     }
