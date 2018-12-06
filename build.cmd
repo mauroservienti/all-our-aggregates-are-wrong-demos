@@ -4,19 +4,23 @@ cd %~dp0
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\targets\ensure-required-sdk-version.ps1'"
 
 echo %errorlevel%
-if %errorlevel% EQU 0 goto build
-if %errorlevel% EQU 1 goto add_env_var
-if %errorlevel% EQU -1 goto SDK_mismatch
+IF %errorlevel% EQU 0 GOTO build
+IF %errorlevel% EQU 1 GOTO add_env_var
+IF %errorlevel% EQU -1 GOTO SDK_mismatch
 
 :add_env_var
-set DOTNET_INSTALL_DIR=%cd%\.dotnet
-echo Set DOTNET_INSTALL_DIR path
+SET DOTNET_INSTALL_DIR=%cd%\.dotnet
+ECHO Set DOTNET_INSTALL_DIR path
 %DOTNET_INSTALL_DIR%\dotnet run --project %cd%\targets --no-launch-profile -- %*
+GOTO end
 
 :SDK_mismatch
-echo SDK mismatch
+ECHO SDK mismatch
 Exit -1
 
 :build
-echo Ready to run the build
+ECHO Ready to run the build
 dotnet run --project targets --no-launch-profile -- %*
+GOTO end
+
+:end
