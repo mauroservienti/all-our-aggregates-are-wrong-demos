@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 using Console = Colorful.Console;
@@ -12,6 +13,11 @@ internal class Program
     static string customSdkInstallDir = ".dotnet";
     public static void Main(string[] args)
     {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            throw new InvalidOperationException("Build is supported on Windows only, at this time.");
+        }
+        
         Target("default",
             Directory.EnumerateFiles("src", "*.sln", SearchOption.AllDirectories),
             solution =>
