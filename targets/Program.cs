@@ -53,6 +53,8 @@ internal class Program
         }
 
         Console.WriteLine("Downloading dotnet-install.ps1 script.");
+
+        Directory.CreateDirectory(".build");
         new WebClient().DownloadFile("https://dot.net/v1/dotnet-install.ps1", @".build\dotnet-install.ps1");
 
         Console.WriteLine($"Ready to install custom SDK, version {requiredSdkVersion}.");
