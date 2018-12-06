@@ -16,7 +16,7 @@ internal class Program
             solution =>
             {
                 var (customSdk, sdkPath, sdkVersion) = EnsureRequiredSdkIsInstalled();
-                Console.WriteLine($"Build will be executed using {(customSdk ? "user defined SDK" : "default SDK")}, Version '{sdkVersion}'.{(customSdk ? $" Installed at {sdkPath}" : "")}");
+                Console.WriteLine($"Build will be executed using {(customSdk ? "user defined SDK" : "default SDK")}, Version '{sdkVersion}'.{(customSdk ? $" Installed at '{sdkPath}'" : "")}");
                 Run($"{sdkPath}dotnet", $"build \"{solution}\" --configuration Debug");
             });
 
@@ -25,7 +25,7 @@ internal class Program
 
     static (bool customSdk, string sdkPath, string sdkVersion) EnsureRequiredSdkIsInstalled()
     {
-        var currentSdkVersion = Read("dotnet", "--version");
+        var currentSdkVersion = Read("dotnet", "--version").TrimEnd(Environment.NewLine.ToCharArray());
         var requiredSdkFile = Directory.EnumerateFiles(".", ".required-sdk", SearchOption.TopDirectoryOnly).SingleOrDefault();
 
         if (string.IsNullOrWhiteSpace(requiredSdkFile))
@@ -33,7 +33,7 @@ internal class Program
             return (false, "", currentSdkVersion);
         }
 
-        var requiredSdkVersion = File.ReadAllText(requiredSdkFile);
+        var requiredSdkVersion = File.ReadAllText(requiredSdkFile).TrimEnd(Environment.NewLine.ToCharArray());
 
         switch (string.Compare(currentSdkVersion, requiredSdkVersion))
         {
