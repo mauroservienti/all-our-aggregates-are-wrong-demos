@@ -66,3 +66,11 @@ This sample has no [NServiceBus](https://particular.net/nservicebus) related pre
 They should also not be used for longer-term development, i.e. the same transport and persistence used in production should be used in development and debug scenarios. Select a production [transport](https://docs.particular.net/transports/) and [persistence](https://docs.particular.net/persistence/) before developing features. 
 
 NOTE: Do not use the learning transport or learning persistence to perform any kind of performance analysis.
+
+
+
+modifica
+
+
+
+modifica
