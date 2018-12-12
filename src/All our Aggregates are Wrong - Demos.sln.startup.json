@@ -25,6 +25,18 @@
                 "Sales.Service": {},
                 "Marketing.Service": {}
             }
+        },
+        "Demo (Platform)": {
+            "Projects": {
+                "WebApp": {},
+                "Sales.Api": {},
+                "Marketing.Api": {},
+                "Warehouse.Api": {},
+                "Shipping.Api": {},
+                "Sales.Service": {},
+                "Marketing.Service": {},
+                "PlatformLauncher": {}
+            }
         }
     }
 }
