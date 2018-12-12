@@ -1,6 +1,10 @@
 # NServiceBus learning transport storage
 .learningtransport/
 
+# Platform data storage
+.db/
+.logs/
+
 # Bower components
 **/wwwroot/lib/
 
