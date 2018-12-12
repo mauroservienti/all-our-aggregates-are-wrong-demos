@@ -1,4 +1,6 @@
-﻿namespace NServiceBus
+﻿using System;
+
+namespace NServiceBus
 {
     public static class CommonEndpointSettings
     {
@@ -12,6 +14,11 @@
             config.SendFailedMessagesTo("error");
 
             config.SendHeartbeatTo(serviceControlQueue: "Particular.ServiceControl");
+
+            var metrics = config.EnableMetrics();
+            metrics.SendMetricDataToServiceControl(
+                serviceControlMetricsAddress: "Particular.Monitoring",
+                interval: TimeSpan.FromSeconds(5));
 
             var messageConventions = config.Conventions();
             messageConventions.DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages"));
