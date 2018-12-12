@@ -9,8 +9,7 @@ namespace WebApp.Services
         {
             var config = new EndpointConfiguration("WebApp");
 
-            config.SendOnly();
-            config.ApplyCommonConfiguration();
+            config.ApplyCommonConfiguration(asSendOnly: true);
 
             var instance = Endpoint.Start(config).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(instance);

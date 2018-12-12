@@ -9,8 +9,7 @@ namespace Sales.Api.Services
         {
             var config = new EndpointConfiguration("Sales.Api");
 
-            config.SendOnly();
-            config.ApplyCommonConfiguration();
+            config.ApplyCommonConfiguration(asSendOnly: true);
 
             var instance = Endpoint.Start(config).GetAwaiter().GetResult();
             services.AddSingleton<IMessageSession>(instance);
