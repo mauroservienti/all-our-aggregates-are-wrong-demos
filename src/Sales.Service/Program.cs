@@ -13,6 +13,7 @@ namespace Sales.Service
 
             var config = new EndpointConfiguration(serviceName);
             config.ApplyCommonConfiguration();
+            config.AuditSagaStateChanges(serviceControlQueue: "Particular.ServiceControl");
 
             var endpointInstance = await Endpoint.Start(config);
 
