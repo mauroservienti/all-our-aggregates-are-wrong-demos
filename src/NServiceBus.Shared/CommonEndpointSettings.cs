@@ -11,6 +11,8 @@
             config.AuditProcessedMessagesTo("audit");
             config.SendFailedMessagesTo("error");
 
+            config.SendHeartbeatTo(serviceControlQueue: "Particular.ServiceControl");
+
             var messageConventions = config.Conventions();
             messageConventions.DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages"));
             messageConventions.DefiningEventsAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages.Events"));
