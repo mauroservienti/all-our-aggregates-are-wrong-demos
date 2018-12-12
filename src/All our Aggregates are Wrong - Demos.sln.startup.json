@@ -35,6 +35,8 @@
                 "Shipping.Api": {},
                 "Sales.Service": {},
                 "Marketing.Service": {},
+                "Warehouse.Service": {},
+                "Shipping.Service": {},
                 "PlatformLauncher": {}
             }
         }
