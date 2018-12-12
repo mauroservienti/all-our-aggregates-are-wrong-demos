@@ -8,8 +8,9 @@
 *.suo
 *.user
 
-# Build dependencies
+# Build dependencies and artifacts
 .dotnet/
+.build/
 
 # Build results
 [Dd]ebug/
