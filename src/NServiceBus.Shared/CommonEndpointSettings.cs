@@ -13,7 +13,10 @@ namespace NServiceBus
             config.AuditProcessedMessagesTo("audit");
             config.SendFailedMessagesTo("error");
 
-            config.SendHeartbeatTo(serviceControlQueue: "Particular.ServiceControl");
+            config.SendHeartbeatTo(
+                serviceControlQueue: "Particular.ServiceControl",
+                frequency: TimeSpan.FromSeconds(10),
+                timeToLive: TimeSpan.FromSeconds(5));
 
             var messageConventions = config.Conventions();
             messageConventions.DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages"));
