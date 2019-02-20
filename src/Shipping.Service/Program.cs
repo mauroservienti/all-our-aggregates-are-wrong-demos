@@ -13,6 +13,7 @@ namespace Shipping.Service
 
             var config = new EndpointConfiguration(serviceName);
             config.ApplyCommonConfiguration();
+            config.ReportCustomChecksTo(serviceControlQueue: "Particular.ServiceControl");
 
             var endpointInstance = await Endpoint.Start(config);
 
