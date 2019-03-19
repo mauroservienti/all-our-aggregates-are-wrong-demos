@@ -48,16 +48,48 @@ NOTE: In case the database setup script fails with a "sqllocaldb command not fou
 
 Solutions is configured to use the [SwitchStartupProject](https://marketplace.visualstudio.com/items?itemName=vs-publisher-141975.SwitchStartupProject) Visual Studio Extension to manage startup projects. The extension is not a requirement, it's handy.
 
-Ensure the following projects are set as startup projects:
+The solution can be configured to run 3 different demos.
+
+### Demo (default)
+
+Demos the default shopping cart behavior and all its implemented functionalities. Add items to the cart, observe the various "services" console windows they'll display log messages related to the ongoing processes. Leave the cart inactive for a few seconds and observe the stale cart policy kicking in, first raising a warning, finally deleting stale carts. Ensure the following projects are set as startup projects:
 
 - WebApp
-- Marketing.API
-- Marketing.Services
-- Sales.API
-- Warehouse.API
-- Warehouse.Services
-- Shipping.API
-- Shipping.Services
+- Sales.Api
+- Marketing.Api
+- Warehouse.Api
+- Shipping.Api
+- Sales.Service
+- Marketing.Service
+- Warehouse.Service
+- Shipping.Service
+
+### Demo (failed services)
+
+Demos what happens when a back-end service is not available. Add an item to the cart, visualize the shopping cart and observe the different information displayed in relation to the shipping estimates. Ensure the following projects are set as startup projects:
+
+- WebApp
+- Sales.Api
+- Marketing.Api
+- Warehouse.Api
+- Shipping.Api
+- Sales.Service
+- Marketing.Service
+
+### Demo (Platform)
+
+Uses the [Particular Platform](https://particular.net/service-platform) Sample package to visualize monitoring information, and messages and policies (Sagas) runtime behaviors.
+
+- WebApp
+- Sales.Api
+- Marketing.Api
+- Warehouse.Api
+- Shipping.Api
+- Sales.Service
+- Marketing.Service
+- Warehouse.Service
+- Shipping.Service
+- PlatformLauncher
 
 ## NServiceBus configuration
 
