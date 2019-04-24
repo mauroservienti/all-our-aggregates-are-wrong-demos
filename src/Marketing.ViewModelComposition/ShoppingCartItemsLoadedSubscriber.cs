@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using JsonUtils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Sales.ViewModelComposition.Events;
-using ServiceComposer.ViewModelComposition;
-using ServiceComposer.ViewModelComposition.Json;
+using ServiceComposer.AspNetCore;
 using System;
 using System.Net.Http;
 
@@ -21,9 +21,9 @@ namespace Marketing.ViewModelComposition
                    && !routeData.Values.ContainsKey("id");
         }
 
-        public void Subscribe(ISubscriptionStorage subscriptionStorage, RouteData routeData, HttpRequest request)
+        public void Subscribe(IPublishCompositionEvents publisher)
         {
-            subscriptionStorage.Subscribe<ShoppingCartItemsLoaded>(async (requestId, pageViewModel, @event, rd, req) =>
+            publisher.Subscribe<ShoppingCartItemsLoaded>(async (requestId, pageViewModel, @event, rd, req) =>
             {
                 var ids = String.Join(",", @event.CartItemsViewModel.Keys);
 

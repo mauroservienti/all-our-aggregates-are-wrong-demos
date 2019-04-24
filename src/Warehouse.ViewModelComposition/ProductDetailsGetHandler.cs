@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using ServiceComposer.ViewModelComposition;
-using ServiceComposer.ViewModelComposition.Json;
+using ServiceComposer.AspNetCore;
+using JsonUtils;
 using System.Net.Http;
 using System.Threading.Tasks;
 
