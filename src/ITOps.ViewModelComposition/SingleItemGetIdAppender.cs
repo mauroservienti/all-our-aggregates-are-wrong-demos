@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using ServiceComposer.ViewModelComposition;
+using ServiceComposer.AspNetCore;
 using System.Threading.Tasks;
 
 namespace Warehouse.ViewModelComposition

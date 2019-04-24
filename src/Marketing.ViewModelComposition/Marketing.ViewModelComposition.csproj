@@ -6,13 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="ServiceComposer.AspNetCore" Version="0.0.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JsonUtils\JsonUtils.csproj" />
     <ProjectReference Include="..\Marketing.ViewModelComposition.Events\Marketing.ViewModelComposition.Events.csproj" />
     <ProjectReference Include="..\Sales.ViewModelComposition.Events\Sales.ViewModelComposition.Events.csproj" />
-    <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition.Json\ServiceComposer.ViewModelComposition.Json.csproj" />
-    <ProjectReference Include="..\ServiceComposer\ServiceComposer.ViewModelComposition\ServiceComposer.ViewModelComposition.csproj" />
   </ItemGroup>
 
 </Project>

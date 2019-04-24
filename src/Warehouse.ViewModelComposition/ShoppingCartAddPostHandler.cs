@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NServiceBus;
-using ServiceComposer.ViewModelComposition;
+using ServiceComposer.AspNetCore;
 using System;
 using System.Threading.Tasks;
 using Warehouse.Messages;

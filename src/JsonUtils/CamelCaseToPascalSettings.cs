@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 
-namespace ServiceComposer.ViewModelComposition.Json
+namespace JsonUtils
 {
     public class CamelCaseToPascalSettings
     {
@@ -13,7 +13,7 @@ namespace ServiceComposer.ViewModelComposition.Json
             settings = new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = new List<JsonConverter> { new CamelCaseToPascalCaseExpandoObjectConverter() }
+                Converters = new List<JsonConverter> { new PascalCaseExpandoObjectConverter() }
             };
         }
 

@@ -4,40 +4,38 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ServiceComposer.ViewModelComposition;
-using ServiceComposer.ViewModelComposition.Mvc;
+using ServiceComposer.AspNetCore;
+using ServiceComposer.AspNetCore.Mvc;
 using WebApp.Services;
 
 namespace WebApp
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
-        }
+        private readonly IConfiguration _config;
 
-        public IConfigurationRoot Configuration { get; }
+        public Startup(IConfiguration config)
+        {
+            _config = config;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddConfiguration(_config.GetSection("Logging"));
+            });
+
             services.AddNServiceBus();
-            services.AddViewModelComposition();
-            services
-                .AddMvc()
-                .AddViewModelCompositionMvcSupport();
+            services.AddMvc();
+            services.AddViewModelComposition(options =>
+            {
+                options.AddMvcSupport();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

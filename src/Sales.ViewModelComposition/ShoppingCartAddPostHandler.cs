@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 using NServiceBus;
 using Sales.Messages;
-using ServiceComposer.ViewModelComposition;
+using ServiceComposer.AspNetCore;
 using System;
 using System.Net.Http;
 using System.Text;
