@@ -12,8 +12,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="NServiceBus" Version="7.1.7" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />
-    <PackageReference Include="ServiceComposer.AspNetCore" Version="0.0.6" />
-    <PackageReference Include="ServiceComposer.AspNetCore.Mvc" Version="0.0.3" />
+    <PackageReference Include="ServiceComposer.AspNetCore" Version="0.0.7" />
+    <PackageReference Include="ServiceComposer.AspNetCore.Mvc" Version="0.0.5" />
   </ItemGroup>
 
   <ItemGroup>
