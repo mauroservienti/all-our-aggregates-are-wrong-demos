@@ -12,20 +12,8 @@ namespace WebApp
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
-
-        public Startup(IConfiguration config)
-        {
-            _config = config;
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging(loggingBuilder =>
-            {
-                loggingBuilder.AddConfiguration(_config.GetSection("Logging"));
-            });
-
             services.AddNServiceBus();
             services.AddMvc();
             services.AddViewModelComposition(options =>
