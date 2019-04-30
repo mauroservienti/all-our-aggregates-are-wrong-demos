@@ -1,32 +1,23 @@
 ﻿using ITOps.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
+using NServiceBus.Shared.Hosting;
 using ServiceComposer.AspNetCore;
 using ServiceComposer.AspNetCore.Mvc;
-using WebApp.Services;
 
 namespace WebApp
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
-
-        public Startup(IConfiguration config)
-        {
-            _config = config;
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging(loggingBuilder =>
+            services.AddNServiceBus("WebApp", endpointConfiguration =>
             {
-                loggingBuilder.AddConfiguration(_config.GetSection("Logging"));
+                endpointConfiguration.ApplyCommonConfiguration(asSendOnly: true);
             });
-
-            services.AddNServiceBus();
             services.AddMvc();
             services.AddViewModelComposition(options =>
             {
