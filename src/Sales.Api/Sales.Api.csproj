@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NServiceBus.Shared.Hosting\NServiceBus.Shared.Hosting.csproj" />
     <ProjectReference Include="..\NServiceBus.Shared\NServiceBus.Shared.csproj" />
     <ProjectReference Include="..\Sales.Data\Sales.Data.csproj" />
     <ProjectReference Include="..\Sales.Messages.Events\Sales.Messages.Events.csproj" />

@@ -68,7 +68,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITOps.Middlewares", "ITOps.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformLauncher", "PlatformLauncher\PlatformLauncher.csproj", "{1FF1B2BA-0933-461B-8A02-F02425D51B45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonUtils", "JsonUtils\JsonUtils.csproj", "{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonUtils", "JsonUtils\JsonUtils.csproj", "{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NServiceBus.Shared.Hosting", "NServiceBus.Shared.Hosting\NServiceBus.Shared.Hosting.csproj", "{7C57A932-D422-432D-AD92-C427F6F6F330}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -188,6 +190,10 @@ Global
 		{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C57A932-D422-432D-AD92-C427F6F6F330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C57A932-D422-432D-AD92-C427F6F6F330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C57A932-D422-432D-AD92-C427F6F6F330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C57A932-D422-432D-AD92-C427F6F6F330}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,6 +225,7 @@ Global
 		{EBD2A91F-B05F-444B-B562-22E8F2EE93D2} = {01496398-4A46-486C-9728-BB1BBC5A533A}
 		{72FBC1E1-0391-4930-87DA-1826F5656065} = {A795372A-2BB5-4F97-81EF-744DE5A60A05}
 		{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7} = {A795372A-2BB5-4F97-81EF-744DE5A60A05}
+		{7C57A932-D422-432D-AD92-C427F6F6F330} = {A795372A-2BB5-4F97-81EF-744DE5A60A05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1E91020-9272-4261-9A94-79C9D1B91447}

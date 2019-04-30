@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Sales.Api.Services;
+using NServiceBus.Shared.Hosting;
+using NServiceBus;
 
 namespace Sales.Api
 {
@@ -18,7 +19,10 @@ namespace Sales.Api
                 });
             });
 
-            services.AddNServiceBus();
+            services.AddNServiceBus("Sales.Api", endpointConfiguration =>
+            {
+                endpointConfiguration.ApplyCommonConfiguration(asSendOnly: true);
+            });
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

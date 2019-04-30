@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
+using NServiceBus.Shared.Hosting;
 using ServiceComposer.AspNetCore;
 using ServiceComposer.AspNetCore.Mvc;
-using WebApp.Services;
 
 namespace WebApp
 {
@@ -13,7 +14,10 @@ namespace WebApp
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddNServiceBus();
+            services.AddNServiceBus("WebApp", endpointConfiguration =>
+            {
+                endpointConfiguration.ApplyCommonConfiguration(asSendOnly: true);
+            });
             services.AddMvc();
             services.AddViewModelComposition(options =>
             {
