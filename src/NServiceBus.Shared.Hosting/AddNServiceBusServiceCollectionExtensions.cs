@@ -1,25 +1,37 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NServiceBus;
 using System;
 
 namespace NServiceBus.Shared.Hosting
 {
     public static class AddNServiceBusServiceCollectionExtensions
     {
-        public static IServiceCollection AddNServiceBus(this IServiceCollection services, string endpointName, Action<EndpointConfiguration> configuration)
+        static void AddRequiredInfrastructure(this IServiceCollection services, EndpointConfiguration configuration)
         {
-            var endpointConfiguration = new EndpointConfiguration(endpointName);
-            configuration(endpointConfiguration);
-            return services.AddNServiceBus(endpointConfiguration);
+            var holder = new SessionAndConfigurationHolder(configuration);
+            services.AddSingleton(provider => holder.Session);
+            services.AddSingleton(holder);
+            services.AddHostedService<EndpointManagement>();
         }
 
-        public static IServiceCollection AddNServiceBus(this IServiceCollection services, EndpointConfiguration configuration)
+        public static IServiceProvider AddNServiceBus(this IServiceCollection services, string endpointName, Func<EndpointConfiguration, IServiceProvider> configuration)
         {
-            var management = new SessionAndConfigurationHolder(configuration);
-            services.AddSingleton<IMessageSession>(provider => management.Session);
-            services.AddSingleton(management);
-            services.AddHostedService<EndpointManagement>();
-            return services;
+            var endpointConfiguration = new EndpointConfiguration(endpointName);
+            services.AddRequiredInfrastructure(endpointConfiguration);
+
+            return configuration(endpointConfiguration);
+        }
+
+        public static void AddNServiceBus(this IServiceCollection services, string endpointName, Action<EndpointConfiguration> configuration)
+        {
+            var endpointConfiguration = new EndpointConfiguration(endpointName);
+            services.AddRequiredInfrastructure(endpointConfiguration);
+
+            configuration(endpointConfiguration);
+        }
+
+        public static void AddNServiceBus(this IServiceCollection services, EndpointConfiguration endpointConfiguration)
+        {
+            services.AddRequiredInfrastructure(endpointConfiguration);
         }
     }
 }

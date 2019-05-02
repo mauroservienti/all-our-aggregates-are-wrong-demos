@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +18,7 @@ namespace NServiceBus.Shared.Hosting
         {
             endpoint = await Endpoint.Start(holder.Configuration)
                 .ConfigureAwait(false);
-            holder.Session = endpoint;
+            holder.OnStart(endpoint);
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -29,7 +26,7 @@ namespace NServiceBus.Shared.Hosting
             await endpoint.Stop()
                 .ConfigureAwait(false);
 
-            holder.Session = null;
+            holder.OnStop();
         }
     }
 }
