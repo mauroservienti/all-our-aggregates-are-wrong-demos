@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NServiceBus.Shared.Hosting
+﻿namespace NServiceBus.Shared.Hosting
 {
     class SessionAndConfigurationHolder
     {
@@ -11,9 +7,18 @@ namespace NServiceBus.Shared.Hosting
             Configuration = configuration;
         }
 
-        // Implement meaningful exception in getter
-        public IMessageSession Session { get; set; }
+        public IMessageSession Session { get; private set; }
 
         public EndpointConfiguration Configuration { get; }
+
+        public void OnStart(IMessageSession session)
+        {
+            Session = session;
+        }
+
+        public void OnStop()
+        {
+            Session = null;
+        }
     }
 }
