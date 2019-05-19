@@ -93,8 +93,8 @@ Uses the [Particular Platform](https://particular.net/service-platform) Sample p
 
 ## NServiceBus configuration
 
-This sample has no [NServiceBus](https://particular.net/nservicebus) related pre-requisites as it's configured to use the new [Learning Transport](https://docs.particular.net/nservicebus/learning-transport/) and [Learning Persistence](https://docs.particular.net/nservicebus/learning-persistence/) explicitly designed for short term learning and experimentation purposes.
+This sample has no [NServiceBus](https://particular.net/nservicebus) related pre-requisites as it's configured to use [Learning Transport](https://docs.particular.net/nservicebus/learning-transport/) and [Learning Persistence](https://docs.particular.net/nservicebus/learning-persistence/), both explicitly designed for short term learning and experimentation purposes.
 
 They should also not be used for longer-term development, i.e. the same transport and persistence used in production should be used in development and debug scenarios. Select a production [transport](https://docs.particular.net/transports/) and [persistence](https://docs.particular.net/persistence/) before developing features. 
 
-NOTE: Do not use the learning transport or learning persistence to perform any kind of performance analysis.
+> NOTE: Do not use the learning transport or learning persistence to perform any kind of performance analysis.
