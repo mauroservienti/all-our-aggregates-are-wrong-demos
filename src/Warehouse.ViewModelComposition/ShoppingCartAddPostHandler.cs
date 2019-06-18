@@ -31,7 +31,7 @@ namespace Warehouse.ViewModelComposition
 
         public Task Handle(string requestId, dynamic vm, RouteData routeData, HttpRequest request)
         {
-            return messageSession.Send("Warehouse.Service", new AddItemToCart()
+            return messageSession.Send(new AddItemToCart()
             {
                 ProductId = int.Parse((string)routeData.Values["id"]),
                 Quantity = int.Parse(request.Form["quantity"][0]),
@@ -42,7 +42,7 @@ namespace Warehouse.ViewModelComposition
 
         public Task OnRequestError(string requestId, Exception ex, dynamic vm, RouteData routeData, HttpRequest request)
         {
-            return messageSession.Send("Warehouse.Service", new CleanupFailedCartRequest()
+            return messageSession.Send(new CleanupFailedCartRequest()
             {
                 CartId = new Guid(request.Cookies["cart-id"]),
                 RequestId = requestId

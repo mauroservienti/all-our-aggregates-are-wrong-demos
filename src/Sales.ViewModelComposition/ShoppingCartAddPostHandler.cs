@@ -62,7 +62,7 @@ namespace Sales.ViewModelComposition
 
         public Task OnRequestError(string requestId, Exception ex, dynamic vm, RouteData routeData, HttpRequest request)
         {
-            return messageSession.Send("Sales.Service", new CleanupFailedCartRequest()
+            return messageSession.Send(new CleanupFailedCartRequest()
             {
                 CartId = new Guid(request.Cookies["cart-id"]),
                 RequestId = requestId
