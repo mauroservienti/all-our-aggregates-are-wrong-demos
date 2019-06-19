@@ -1,7 +1,10 @@
-﻿using System;
+﻿using NServiceBus.AttributeConventions.Contracts;
+using NServiceBus.AttributeRouting.Contracts;
+using System;
 
 namespace Warehouse.Messages.Commands
 {
+    [Command, RouteTo("Warehouse.Service")]
     public class AddItemToCart
     {
         public int ProductId { get; set; }

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using NServiceBus.AttributeConventions.Contracts;
+using System;
 
 namespace Shipping.Messages.Commands
 {
+    [Command]
     public class AddItemToCart
     {
         public int ProductId { get; set; }

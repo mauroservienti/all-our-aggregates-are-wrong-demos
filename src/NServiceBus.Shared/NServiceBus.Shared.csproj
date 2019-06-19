@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="NServiceBus" Version="7.1.9" />
+    <PackageReference Include="NServiceBus.AttributeConventions" Version="0.0.2" />
+    <PackageReference Include="NServiceBus.AttributeRouting" Version="0.0.5" />
     <PackageReference Include="NServiceBus.Heartbeat" Version="3.0.1" />
     <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="3.0.2" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />

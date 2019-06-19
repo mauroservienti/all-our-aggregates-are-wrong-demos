@@ -18,10 +18,8 @@ namespace NServiceBus
                 frequency: TimeSpan.FromSeconds(10),
                 timeToLive: TimeSpan.FromSeconds(5));
 
-            var messageConventions = config.Conventions();
-            messageConventions.DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages"));
-            messageConventions.DefiningEventsAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages.Events"));
-            messageConventions.DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages.Commands"));
+            config.UseAttributeConventions();
+            config.UseAttributeRouting();
 
             if (asSendOnly)
             {
