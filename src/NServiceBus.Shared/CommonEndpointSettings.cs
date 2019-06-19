@@ -19,7 +19,7 @@ namespace NServiceBus
                 timeToLive: TimeSpan.FromSeconds(5));
 
             config.UseAttributeConventions();
-            config.EnableAttributeRouting();
+            config.UseAttributeRouting();
 
             if (asSendOnly)
             {

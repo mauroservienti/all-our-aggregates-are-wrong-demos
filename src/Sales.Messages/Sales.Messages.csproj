@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NServiceBus.AttributeConventions.Contracts" Version="0.0.1" />
+    <PackageReference Include="NServiceBus.AttributeConventions.Contracts" Version="0.0.2" />
     <PackageReference Include="NServiceBus.AttributeRouting.Contracts" Version="0.0.1" />
   </ItemGroup>
 
