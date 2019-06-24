@@ -6,3 +6,6 @@ branches:
 skip_branch_with_pr: true
 build_script:
 - cmd: ./build.cmd
+environment:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  NUGET_XMLDOC_MODE: skip
