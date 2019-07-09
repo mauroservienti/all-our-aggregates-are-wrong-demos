@@ -1,18 +1,22 @@
 USE [master]
 GO
 
-IF  NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'Sales')
-CREATE DATABASE [Sales]
+:setvar DatabaseName "Sales"
+IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'$(DatabaseName)')
+CREATE DATABASE [$(DatabaseName)] ON ( NAME = N'$(DatabaseName)', FILENAME = N'$(UserPath)\$(DatabaseName).mdf' )
 GO
 
-IF  NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'Warehouse')
-CREATE DATABASE [Warehouse]
+:setvar DatabaseName "Warehouse"
+IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'$(DatabaseName)')
+CREATE DATABASE [$(DatabaseName)] ON ( NAME = N'$(DatabaseName)', FILENAME = N'$(UserPath)\$(DatabaseName).mdf' )
 GO
 
-IF  NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'Shipping')
-CREATE DATABASE [Shipping]
+:setvar DatabaseName "Shipping"
+IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'$(DatabaseName)')
+CREATE DATABASE [$(DatabaseName)] ON ( NAME = N'$(DatabaseName)', FILENAME = N'$(UserPath)\$(DatabaseName).mdf' )
 GO
 
-IF  NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'Marketing')
-CREATE DATABASE [Marketing]
+:setvar DatabaseName "Marketing"
+IF NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'$(DatabaseName)')
+CREATE DATABASE [$(DatabaseName)] ON ( NAME = N'$(DatabaseName)', FILENAME = N'$(UserPath)\$(DatabaseName).mdf' )
 GO

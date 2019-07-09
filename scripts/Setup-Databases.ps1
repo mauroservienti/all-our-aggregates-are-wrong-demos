@@ -8,4 +8,7 @@ sqllocaldb start $instanceName
 sqllocaldb info $instanceName
 
 $serverName = "(localdb)\" + $instanceName
-sqlcmd -S $serverName -i ".\Setup-Databases.sql"
+$databasesPath = "$ENV:UserProfile\$instanceName-databases"
+mkdir -Force $databasesPath
+$pathParameter = '"{0}"' -f $databasesPath
+sqlcmd -S $serverName -v UserPath=$pathParameter -i "$PSScriptRoot\Setup-Databases.sql" 
