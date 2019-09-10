@@ -4,6 +4,7 @@
 # Platform data storage
 .db/
 .logs/
+.audit-db/
 
 # Bower components
 **/wwwroot/lib/
