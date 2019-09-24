@@ -1,8 +1,6 @@
 ﻿using ITOps.Middlewares;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using NServiceBus;
 using NServiceBus.Shared.Hosting;
 using ServiceComposer.AspNetCore;
@@ -18,32 +16,25 @@ namespace WebApp
             {
                 endpointConfiguration.ApplyCommonConfiguration(asSendOnly: true);
             });
-            services.AddMvc();
+            services.AddControllersWithViews();
             services.AddViewModelComposition(options =>
             {
                 options.AddMvcSupport();
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            app.UseDeveloperExceptionPage();
+            app.UseBrowserLink();
 
             app.UseStaticFiles();
             app.UseMiddleware<ShoppingCartMiddleware>();
-            app.UseMvc(routes =>
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

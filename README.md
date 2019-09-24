@@ -23,7 +23,7 @@ In order to run the sample the following machine configuration is required:
 Set-ExecutionPolicy Unrestricted
 ```
 
-- Visual Studio 2017 with [.NET Core 2.2.x](https://www.microsoft.com/net/download/dotnet-core/2.2) support (Community Edition is supported), available for download at [https://www.visualstudio.com/downloads/](https://www.visualstudio.com/downloads/)
+- Visual Studio 2019 with [.NET Core 3.x](https://www.microsoft.com/net/download/dotnet-core/3.0) support (Community Edition is supported), available for download at [https://www.visualstudio.com/downloads/](https://www.visualstudio.com/downloads/)
 
 - A SQL Server edition or the `LocalDb` instance installed by Visual Studio, in case of a clean machine with `LocalDb`only please install:
   - Microsoft ODBC Driver 11 for SQL Server, available for download at [https://www.microsoft.com/en-us/download/details.aspx?id=36434](https://www.microsoft.com/en-us/download/details.aspx?id=36434)
@@ -40,7 +40,7 @@ To simplify `LocalDB` instance setup 2 PowerShell scripts, in the [scripts](scri
 
 The created `LocalDB` instance is named `(localdb)\all-our-aggregates-are-wrong`.
 
-NOTE: If you receive errors regarding "Microsoft ODBC Driver", you can work around these by connecting to the `(localdb)\all-our-aggregates-are-wrong` database using, for example, Visual Studio or SQL Managerment Studio, and running the SQL contained in the `.sql` file (`Setup-Databases.sql` or `Teardown-Databases.sql`) corresponding to the `.ps1` file which raised the error.
+NOTE: If you receive errors regarding "Microsoft ODBC Driver", you can work around these by connecting to the `(localdb)\all-our-aggregates-are-wrong` database using, for example, Visual Studio or SQL Managerment Studio, and running the SQL contained in the `Setup-Databases.sql` file to manually create databases.
 
 NOTE: In case the database setup script fails with a "sqllocaldb command not found" error it is possible to install `LocalDb` as a standalone package by downloading it separately at [https://www.microsoft.com/en-us/download/details.aspx?id=29062](https://www.microsoft.com/en-us/download/details.aspx?id=29062)
 
