@@ -23,15 +23,18 @@ namespace Sales.Api
             {
                 endpointConfiguration.ApplyCommonConfiguration(asSendOnly: true);
             });
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.UseDeveloperExceptionPage();
             app.UseCors("AllowAllOrigins");
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
