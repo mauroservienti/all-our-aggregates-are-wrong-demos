@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using NServiceBus.Shared.Hosting;
 using NServiceBus;
+using NServiceBus.Shared.Hosting;
 
 namespace Sales.Api
 {
