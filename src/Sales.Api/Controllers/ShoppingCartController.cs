@@ -6,6 +6,7 @@ using Sales.Data.Models;
 using Sales.Messages.Events;
 using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sales.Api.Controllers
@@ -22,11 +23,11 @@ namespace Sales.Api.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddToCart(dynamic data)
+        public async Task<IActionResult> AddToCart(JsonElement data)
         {
-            var cartId = new Guid((string)data.CartId);
-            var productId = (int)data.ProductId;
-            var quantity = (int)data.Quantity;
+            var cartId = data.GetProperty("CartId").GetGuid();
+            var productId = int.Parse(data.GetProperty("ProductId").GetString());
+            var quantity = data.GetProperty("Quantity").GetInt32();
             var requestId = Request.Headers["request-id"].Single();
 
             if (quantity <= 0)
@@ -51,7 +52,7 @@ namespace Sales.Api.Controllers
                     {
                         cart = db.ShoppingCarts.Add(new ShoppingCart()
                         {
-                            Id = data.CartId
+                            Id = cartId
                         }).Entity;
                     }
 

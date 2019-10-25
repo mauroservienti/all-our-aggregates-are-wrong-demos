@@ -6,7 +6,7 @@
 .logs/
 .audit-db/
 
-# Bower components
+# Front-end libs
 **/wwwroot/lib/
 
 # User-specific files
