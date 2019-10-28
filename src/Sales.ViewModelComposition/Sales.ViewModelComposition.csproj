@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Marketing.ViewModelComposition.Events\Marketing.ViewModelComposition.Events.csproj" />
     <ProjectReference Include="..\Sales.Messages\Sales.Messages.csproj" />
     <ProjectReference Include="..\Sales.ViewModelComposition.Events\Sales.ViewModelComposition.Events.csproj" />
+    <ProjectReference Include="..\Sales.ViewModelComposition.Messages\Sales.ViewModelComposition.Messages.csproj" />
   </ItemGroup>
 
 </Project>

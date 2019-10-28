@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Newtonsoft.Json;
 using NServiceBus;
-using Sales.Messages;
 using ServiceComposer.AspNetCore;
-using System;
-using System.Net.Http;
-using System.Text;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Sales.ViewModelComposition.Messages;
+using System;
+using Sales.ViewModelComposition.Events;
 
 namespace Sales.ViewModelComposition
 {
-    class ShoppingCartAddPostHandler : IHandleRequests, IHandleRequestsErrors
+    class ShoppingCartAddPostHandler : IHandleRequests
     {
         IMessageSession messageSession;
 
@@ -33,40 +32,24 @@ namespace Sales.ViewModelComposition
 
         public async Task Handle(string requestId, dynamic vm, RouteData routeData, HttpRequest request)
         {
-            var postData = new
+            var requestData = new Dictionary<string, string>() 
             {
-                ProductId = (string)routeData.Values["id"],
-                Quantity = int.Parse(request.Form["quantity"][0]),
-                CartId = request.Cookies["cart-id"]
+                { "sales-product-id", (string)routeData.Values["id"] },
+                { "sales-quantity", request.Form["quantity"][0] },
             };
 
-            var url = $"http://localhost:5001/api/shopping-cart";
-            var client = new HttpClient();
-
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, url)
+            await vm.RaiseEvent(new AddItemToCartRequested() 
             {
-                Content = new StringContent(
-                    JsonConvert.SerializeObject(postData),
-                    Encoding.UTF8,
-                    "application/json")
-            };
-            requestMessage.Headers.Add("request-id", requestId);
-
-            var response = await client.SendAsync(requestMessage);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new InvalidOperationException(response.ReasonPhrase);
-            }
-        }
-
-        public Task OnRequestError(string requestId, Exception ex, dynamic vm, RouteData routeData, HttpRequest request)
-        {
-            return messageSession.Send("Sales.Service", new CleanupFailedCartRequest()
-            {
-                CartId = new Guid(request.Cookies["cart-id"]),
-                RequestId = requestId
+                CartId = request.Cookies["cart-id"],
+                RequestId = requestId,
+                RequestData = requestData 
             });
+
+            await messageSession.SendLocal(new AddToCartRequest() 
+            {
+                RequestId = requestId,
+                CartId = new Guid(request.Cookies["cart-id"]),
+                RequestData = requestData });
         }
     }
 }
