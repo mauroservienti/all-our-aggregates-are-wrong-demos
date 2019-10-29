@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Routing;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
+using System.Threading.Tasks;
 
 namespace Shipping.ViewModelComposition
 {
@@ -20,10 +21,12 @@ namespace Shipping.ViewModelComposition
 
         public void Subscribe(IPublishCompositionEvents publisher)
         {
-            publisher.Subscribe<AddItemToCartRequested>(async (requestId, pageViewModel, @event, rd, req) =>
+            publisher.Subscribe<AddItemToCartRequested>((requestId, pageViewModel, @event, rd, req) =>
             {
                 @event.RequestData.Add("shipping-product-id", (string)rd.Values["id"]);
                 @event.RequestData.Add("shipping-quantity", req.Form["quantity"][0]);
+
+                return Task.CompletedTask;
             });
         }
     }
