@@ -14,6 +14,7 @@
     <ProjectReference Include="..\JsonUtils\JsonUtils.csproj" />
     <ProjectReference Include="..\Marketing.ViewModelComposition.Events\Marketing.ViewModelComposition.Events.csproj" />
     <ProjectReference Include="..\Sales.ViewModelComposition.Events\Sales.ViewModelComposition.Events.csproj" />
+    <ProjectReference Include="..\Sales.ViewModelComposition.Messages\Sales.ViewModelComposition.Messages.csproj" />
     <ProjectReference Include="..\Shipping.Messages\Shipping.Messages.csproj" />
   </ItemGroup>
 

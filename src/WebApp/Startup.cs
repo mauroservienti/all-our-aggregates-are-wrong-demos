@@ -14,7 +14,7 @@ namespace WebApp
         {
             services.AddNServiceBus("WebApp", endpointConfiguration =>
             {
-                endpointConfiguration.ApplyCommonConfiguration(asSendOnly: true);
+                endpointConfiguration.ApplyCommonConfiguration();
             });
             services.AddControllersWithViews();
             services.AddViewModelComposition(options =>
