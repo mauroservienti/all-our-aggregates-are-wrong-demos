@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NServiceBus;
+using Sales.ViewModelComposition.Events;
+using Sales.ViewModelComposition.Messages;
 using ServiceComposer.AspNetCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Sales.ViewModelComposition.Messages;
-using System;
-using Sales.ViewModelComposition.Events;
 
 namespace Sales.ViewModelComposition
 {
