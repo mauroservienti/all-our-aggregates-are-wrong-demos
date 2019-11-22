@@ -18,6 +18,7 @@
                 <h4>Q.ty: @item.Quantity, Item $ @item.CurrentPrice, Total $ @item.TotalPrice</h4>
                 <h4>Shipping estimate: @item.DeliveryEstimate</h4>
                 <h4>Availability: @item.Inventory</h4>
+                <div><form action="/shoppingcart/delete/@item.ProductId" method="post"><button type="submit">Remove</button></form></div>
             </li>
             }
         </ul>

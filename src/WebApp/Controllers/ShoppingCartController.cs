@@ -14,5 +14,11 @@ namespace WebApp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            return RedirectToAction("Index");
+        }
     }
 }
