@@ -10,6 +10,13 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class ShoppingCartController : ControllerBase
     {
+        [HttpDelete]
+        [Route("{cartId}/item/{itemId}")]
+        public dynamic RemoveItem(Guid cartId, int itemId) 
+        {
+            return Ok();
+        }
+
         [HttpGet]
         [Route("{id}")]
         public dynamic GetCart(Guid id)
