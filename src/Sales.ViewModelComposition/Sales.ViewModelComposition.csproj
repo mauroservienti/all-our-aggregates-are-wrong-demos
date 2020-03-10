@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="NServiceBus" Version="7.2.2" />
+    <PackageReference Include="NServiceBus" Version="7.2.3" />
     <PackageReference Include="ServiceComposer.AspNetCore" Version="0.0.12" />
   </ItemGroup>
 
