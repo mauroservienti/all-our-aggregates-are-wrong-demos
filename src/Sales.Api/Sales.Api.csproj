@@ -10,13 +10,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="NServiceBus" Version="7.2.3" />
-    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NServiceBus.Shared.Hosting\NServiceBus.Shared.Hosting.csproj" />
-    <ProjectReference Include="..\NServiceBus.Shared\NServiceBus.Shared.csproj" />
     <ProjectReference Include="..\Sales.Data\Sales.Data.csproj" />
     <ProjectReference Include="..\Sales.Messages.Events\Sales.Messages.Events.csproj" />
   </ItemGroup>
