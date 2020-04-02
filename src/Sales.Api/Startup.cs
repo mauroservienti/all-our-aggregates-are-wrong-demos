@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using NServiceBus;
-using NServiceBus.Shared.Hosting;
 
 namespace Sales.Api
 {
@@ -17,10 +15,6 @@ namespace Sales.Api
                 });
             });
 
-            services.AddNServiceBus("Sales.Api", endpointConfiguration =>
-            {
-                endpointConfiguration.ApplyCommonConfiguration(asSendOnly: true);
-            });
             services.AddControllers();
         }
 
