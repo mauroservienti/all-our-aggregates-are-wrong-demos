@@ -10,10 +10,11 @@ namespace WebApp
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting();
             services.AddControllersWithViews();
             services.AddViewModelComposition(options =>
             {
-                options.AddMvcSupport();
+                options.EnableCompositionOverControllers();
             });
         }
 
@@ -28,7 +29,8 @@ namespace WebApp
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                endpoints.MapCompositionHandlers();
             });
         }
     }

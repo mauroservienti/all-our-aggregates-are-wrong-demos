@@ -2,14 +2,16 @@
 
 namespace WebApp.Controllers
 {
+    [Route("ShoppingCart")]
     public class ShoppingCartController : Controller
     {
+        [HttpGet("/")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("/add/{id}")]
         public IActionResult Add(int id)
         {
             return View();
