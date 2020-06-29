@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
 
 namespace WebApp
 {
@@ -16,6 +17,13 @@ namespace WebApp
                 .ConfigureLogging((hostingContext, loggingBuilder) =>
                 {
                     loggingBuilder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                })
+                .UseNServiceBus(ctx =>
+                {
+                    var endpointConfiguration = new EndpointConfiguration("WebApp");
+                    endpointConfiguration.ApplyCommonConfiguration();
+
+                    return endpointConfiguration;
                 })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }

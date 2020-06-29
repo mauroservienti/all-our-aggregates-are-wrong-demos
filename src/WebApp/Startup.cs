@@ -1,8 +1,6 @@
 ﻿using ITOps.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using NServiceBus;
-using NServiceBus.Shared.Hosting;
 using ServiceComposer.AspNetCore;
 using ServiceComposer.AspNetCore.Mvc;
 
@@ -12,10 +10,6 @@ namespace WebApp
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddNServiceBus("WebApp", endpointConfiguration =>
-            {
-                endpointConfiguration.ApplyCommonConfiguration();
-            });
             services.AddControllersWithViews();
             services.AddViewModelComposition(options =>
             {
