@@ -7,10 +7,11 @@ using ServiceComposer.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sales.ViewModelComposition
 {
-    class ShoppingCartAddPostHandler : IHandleRequests
+    class ShoppingCartAddPostHandler : ICompositionRequestsHandler
     {
         IMessageSession messageSession;
 
@@ -19,35 +20,25 @@ namespace Sales.ViewModelComposition
             this.messageSession = messageSession;
         }
 
-        public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
+        [HttpPost("shoppingcart/add/{id}")]
+        public async Task Handle(HttpRequest request)
         {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
-
-            return HttpMethods.IsPost(httpVerb)
-                   && controller.ToLowerInvariant() == "shoppingcart"
-                   && action.ToLowerInvariant() == "add"
-                   && routeData.Values.ContainsKey("id");
-        }
-
-        public async Task Handle(string requestId, dynamic vm, RouteData routeData, HttpRequest request)
-        {
-            var requestData = new Dictionary<string, string>() 
+            var requestData = new Dictionary<string, string>()
             {
-                { "sales-product-id", (string)routeData.Values["id"] },
+                { "sales-product-id", (string)request.HttpContext.GetRouteValue("id") },
                 { "sales-quantity", request.Form["quantity"][0] },
             };
-
-            await vm.RaiseEvent(new AddItemToCartRequested() 
+            var vm = request.GetComposedResponseModel();
+            await vm.RaiseEvent(new AddItemToCartRequested()
             {
                 CartId = request.Cookies["cart-id"],
-                RequestId = requestId,
-                RequestData = requestData 
+                RequestId = request.Headers.GetComposedRequestId(),
+                RequestData = requestData
             });
 
-            await messageSession.SendLocal(new AddToCartRequest() 
+            await messageSession.SendLocal(new AddToCartRequest()
             {
-                RequestId = requestId,
+                RequestId = request.Headers.GetComposedRequestId(),
                 CartId = new Guid(request.Cookies["cart-id"]),
                 RequestData = requestData });
         }

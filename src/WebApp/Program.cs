@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Configuration;
+using NServiceBus;
 
 namespace WebApp
 {
@@ -9,15 +9,22 @@ namespace WebApp
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, loggingBuilder) => 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureLogging((hostingContext, loggingBuilder) =>
                 {
                     loggingBuilder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 })
-                .UseStartup<Startup>();
+                .UseNServiceBus(ctx =>
+                {
+                    var endpointConfiguration = new EndpointConfiguration("WebApp");
+                    endpointConfiguration.ApplyCommonConfiguration();
+
+                    return endpointConfiguration;
+                })
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

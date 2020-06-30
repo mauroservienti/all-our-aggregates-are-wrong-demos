@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
   </PropertyGroup>
@@ -11,16 +11,15 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
     <PackageReference Include="NServiceBus" Version="7.3.0" />
+    <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.0.1" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />
-    <PackageReference Include="ServiceComposer.AspNetCore" Version="1.0.0" />
-    <PackageReference Include="ServiceComposer.AspNetCore.Mvc" Version="0.0.6" />
+    <PackageReference Include="ServiceComposer.AspNetCore" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ITOps.Middlewares\ITOps.Middlewares.csproj" />
     <ProjectReference Include="..\ITOps.ViewModelComposition\ITOps.ViewModelComposition.csproj" />
     <ProjectReference Include="..\Marketing.ViewModelComposition\Marketing.ViewModelComposition.csproj" />
-    <ProjectReference Include="..\NServiceBus.Shared.Hosting\NServiceBus.Shared.Hosting.csproj" />
     <ProjectReference Include="..\NServiceBus.Shared\NServiceBus.Shared.csproj" />
     <ProjectReference Include="..\Sales.ViewModelComposition\Sales.ViewModelComposition.csproj" />
     <ProjectReference Include="..\Shipping.ViewModelComposition\Shipping.ViewModelComposition.csproj" />

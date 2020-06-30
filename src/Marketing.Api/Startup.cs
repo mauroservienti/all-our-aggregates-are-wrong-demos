@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Marketing.Api
 {
@@ -7,26 +9,21 @@ namespace Marketing.Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllOrigins", builder =>
-                {
-                    builder.AllowAnyOrigin();
-                });
-            });
-
+            services.AddRouting();
+            services.AddCors(options => { options.AddPolicy("AllowAllOrigins", builder => { builder.AllowAnyOrigin(); }); });
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage(); 
-            app.UseCors("AllowAllOrigins");
-            app.UseRouting();
-            app.UseEndpoints(endpoints=> 
+            if (env.IsDevelopment())
             {
-                endpoints.MapControllers();
-            });
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseRouting();
+            app.UseCors("AllowAllOrigins");
+            app.UseEndpoints(builder => builder.MapControllers());
         }
     }
 }

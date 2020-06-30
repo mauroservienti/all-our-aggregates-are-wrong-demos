@@ -6,25 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Shipping.ViewModelComposition
 {
-    class ProductDetailsGetHandler : IHandleRequests
+    class ProductDetailsGetHandler : ICompositionRequestsHandler
     {
-        public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
+        [HttpGet("products/details/{id}")]
+        public async Task Handle(HttpRequest request)
         {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
-
-            return HttpMethods.IsGet(httpVerb)
-                   && controller.ToLowerInvariant() == "products"
-                   && action.ToLowerInvariant() == "details"
-                   && routeData.Values.ContainsKey("id");
-        }
-
-        public async Task Handle(string requestId, dynamic vm, RouteData routeData, HttpRequest request)
-        {
-            var id = (string)routeData.Values["id"];
+            var id = (string)request.HttpContext.GetRouteData().Values["id"];
 
             var url = $"http://localhost:5004/api/shipping-options/product/{id}";
             var client = new HttpClient();
@@ -36,6 +27,7 @@ namespace Shipping.ViewModelComposition
                 .Select(o => o.Option)
                 .ToArray();
 
+            var vm = request.GetComposedResponseModel();
             vm.ProductShippingOptions = string.Join(", ", options);
         }
     }

@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NServiceBus" Version="7.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="ServiceComposer.AspNetCore" Version="1.0.0" />
+    <PackageReference Include="ServiceComposer.AspNetCore" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>

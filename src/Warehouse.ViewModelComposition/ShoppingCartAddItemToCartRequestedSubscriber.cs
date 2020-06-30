@@ -1,30 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Routing;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Warehouse.ViewModelComposition
 {
-    public class ShoppingCartAddItemToCartRequestedSubscriber : ISubscribeToCompositionEvents
+    public class ShoppingCartAddItemToCartRequestedSubscriber : ICompositionEventsSubscriber
     {
-        public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
+        [HttpPost("shoppingcart/add/{id}")]
+        public void Subscribe(ICompositionEventsPublisher publisher)
         {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
-
-            return HttpMethods.IsPost(httpVerb)
-                   && controller.ToLowerInvariant() == "shoppingcart"
-                   && action.ToLowerInvariant() == "add"
-                   && routeData.Values.ContainsKey("id");
-        }
-
-        public void Subscribe(IPublishCompositionEvents publisher)
-        {
-            publisher.Subscribe<AddItemToCartRequested>((requestId, pageViewModel, @event, rd, req) =>
+            publisher.Subscribe<AddItemToCartRequested>((@event, request) =>
             {
-                @event.RequestData.Add("warehouse-product-id", (string)rd.Values["id"]);
-                @event.RequestData.Add("warehouse-quantity", req.Form["quantity"][0]);
+                @event.RequestData.Add("warehouse-product-id", (string)request.HttpContext.GetRouteValue("id"));
+                @event.RequestData.Add("warehouse-quantity", request.Form["quantity"][0]);
 
                 return Task.CompletedTask;
             });
