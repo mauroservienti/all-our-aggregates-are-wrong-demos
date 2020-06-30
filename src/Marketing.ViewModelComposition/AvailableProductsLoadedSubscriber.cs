@@ -1,26 +1,15 @@
 ﻿using JsonUtils;
 using Marketing.ViewModelComposition.Events;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using ServiceComposer.AspNetCore;
 using System;
 using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Marketing.ViewModelComposition
 {
     class AvailableProductsLoadedSubscriber : ICompositionEventsSubscriber
     {
-        public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
-        {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
-
-            return HttpMethods.IsGet(httpVerb)
-                   && controller.ToLowerInvariant() == "home"
-                   && action.ToLowerInvariant() == "index"
-                   && !routeData.Values.ContainsKey("id");
-        }
-
+        [HttpGet("/")]
         public void Subscribe(ICompositionEventsPublisher publisher)
         {
             publisher.Subscribe<AvailableProductsLoaded>(async (@event, request) =>

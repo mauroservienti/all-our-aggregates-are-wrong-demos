@@ -2,10 +2,9 @@
 
 namespace WebApp.Controllers
 {
-    [Route("Products")]
     public class ProductsController : Controller
     {
-        [HttpGet("details/{id}")]
+        [HttpGet("/products/details/{id}")]
         public IActionResult Details(int id)
         {
             return View();

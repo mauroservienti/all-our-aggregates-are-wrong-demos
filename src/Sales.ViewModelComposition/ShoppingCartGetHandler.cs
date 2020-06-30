@@ -1,6 +1,5 @@
 ﻿using JsonUtils;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
 using System;
@@ -9,22 +8,13 @@ using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sales.ViewModelComposition
 {
     class ShoppingCartGetHandler : ICompositionRequestsHandler
     {
-        public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
-        {
-            var controller = (string)routeData.Values["controller"];
-            var action = (string)routeData.Values["action"];
-
-            return HttpMethods.IsGet(httpVerb)
-                   && controller.ToLowerInvariant() == "shoppingcart"
-                   && action.ToLowerInvariant() == "index"
-                   && !routeData.Values.ContainsKey("id");
-        }
-
+        [HttpGet("/ShoppingCart")]
         public async Task Handle(HttpRequest request)
         {
             var id = request.Cookies["cart-id"];
