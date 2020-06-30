@@ -13,7 +13,7 @@ namespace WebApp
             services.AddControllersWithViews();
             services.AddViewModelComposition(options =>
             {
-                options.EnableCompositionOverControllers();
+                options.EnableCompositionOverControllers(true);
             });
         }
 
