@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using ServiceComposer.AspNetCore;
-using ServiceComposer.AspNetCore.Mvc;
 
 namespace WebApp
 {
