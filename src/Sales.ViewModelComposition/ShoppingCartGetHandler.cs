@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Sales.ViewModelComposition
 {
-    class ShoppingCartGetHandler : IHandleRequests
+    class ShoppingCartGetHandler : ICompositionRequestsHandler
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
@@ -25,7 +25,7 @@ namespace Sales.ViewModelComposition
                    && !routeData.Values.ContainsKey("id");
         }
 
-        public async Task Handle(string requestId, dynamic vm, RouteData routeData, HttpRequest request)
+        public async Task Handle(HttpRequest request)
         {
             var id = request.Cookies["cart-id"];
 
@@ -34,6 +34,7 @@ namespace Sales.ViewModelComposition
             var response = await client.GetAsync(url);
 
             dynamic shoppingCart = await response.Content.AsExpando();
+            var vm = request.GetComposedResponseModel();
 
             if (shoppingCart.Items.Count == 0)
             {

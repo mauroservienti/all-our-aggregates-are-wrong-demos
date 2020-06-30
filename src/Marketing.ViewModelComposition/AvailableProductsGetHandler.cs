@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Marketing.ViewModelComposition
 {
-    class AvailableProductsGetHandler : IHandleRequests
+    class AvailableProductsGetHandler : ICompositionRequestsHandler
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
@@ -24,7 +24,7 @@ namespace Marketing.ViewModelComposition
                    && !routeData.Values.ContainsKey("id");
         }
 
-        public async Task Handle(string requestId, dynamic vm, RouteData routeData, HttpRequest request)
+        public async Task Handle(HttpRequest request)
         {
             var url = $"http://localhost:5002/api/available/products";
             var client = new HttpClient();
@@ -32,7 +32,7 @@ namespace Marketing.ViewModelComposition
 
             var availableProducts = await response.Content.As<int[]>();
             var availableProductsViewModel = MapToDictionary(availableProducts);
-
+            var vm = request.GetComposedResponseModel();
             await vm.RaiseEvent(new AvailableProductsLoaded()
             {
                 AvailableProductsViewModel = availableProductsViewModel

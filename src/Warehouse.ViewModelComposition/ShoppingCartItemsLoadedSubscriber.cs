@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace Warehouse.ViewModelComposition
 {
-    public class ShoppingCartItemsLoadedSubscriber : ISubscribeToCompositionEvents
+    public class ShoppingCartItemsLoadedSubscriber : ICompositionEventsSubscriber
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
@@ -21,9 +21,9 @@ namespace Warehouse.ViewModelComposition
                    && !routeData.Values.ContainsKey("id");
         }
 
-        public void Subscribe(IPublishCompositionEvents publisher)
+        public void Subscribe(ICompositionEventsPublisher publisher)
         {
-            publisher.Subscribe<ShoppingCartItemsLoaded>(async (requestId, pageViewModel, @event, rd, req) =>
+            publisher.Subscribe<ShoppingCartItemsLoaded>(async (@event, request) =>
             {
                 var ids = String.Join(",", @event.CartItemsViewModel.Keys);
 

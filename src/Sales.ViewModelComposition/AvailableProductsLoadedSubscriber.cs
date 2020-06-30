@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace Sales.ViewModelComposition
 {
-    class AvailableProductsLoadedSubscriber : ISubscribeToCompositionEvents
+    class AvailableProductsLoadedSubscriber : ICompositionEventsSubscriber
     {
         public bool Matches(RouteData routeData, string httpVerb, HttpRequest request)
         {
@@ -21,9 +21,9 @@ namespace Sales.ViewModelComposition
                    && !routeData.Values.ContainsKey("id");
         }
 
-        public void Subscribe(IPublishCompositionEvents publisher)
+        public void Subscribe(ICompositionEventsPublisher publisher)
         {
-            publisher.Subscribe<AvailableProductsLoaded>(async (requestId, pageViewModel, @event, rd, req) =>
+            publisher.Subscribe<AvailableProductsLoaded>(async (@event, request) =>
             {
                 var ids = String.Join(",", @event.AvailableProductsViewModel.Keys);
 
