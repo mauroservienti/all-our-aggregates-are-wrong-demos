@@ -1,9 +1,7 @@
-reportStatus: true
+minApprovals:
+   OWNER: 1
 deleteBranchAfterMerge: true
-
-# must be enabled as a merge option in the repository settings
 mergeMethod: squash
 blockingLabels:
 - blocked
-minApprovals:
-  OWNER: 1
+reportStatus: true
