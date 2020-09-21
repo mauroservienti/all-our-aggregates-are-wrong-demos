@@ -1,5 +1,5 @@
 minApprovals:
-   OWNER: 1
+  OWNER: 1
 deleteBranchAfterMerge: true
 mergeMethod: squash
 blockingLabels:
