@@ -1,5 +1,9 @@
-minApprovals:
-  OWNER: 1
+rules:
+- requiredAuthor: dependabot
+  minApprovals:
+    NONE: 0
+- minApprovals:
+    OWNER: 1
   
 # must be enabled as a merge option in the repository settings
 mergeMethod: squash
