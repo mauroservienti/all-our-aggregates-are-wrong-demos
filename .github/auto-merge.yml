@@ -1,7 +1,0 @@
-minApprovals:
-  OWNER: 1
-deleteBranchAfterMerge: true
-mergeMethod: squash
-blockingLabels:
-- blocked
-reportStatus: true
