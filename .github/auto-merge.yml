@@ -5,10 +5,5 @@ deleteBranchAfterMerge: true
 mergeMethod: squash
 blockingLabels:
 - blocked
-
-rules:
-- requiredAuthorRole: app/dependabot
-  minApprovals:
-    NONE: 0
-- minApprovals:
-   MEMBER: 1
+minApprovals:
+  OWNER: 1
