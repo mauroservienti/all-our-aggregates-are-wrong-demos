@@ -23,7 +23,7 @@ In order to run the sample the following machine configuration is required:
 Set-ExecutionPolicy Unrestricted
 ```
 
-- Visual Studio 2019 with [.NET Core 3.x](https://www.microsoft.com/net/download/dotnet-core/3.0) support (Community Edition is supported), available for download at [https://www.visualstudio.com/downloads/](https://www.visualstudio.com/downloads/)
+- Visual Studio 2019 with [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0) support (Community Edition is supported), available for download at [https://www.visualstudio.com/downloads/](https://www.visualstudio.com/downloads/)
 
 - A SQL Server edition or the `LocalDb` instance installed by Visual Studio, in case of a clean machine with `LocalDb`only please install:
   - Microsoft ODBC Driver 11 for SQL Server, available for download at [https://www.microsoft.com/en-us/download/details.aspx?id=36434](https://www.microsoft.com/en-us/download/details.aspx?id=36434)
