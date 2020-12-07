@@ -1,4 +1,4 @@
-﻿<component name="ProjectRunConfigurationManager">
+<component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Demo (with Platform)" type="CompoundRunConfigurationType">
     <toRun name="PlatformLauncher" type="LaunchSettings" />
     <toRun name="Demo" type="CompoundRunConfigurationType" />
