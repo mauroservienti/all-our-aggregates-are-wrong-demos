@@ -1,0 +1,7 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Demo" type="CompoundRunConfigurationType">
+    <toRun name="PlatformLauncher" type="LaunchSettings" />
+    <toRun name="Demo" type="CompoundRunConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
