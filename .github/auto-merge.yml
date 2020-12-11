@@ -13,3 +13,4 @@ deleteBranchAfterMerge: true
 
 blockingLabels:
 - blocked
+
