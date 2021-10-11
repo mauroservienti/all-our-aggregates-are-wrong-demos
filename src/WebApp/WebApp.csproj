@@ -13,7 +13,7 @@
     <PackageReference Include="NServiceBus" Version="7.5.0" />
     <PackageReference Include="NServiceBus.Extensions.Hosting" Version="1.1.0" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.3.0" />
-    <PackageReference Include="ServiceComposer.AspNetCore" Version="1.9.1" />
+    <PackageReference Include="ServiceComposer.AspNetCore" Version="1.10.0" />
   </ItemGroup>
 
   <ItemGroup>
