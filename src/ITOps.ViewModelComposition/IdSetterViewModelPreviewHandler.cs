@@ -9,11 +9,13 @@ namespace ITOps.ViewModelComposition
     {
         Task IViewModelPreviewHandler.Preview(dynamic viewModel)
         {
+            //Obsolete: won't be ever invoked
             throw new System.NotImplementedException();
         }
         
-        public Task Preview(HttpRequest request, dynamic viewModel)
+        public Task Preview(HttpRequest request)
         {
+            var viewModel = request.GetComposedResponseModel();
             var routeData = request.HttpContext.GetRouteData();
             if (routeData.Values.ContainsKey("id"))
             {
