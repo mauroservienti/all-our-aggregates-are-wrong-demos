@@ -5,6 +5,6 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Particular.PlatformSample" Version="2.2.0" />
+    <PackageReference Include="Particular.PlatformSample" Version="2.3.0" />
   </ItemGroup>
 </Project>
