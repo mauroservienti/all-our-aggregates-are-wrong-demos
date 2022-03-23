@@ -1,4 +1,5 @@
-﻿using NServiceBus;
+﻿using Microsoft.Data.SqlClient;
+using NServiceBus;
 using System;
 using System.Threading.Tasks;
 
@@ -12,7 +13,8 @@ namespace Shipping.Service
             Console.Title = serviceName;
 
             var config = new EndpointConfiguration(serviceName);
-            config.ApplyCommonConfiguration();
+            config.ApplyCommonConfigurationWithPersistence(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Shipping;Integrated Security=True");
+
             config.ReportCustomChecksTo(serviceControlQueue: "Particular.ServiceControl");
             var recoverabilityConfig = config.Recoverability();
             recoverabilityConfig.Immediate(immediate => 
