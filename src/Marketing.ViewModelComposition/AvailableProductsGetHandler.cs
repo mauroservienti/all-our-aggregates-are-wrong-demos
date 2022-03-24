@@ -16,7 +16,7 @@ namespace Marketing.ViewModelComposition
         [HttpGet("/")]
         public async Task Handle(HttpRequest request)
         {
-            var url = $"http://localhost:5002/api/available/products";
+            var url = $"http://localhost:5032/api/available/products";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
 

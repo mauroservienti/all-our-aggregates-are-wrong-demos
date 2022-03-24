@@ -19,7 +19,7 @@ namespace Sales.ViewModelComposition
         {
             var id = request.Cookies["cart-id"];
 
-            var url = $"http://localhost:5001/api/shopping-cart/{id}";
+            var url = $"http://localhost:5031/api/shopping-cart/{id}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
 
