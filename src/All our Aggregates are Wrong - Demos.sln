@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29326.143
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ITOps", "ITOps", "{98143115-D3C4-41A3-8715-BA4604CBBCF5}"
 EndProject
@@ -70,7 +70,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformLauncher", "Platfor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonUtils", "JsonUtils\JsonUtils.csproj", "{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.ViewModelComposition.Messages", "Sales.ViewModelComposition.Messages\Sales.ViewModelComposition.Messages.csproj", "{ECD9299D-E306-4089-8481-501CD1E23AD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.ViewModelComposition.Messages", "Sales.ViewModelComposition.Messages\Sales.ViewModelComposition.Messages.csproj", "{ECD9299D-E306-4089-8481-501CD1E23AD5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositionGateway", "CompositionGateway\CompositionGateway.csproj", "{26F2A46C-5016-459D-84FE-0294B22B4292}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -194,6 +196,10 @@ Global
 		{ECD9299D-E306-4089-8481-501CD1E23AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECD9299D-E306-4089-8481-501CD1E23AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD9299D-E306-4089-8481-501CD1E23AD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26F2A46C-5016-459D-84FE-0294B22B4292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F2A46C-5016-459D-84FE-0294B22B4292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F2A46C-5016-459D-84FE-0294B22B4292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F2A46C-5016-459D-84FE-0294B22B4292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
