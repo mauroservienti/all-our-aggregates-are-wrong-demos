@@ -15,7 +15,7 @@ namespace Sales.ViewModelComposition
         {
             var id = (string)request.HttpContext.GetRouteData().Values["id"];
 
-            var url = $"http://localhost:5002/api/product-details/product/{id}";
+            var url = $"http://localhost:5032/api/product-details/product/{id}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
 

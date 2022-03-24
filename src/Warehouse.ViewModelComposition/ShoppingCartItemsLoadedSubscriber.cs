@@ -16,7 +16,7 @@ namespace Warehouse.ViewModelComposition
             {
                 var ids = String.Join(",", @event.CartItemsViewModel.Keys);
 
-                var url = $"http://localhost:5003/api/shopping-cart/products/{ids}";
+                var url = $"http://localhost:5033/api/shopping-cart/products/{ids}";
                 var client = new HttpClient();
 
                 var response = await client.GetAsync(url);

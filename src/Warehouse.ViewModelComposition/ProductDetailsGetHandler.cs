@@ -15,7 +15,7 @@ namespace Warehouse.ViewModelComposition
         {
             var id = (string)request.HttpContext.GetRouteData().Values["id"];
 
-            var url = $"http://localhost:5003/api/inventory/product/{id}";
+            var url = $"http://localhost:5033/api/inventory/product/{id}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
 

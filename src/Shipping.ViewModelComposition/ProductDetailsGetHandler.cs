@@ -17,7 +17,7 @@ namespace Shipping.ViewModelComposition
         {
             var id = (string)request.HttpContext.GetRouteData().Values["id"];
 
-            var url = $"http://localhost:5004/api/shipping-options/product/{id}";
+            var url = $"http://localhost:5034/api/shipping-options/product/{id}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
 
