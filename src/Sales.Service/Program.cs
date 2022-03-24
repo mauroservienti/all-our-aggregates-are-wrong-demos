@@ -12,7 +12,7 @@ namespace Sales.Service
             Console.Title = serviceName;
 
             var config = new EndpointConfiguration(serviceName);
-            config.ApplyCommonConfiguration();
+            config.ApplyCommonConfigurationWithPersistence(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Sales;Integrated Security=True");
             config.AuditSagaStateChanges(serviceControlQueue: "Particular.ServiceControl");
 
             var endpointInstance = await Endpoint.Start(config);
