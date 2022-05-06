@@ -20,6 +20,6 @@ internal class Program
             "verify-OS-is-suppported",
             () => { if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) throw new InvalidOperationException("Build is supported on Windows only, at this time."); });
 
-        RunTargetsAndExit(args);
+        await RunTargetsAndExitAsync(args);
     }
 }
