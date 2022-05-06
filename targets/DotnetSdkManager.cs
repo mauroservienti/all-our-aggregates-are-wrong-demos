@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using static SimpleExec.Command;
 using Console = Colorful.Console;
 
@@ -14,11 +15,11 @@ class DotnetSdkManager
 
     string dotnetPath = null;
 
-    public string GetDotnetCliPath()
+    public async Task<string> GetDotnetCliPath()
     {
         if (dotnetPath == null)
         {
-            var (customSdk, sdkPath, sdkVersion) = EnsureRequiredSdkIsInstalled();
+            var (customSdk, sdkPath, sdkVersion) = await EnsureRequiredSdkIsInstalled();
             Console.WriteLine($"Build will be executed using {(customSdk ? "user defined SDK" : "default SDK")}, Version '{sdkVersion}'.{(customSdk ? $" Installed at '{sdkPath}'" : "")}");
             dotnetPath = customSdk
                 ? Path.Combine(sdkPath, "dotnet")
@@ -28,9 +29,9 @@ class DotnetSdkManager
         return dotnetPath;
     }
 
-    (bool customSdk, string sdkPath, string sdkVersion) EnsureRequiredSdkIsInstalled()
+    async Task<(bool customSdk, string sdkPath, string sdkVersion)> EnsureRequiredSdkIsInstalled()
     {
-        var currentSdkVersion = Read("dotnet", "--version").TrimEnd(Environment.NewLine.ToCharArray());
+        var currentSdkVersion = (await ReadAsync("dotnet", "--version")).StandardOutput.TrimEnd(Environment.NewLine.ToCharArray());
         var requiredSdkFile = Directory.EnumerateFiles(".", ".required-sdk", SearchOption.TopDirectoryOnly).SingleOrDefault();
 
         if (string.IsNullOrWhiteSpace(requiredSdkFile))
