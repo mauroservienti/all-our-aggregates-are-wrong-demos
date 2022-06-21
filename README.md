@@ -1,6 +1,6 @@
 # All our Aggregates are Wrong - Demos
 
-A microservices powered e-commerce shopping cart sample - based on SOA principles.
+A microservices powered e-commerce shopping cart sample - based on SOA principles. These are the demos for my [All our Aggregates are Wrong](https://milestone.topics.it/talks/all-our-aggregates-are-wrong.html) talk.
 
 ## How to get the sample working locally
 
