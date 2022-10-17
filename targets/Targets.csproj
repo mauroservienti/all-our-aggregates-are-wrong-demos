@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bullseye" Version="4.0.0" />
+    <PackageReference Include="Bullseye" Version="4.1.0" />
     <PackageReference Include="Colorful.Console" Version="1.2.15" />
     <PackageReference Include="SimpleExec" Version="11.0.0" />
   </ItemGroup>
