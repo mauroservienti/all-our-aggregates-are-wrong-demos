@@ -1,6 +1,7 @@
 ﻿using NServiceBus.CustomChecks;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shipping.Service
@@ -13,7 +14,7 @@ namespace Shipping.Service
 
         }
 
-        public override Task<CheckResult> PerformCheck()
+        public override Task<CheckResult> PerformCheck(CancellationToken token)
         {
             return Directory.Exists(@"c:\temp\integration")
                 ? CheckResult.Pass
