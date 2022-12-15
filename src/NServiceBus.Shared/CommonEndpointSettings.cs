@@ -10,7 +10,7 @@ namespace NServiceBus
             config.AuditProcessedMessagesTo("audit");
             config.SendFailedMessagesTo("error");
 
-            config.UseSerialization<NewtonsoftSerializer>();
+            config.UseSerialization<NewtonsoftJsonSerializer>();
             config.UseTransport<LearningTransport>();
 
             var messageConventions = config.Conventions();
