@@ -66,8 +66,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketing.Service", "Market
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITOps.Middlewares", "ITOps.Middlewares\ITOps.Middlewares.csproj", "{72FBC1E1-0391-4930-87DA-1826F5656065}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformLauncher", "PlatformLauncher\PlatformLauncher.csproj", "{1FF1B2BA-0933-461B-8A02-F02425D51B45}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonUtils", "JsonUtils\JsonUtils.csproj", "{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.ViewModelComposition.Messages", "Sales.ViewModelComposition.Messages\Sales.ViewModelComposition.Messages.csproj", "{ECD9299D-E306-4089-8481-501CD1E23AD5}"
@@ -182,10 +180,6 @@ Global
 		{72FBC1E1-0391-4930-87DA-1826F5656065}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FBC1E1-0391-4930-87DA-1826F5656065}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72FBC1E1-0391-4930-87DA-1826F5656065}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FF1B2BA-0933-461B-8A02-F02425D51B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FF1B2BA-0933-461B-8A02-F02425D51B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FF1B2BA-0933-461B-8A02-F02425D51B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FF1B2BA-0933-461B-8A02-F02425D51B45}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA9D77E5-9EC7-49BC-BC02-C629DFF5E8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
