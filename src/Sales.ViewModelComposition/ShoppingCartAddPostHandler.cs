@@ -28,17 +28,18 @@ namespace Sales.ViewModelComposition
                 { "sales-product-id", (string)request.HttpContext.GetRouteValue("id") },
                 { "sales-quantity", request.Form["quantity"][0] },
             };
+            var compositionContext = request.GetCompositionContext();
             var vm = request.GetComposedResponseModel();
             await vm.RaiseEvent(new AddItemToCartRequested()
             {
                 CartId = request.Cookies["cart-id"],
-                RequestId = request.Headers.GetComposedRequestId(),
+                RequestId = compositionContext.RequestId,
                 RequestData = requestData
             });
 
             await messageSession.SendLocal(new AddToCartRequest()
             {
-                RequestId = request.Headers.GetComposedRequestId(),
+                RequestId = compositionContext.RequestId,
                 CartId = new Guid(request.Cookies["cart-id"]),
                 RequestData = requestData });
         }
