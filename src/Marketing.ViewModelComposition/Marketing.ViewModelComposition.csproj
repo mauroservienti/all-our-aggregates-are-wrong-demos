@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="ServiceComposer.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="ServiceComposer.AspNetCore" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
