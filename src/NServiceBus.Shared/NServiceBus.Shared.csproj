@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
-    <PackageReference Include="NServiceBus" Version="8.1.4" />
+    <PackageReference Include="NServiceBus" Version="8.1.5" />
     <PackageReference Include="NServiceBus.Heartbeat" Version="4.0.0" />
     <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="4.0.0" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="3.0.0" />
