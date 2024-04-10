@@ -23,7 +23,7 @@ namespace Marketing.ViewModelComposition
             var availableProducts = await response.Content.As<int[]>();
             var availableProductsViewModel = MapToDictionary(availableProducts);
             var vm = request.GetComposedResponseModel();
-            await vm.RaiseEvent(new AvailableProductsLoaded()
+            await request.GetCompositionContext().RaiseEvent(new AvailableProductsLoaded()
             {
                 AvailableProductsViewModel = availableProductsViewModel
             });
