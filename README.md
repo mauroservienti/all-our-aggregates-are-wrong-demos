@@ -31,6 +31,17 @@ Data Source=.;Initial Catalog=Sales;User Id=sa;Password=YourStrongPassw0rd;Trust
 
 Adjust it to your needs.
 
+To run on a Mac woth Apple Silicon the `azure-sql-edge` container image can be used:
+
+```docker
+docker run -d \
+    --cap-add SYS_PTRACE \
+    -p '1433:1433' \
+                -e 'ACCEPT_EULA=1' \
+                -e 'MSSQL_SA_PASSWORD=YourStrongPassw0rd' \
+                mcr.microsoft.com/azure-sql-edge
+```
+
 ### Databases creation
 
 The demo expects the following databases to be available:
