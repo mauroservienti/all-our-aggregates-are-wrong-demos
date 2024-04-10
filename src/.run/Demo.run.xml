@@ -1,14 +1,14 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Demo" type="CompoundRunConfigurationType">
+    <toRun name="Marketing.Api" type="LaunchSettings" />
     <toRun name="Marketing.Service" type="LaunchSettings" />
     <toRun name="Sales.Api" type="LaunchSettings" />
     <toRun name="Sales.Service" type="LaunchSettings" />
-    <toRun name="Warehouse.Service" type="LaunchSettings" />
-    <toRun name="Marketing.Api" type="LaunchSettings" />
-    <toRun name="WebApp" type="LaunchSettings" />
     <toRun name="Shipping.Api" type="LaunchSettings" />
-    <toRun name="Warehouse.Api" type="LaunchSettings" />
     <toRun name="Shipping.Service" type="LaunchSettings" />
+    <toRun name="Warehouse.Api" type="LaunchSettings" />
+    <toRun name="Warehouse.Service" type="LaunchSettings" />
+    <toRun name="WebApp" type="LaunchSettings" />
     <method v="2" />
   </configuration>
 </component>

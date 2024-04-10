@@ -30,7 +30,7 @@ namespace Sales.ViewModelComposition
             };
             var compositionContext = request.GetCompositionContext();
             var vm = request.GetComposedResponseModel();
-            await vm.RaiseEvent(new AddItemToCartRequested()
+            await request.GetCompositionContext().RaiseEvent(new AddItemToCartRequested()
             {
                 CartId = request.Cookies["cart-id"],
                 RequestId = compositionContext.RequestId,

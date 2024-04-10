@@ -14,7 +14,7 @@ namespace Warehouse.Api.Controllers
         [Route("product/{id}")]
         public dynamic Get(int id)
         {
-            using (var db = WarehouseContext.Create())
+            using (var db = new WarehouseContext())
             {
                 var item = db.StockItems
                     .Where(o => o.ProductId == id)
@@ -28,7 +28,7 @@ namespace Warehouse.Api.Controllers
         [Route("products/{ids}")]
         public IEnumerable<dynamic> Get(string ids)
         {
-            using (var db = WarehouseContext.Create())
+            using (var db = new WarehouseContext())
             {
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
                 var items = db.StockItems

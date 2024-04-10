@@ -13,7 +13,7 @@ namespace Shipping.Service
             Console.Title = serviceName;
 
             var config = new EndpointConfiguration(serviceName);
-            config.ApplyCommonConfigurationWithPersistence(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Shipping;Integrated Security=True");
+            config.ApplyCommonConfigurationWithPersistence(@"Data Source=.;Initial Catalog=Shipping;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
 
             config.ReportCustomChecksTo(serviceControlQueue: "Particular.ServiceControl");
             var recoverabilityConfig = config.Recoverability();

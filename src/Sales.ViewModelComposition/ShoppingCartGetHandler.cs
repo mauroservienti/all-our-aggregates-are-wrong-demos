@@ -36,7 +36,7 @@ namespace Sales.ViewModelComposition
 
             IDictionary<dynamic, dynamic> cartItemsViewModel = MapToDictionary(shoppingCart.Items);
 
-            await vm.RaiseEvent(new ShoppingCartItemsLoaded()
+            await request.GetCompositionContext().RaiseEvent(new ShoppingCartItemsLoaded()
             {
                 CartId = new Guid((string)shoppingCart.CartId),
                 CartItemsViewModel = cartItemsViewModel

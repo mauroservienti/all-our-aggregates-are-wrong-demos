@@ -14,7 +14,7 @@ namespace Sales.Api.Controllers
         [Route("{id}")]
         public dynamic GetCart(Guid id)
         {
-            using (var db = SalesContext.Create())
+            using (var db = new SalesContext())
             {
                 var cartItems = db.ShoppingCarts
                     .Include(c => c.Items)

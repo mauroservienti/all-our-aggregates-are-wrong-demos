@@ -5,15 +5,7 @@ namespace Shipping.Data
 {
     public class ShippingContext : DbContext
     {
-        public static ShippingContext Create()
-        {
-            var db = new ShippingContext();
-            db.Database.EnsureCreated();
-
-            return db;
-        }
-
-        private ShippingContext() { }
+        public ShippingContext() { }
 
         public DbSet<ProductShippingOptions> ProductShippingOptions { get; set; }
 
@@ -21,7 +13,7 @@ namespace Shipping.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Shipping;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Shipping;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

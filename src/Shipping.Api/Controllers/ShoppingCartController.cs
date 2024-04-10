@@ -14,7 +14,7 @@ namespace Shipping.Api.Controllers
         [Route("products/{ids}")]
         public IEnumerable<dynamic> GetCart(string ids)
         {
-            using (var db = ShippingContext.Create())
+            using (var db = new ShippingContext())
             {
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
 

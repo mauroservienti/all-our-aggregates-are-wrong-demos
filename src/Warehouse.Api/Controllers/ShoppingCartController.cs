@@ -14,7 +14,7 @@ namespace Warehouse.Api.Controllers
         [Route("products/{ids}")]
         public IEnumerable<dynamic> GetCart(string ids)
         {
-            using (var db = WarehouseContext.Create())
+            using (var db = new WarehouseContext())
             {
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
 

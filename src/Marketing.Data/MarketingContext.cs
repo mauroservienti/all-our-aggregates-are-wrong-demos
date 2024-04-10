@@ -5,21 +5,13 @@ namespace Marketing.Data
 {
     public class MarketingContext : DbContext
     {
-        public static MarketingContext Create()
-        {
-            var db = new MarketingContext();
-            db.Database.EnsureCreated();
-
-            return db;
-        }
-
-        private MarketingContext() { }
+        public MarketingContext() { }
 
         public DbSet<ProductDetails> ProductsDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\all-our-aggregates-are-wrong;Initial Catalog=Marketing;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Marketing;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
