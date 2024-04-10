@@ -11,7 +11,8 @@ namespace NServiceBus
             config.SendFailedMessagesTo("error");
 
             config.UseSerialization<NewtonsoftJsonSerializer>();
-            config.UseTransport<LearningTransport>();
+            var transportConfig = config.UseTransport<LearningTransport>();
+            transportConfig.Transactions(TransportTransactionMode.ReceiveOnly);
 
             var messageConventions = config.Conventions();
             messageConventions.DefiningMessagesAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages"));
