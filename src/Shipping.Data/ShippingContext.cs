@@ -5,15 +5,7 @@ namespace Shipping.Data
 {
     public class ShippingContext : DbContext
     {
-        public static ShippingContext Create()
-        {
-            var db = new ShippingContext();
-            db.Database.EnsureCreated();
-
-            return db;
-        }
-
-        private ShippingContext() { }
+        public ShippingContext() { }
 
         public DbSet<ProductShippingOptions> ProductShippingOptions { get; set; }
 

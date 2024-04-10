@@ -13,7 +13,7 @@ namespace Marketing.Api.Controllers
         [Route("products")]
         public IEnumerable<int> Get()
         {
-            using (var db = MarketingContext.Create())
+            using (var db = new MarketingContext())
             {
                 var all = db.ProductsDetails
                     .Select(p => p.Id)

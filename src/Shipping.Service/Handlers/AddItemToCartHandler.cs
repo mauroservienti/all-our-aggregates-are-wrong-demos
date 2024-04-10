@@ -12,7 +12,7 @@ namespace Shipping.Service.Handlers
     {
         public async Task Handle(AddItemToCart message, IMessageHandlerContext context)
         {
-            using (var db = ShippingContext.Create())
+            using (var db = new ShippingContext())
             {
                 var requestAlreadyHandled = await db.ShoppingCartItems
                     .Where(o => o.RequestId == message.RequestId)

@@ -5,15 +5,7 @@ namespace Sales.Data
 {
     public class SalesContext : DbContext
     {
-        public static SalesContext Create()
-        {
-            var db = new SalesContext();
-            db.Database.EnsureCreated();
-
-            return db;
-        }
-
-        private SalesContext() { }
+        public SalesContext() { }
 
         public DbSet<ProductPrice> ProductsPrices { get; set; }
 

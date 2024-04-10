@@ -5,15 +5,7 @@ namespace Marketing.Data
 {
     public class MarketingContext : DbContext
     {
-        public static MarketingContext Create()
-        {
-            var db = new MarketingContext();
-            db.Database.EnsureCreated();
-
-            return db;
-        }
-
-        private MarketingContext() { }
+        public MarketingContext() { }
 
         public DbSet<ProductDetails> ProductsDetails { get; set; }
 

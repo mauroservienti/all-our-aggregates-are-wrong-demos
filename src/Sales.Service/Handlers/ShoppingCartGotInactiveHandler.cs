@@ -15,7 +15,7 @@ namespace Sales.Service.Handlers
         {
             Console.WriteLine($"Ready to wipe cart {message.CartId}.", Color.Yellow);
 
-            using (var db = SalesContext.Create())
+            using (var db = new SalesContext())
             {
                 var cart = await db.ShoppingCarts
                     .Where(o => o.Id == message.CartId)

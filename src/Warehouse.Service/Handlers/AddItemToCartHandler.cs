@@ -12,7 +12,7 @@ namespace Warehouse.Service.Handlers
     {
         public async Task Handle(AddItemToCart message, IMessageHandlerContext context)
         {
-            using (var db = WarehouseContext.Create())
+            using (var db = new WarehouseContext())
             {
                 var requestAlreadyHandled = await db.ShoppingCartItems
                     .SingleOrDefaultAsync(o => o.RequestId == message.RequestId) != null;

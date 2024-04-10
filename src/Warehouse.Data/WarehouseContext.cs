@@ -5,15 +5,7 @@ namespace Warehouse.Data
 {
     public class WarehouseContext : DbContext
     {
-        public static WarehouseContext Create()
-        {
-            var db = new WarehouseContext();
-            db.Database.EnsureCreated();
-
-            return db;
-        }
-
-        private WarehouseContext() { }
+        public WarehouseContext() { }
 
         public DbSet<StockItem> StockItems { get; set; }
 

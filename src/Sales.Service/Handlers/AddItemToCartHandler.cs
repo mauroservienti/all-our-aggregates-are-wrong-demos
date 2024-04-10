@@ -13,7 +13,7 @@ namespace Sales.Service.Handlers
     {
         public async Task Handle(AddItemToCart message, IMessageHandlerContext context)
         {
-            using (var db = SalesContext.Create())
+            using (var db = new SalesContext())
             {
                 var requestAlreadyHandled = await db.ShoppingCarts
                     .Where(o => o.Items.Any(i => i.RequestId == message.RequestId))

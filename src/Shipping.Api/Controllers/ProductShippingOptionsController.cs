@@ -15,7 +15,7 @@ namespace Shipping.Api.Controllers
         [Route("product/{id}")]
         public dynamic Get(int id)
         {
-            using (var db = ShippingContext.Create())
+            using (var db = new ShippingContext())
             {
                 var item = db.ProductShippingOptions
                     .Include(pso => pso.Options)
@@ -30,7 +30,7 @@ namespace Shipping.Api.Controllers
         [Route("products/{ids}")]
         public IEnumerable<dynamic> Get(string ids)
         {
-            using (var db = ShippingContext.Create())
+            using (var db = new ShippingContext())
             {
                 var productIds = ids.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(s => int.Parse(s)).ToArray();
                 var items = db.ProductShippingOptions
