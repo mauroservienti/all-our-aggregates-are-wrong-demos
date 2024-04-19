@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "Build solution",
-            "command": "dotnet build ${workspaceFolder}/src/welcome-to-the-state-machine-demos.sln",
+            "command": "dotnet build ${workspaceFolder}/src/All-our-Aggregates-are-Wrong-Demos.sln",
             "type": "shell",
             "group": "build",
             "presentation": {
