@@ -85,12 +85,12 @@
             "console": "integratedTerminal",
         },
         {
-            "name": "Website",
+            "name": "WebApp",
             "type": "coreclr",
             "request": "launch",
-            "program": "${workspaceFolder}/src/Website/bin/Debug/net8.0/Website.dll",
+            "program": "${workspaceFolder}/src/WebApp/bin/Debug/net8.0/WebApp.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/Website",
+            "cwd": "${workspaceFolder}/src/WebApp",
             "stopAtEntry": false,
             "console": "integratedTerminal",
             "launchBrowser": {
@@ -128,7 +128,7 @@
                 "Shipping.Service",
                 "Warehouse.Api",
                 "Warehouse.Service",
-                "Website"]
+                "WebApp"]
         },
         {
             "name": "Demo - (build & deploy data)",
@@ -142,7 +142,7 @@
                 "Shipping.Service",
                 "Warehouse.Api",
                 "Warehouse.Service",
-                "Website"]
+                "WebApp"]
         },
         {
             "name": "Demo - (no build)",
@@ -155,7 +155,7 @@
                 "Shipping.Service",
                 "Warehouse.Api",
                 "Warehouse.Service",
-                "Website"]
+                "WebApp"]
         }
     ]
 }
