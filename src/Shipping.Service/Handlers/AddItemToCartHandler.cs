@@ -16,14 +16,13 @@ namespace Shipping.Service.Handlers
             {
                 var requestAlreadyHandled = await db.ShoppingCartItems
                     .Where(o => o.RequestId == message.RequestId)
-                    .SingleOrDefaultAsync() != null;
+                    .SingleOrDefaultAsync(context.CancellationToken) != null;
 
                 if (!requestAlreadyHandled)
                 {
                     var shippingOptions = db.ProductShippingOptions
                         .Include(so => so.Options)
-                        .Where(o => o.ProductId == message.ProductId)
-                        .Single();
+                        .Single(o => o.ProductId == message.ProductId);
 
                     var shortest = shippingOptions.Options.Min(o => o.EstimatedMinDeliveryDays);
                     var longest = shippingOptions.Options.Max(o => o.EstimatedMaxDeliveryDays);
@@ -46,7 +45,7 @@ namespace Shipping.Service.Handlers
                         Quantity = message.Quantity
                     });
 
-                    await db.SaveChangesAsync();
+                    await db.SaveChangesAsync(context.CancellationToken);
                 }
             }
         }
