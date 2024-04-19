@@ -17,14 +17,13 @@ namespace Sales.Service.Handlers
             {
                 var requestAlreadyHandled = await db.ShoppingCarts
                     .Where(o => o.Items.Any(i => i.RequestId == message.RequestId))
-                    .AnyAsync();
+                    .AnyAsync(context.CancellationToken);
 
                 if (!requestAlreadyHandled)
                 {
                     var cart = db.ShoppingCarts
                         .Include(c => c.Items)
-                        .Where(o => o.Id == message.CartId)
-                        .SingleOrDefault();
+                        .SingleOrDefault(o => o.Id == message.CartId);
 
                     if (cart == null)
                     {
@@ -35,8 +34,7 @@ namespace Sales.Service.Handlers
                     }
 
                     var product = db.ProductsPrices
-                        .Where(o => o.Id == message.ProductId)
-                        .Single();
+                        .Single(o => o.Id == message.ProductId);
 
                     cart.Items.Add(new ShoppingCartItem()
                     {
@@ -54,7 +52,7 @@ namespace Sales.Service.Handlers
                         e.ProductId = message.ProductId;
                     });
 
-                    await db.SaveChangesAsync();
+                    await db.SaveChangesAsync(context.CancellationToken);
                 }
             }
         }

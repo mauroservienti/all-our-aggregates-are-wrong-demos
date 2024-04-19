@@ -19,11 +19,11 @@ namespace Sales.Service.Handlers
             {
                 var cart = await db.ShoppingCarts
                     .Where(o => o.Id == message.CartId)
-                    .SingleOrDefaultAsync();
+                    .SingleOrDefaultAsync(context.CancellationToken);
                 if (cart != null)
                 {
                     db.ShoppingCarts.Remove(cart);
-                    await db.SaveChangesAsync();
+                    await db.SaveChangesAsync(context.CancellationToken);
                 }
             }
 
