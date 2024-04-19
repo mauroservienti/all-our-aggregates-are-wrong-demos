@@ -11,7 +11,7 @@ namespace Marketing.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Marketing;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
+            optionsBuilder.UseNpgsql(@"Host=localhost;Port=6432;Username=db_user;Password=P@ssw0rd;Database=marketing_database");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
