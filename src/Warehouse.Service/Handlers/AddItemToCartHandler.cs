@@ -15,13 +15,12 @@ namespace Warehouse.Service.Handlers
             using (var db = new WarehouseContext())
             {
                 var requestAlreadyHandled = await db.ShoppingCartItems
-                    .SingleOrDefaultAsync(o => o.RequestId == message.RequestId) != null;
+                    .SingleOrDefaultAsync(o => o.RequestId == message.RequestId, context.CancellationToken) != null;
 
                 if (!requestAlreadyHandled)
                 {
                     var stockItem = db.StockItems
-                        .Where(o => o.ProductId == message.ProductId)
-                        .Single();
+                        .Single(o => o.ProductId == message.ProductId);
 
                     db.ShoppingCartItems.Add(new ShoppingCartItem()
                     {
@@ -32,7 +31,7 @@ namespace Warehouse.Service.Handlers
                         Quantity = message.Quantity
                     });
 
-                    await db.SaveChangesAsync();
+                    await db.SaveChangesAsync(context.CancellationToken);
                 }
             }
         }

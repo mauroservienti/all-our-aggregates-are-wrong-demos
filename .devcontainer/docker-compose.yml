@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+   demo:
+      image: mcr.microsoft.com/devcontainers/dotnet:8.0
+      volumes:
+         - ../..:/workspaces:cached
+      network_mode: service:rabbit
+      command: sleep infinity
+
+   rabbit:
+      image: rabbitmq:3.10-management
+      restart: unless-stopped
+      hostname: rabbit
+      environment:
+         - RABBITMQ_DEFAULT_USER=guest
+         - RABBITMQ_DEFAULT_PASS=guest
+
+   marketing-database:
+      image: postgres
+      env_file: 
+         - marketing-database.env
+      network_mode: service:rabbit
+
+   sales-database:
+      image: postgres
+      env_file: 
+         - sales-database.env
+      network_mode: service:rabbit
+
+   shipping-database:
+      image: postgres
+      env_file: 
+         - shipping-database.env
+      network_mode: service:rabbit
+
+   warehouse-database:
+      image: postgres
+      env_file: 
+         - warehouse-database.env
+      network_mode: service:rabbit

@@ -19,10 +19,10 @@ namespace Shipping.Service.Handlers
             {
                 var cartItems = await db.ShoppingCartItems
                     .Where(o => o.CartId == message.CartId)
-                    .ToListAsync();
+                    .ToListAsync(context.CancellationToken);
 
                 db.ShoppingCartItems.RemoveRange(cartItems);
-                await db.SaveChangesAsync();
+                await db.SaveChangesAsync(context.CancellationToken);
             }
 
             Console.WriteLine($"Cart {message.CartId} wiped.", Color.Green);

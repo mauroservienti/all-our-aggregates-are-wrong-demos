@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Colorful.Console" Version="1.2.15" />
-    <PackageReference Include="NServiceBus" Version="8.2.0" />
-    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="3.0.0" />
+    <PackageReference Include="NServiceBus" Version="9.0.0" />
+    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>

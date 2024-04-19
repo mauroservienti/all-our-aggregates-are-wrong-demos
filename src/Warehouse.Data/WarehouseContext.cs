@@ -13,7 +13,7 @@ namespace Warehouse.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Warehouse;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
+            optionsBuilder.UseNpgsql(@"Host=localhost;Port=9432;Username=db_user;Password=P@ssw0rd;Database=warehouse_database");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

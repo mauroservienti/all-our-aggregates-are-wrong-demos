@@ -1,5 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
+using Npgsql;
+using NpgsqlTypes;
 
 namespace NServiceBus
 {
@@ -30,15 +31,27 @@ namespace NServiceBus
                 interval: TimeSpan.FromSeconds(5));
         }
 
-        public static void ApplyCommonConfigurationWithPersistence(this EndpointConfiguration config, string sqlPersistenceConnectionString)
+        public static void ApplyCommonConfigurationWithPersistence(this EndpointConfiguration config, string sqlPersistenceConnectionString, string tablePrefix = null)
         {
             ApplyCommonConfiguration(config);
 
             config.EnableInstallers();
 
             var persistence = config.UsePersistence<SqlPersistence>();
-            persistence.SqlDialect<SqlDialect.MsSqlServer>();
-            persistence.ConnectionBuilder(() => new SqlConnection(sqlPersistenceConnectionString));
+            var dialect = persistence.SqlDialect<SqlDialect.PostgreSql>();
+            if (!string.IsNullOrWhiteSpace(tablePrefix))
+            {
+                persistence.TablePrefix(tablePrefix);
+            }
+
+            dialect.JsonBParameterModifier(
+                modifier: parameter =>
+                {
+                    var npgsqlParameter = (NpgsqlParameter)parameter;
+                    npgsqlParameter.NpgsqlDbType = NpgsqlDbType.Jsonb;
+                });
+            persistence.ConnectionBuilder(
+                connectionBuilder: () => new NpgsqlConnection(sqlPersistenceConnectionString));
 
             config.EnableOutbox();
         }

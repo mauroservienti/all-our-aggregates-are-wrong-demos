@@ -13,7 +13,7 @@ namespace Sales.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=Sales;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
+            optionsBuilder.UseNpgsql(@"Host=localhost;Port=7432;Username=db_user;Password=P@ssw0rd;Database=sales_database");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace Sales.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        internal static class Initial
+        static class Initial
         {
             internal static ProductPrice[] Data()
             {
