@@ -1,0 +1,14 @@
+{
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "demo",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"forwardPorts": [ 15672 ],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-dotnettools.csharp",
+				"ckolkman.vscode-postgres"
+			]
+		}
+	}
+}
