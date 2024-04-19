@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using NServiceBus;
+﻿using NServiceBus;
 using System;
 using System.Threading.Tasks;
 
