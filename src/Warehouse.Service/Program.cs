@@ -12,11 +12,11 @@ namespace Warehouse.Service
             Console.Title = serviceName;
 
             var config = new EndpointConfiguration(serviceName);
-            config.ApplyCommonConfigurationWithPersistence(@"Data Source=.;Initial Catalog=Warehouse;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
+            config.ApplyCommonConfigurationWithPersistence(@"Host=localhost;Port=9432;Username=db_user;Password=P@ssw0rd;Database=warehouse_database");
 
             var endpointInstance = await Endpoint.Start(config);
 
-            Console.WriteLine($"{serviceName} sarted. Press any key to stop.");
+            Console.WriteLine($"{serviceName} started. Press any key to stop.");
             Console.ReadLine();
 
             await endpointInstance.Stop();

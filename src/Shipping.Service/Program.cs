@@ -13,7 +13,7 @@ namespace Shipping.Service
             Console.Title = serviceName;
 
             var config = new EndpointConfiguration(serviceName);
-            config.ApplyCommonConfigurationWithPersistence(@"Data Source=.;Initial Catalog=Shipping;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
+            config.ApplyCommonConfigurationWithPersistence(@"Host=localhost;Port=8432;Username=db_user;Password=P@ssw0rd;Database=shipping_database");
 
             config.ReportCustomChecksTo(serviceControlQueue: "Particular.ServiceControl");
             var recoverabilityConfig = config.Recoverability();
@@ -29,7 +29,7 @@ namespace Shipping.Service
 
             var endpointInstance = await Endpoint.Start(config);
 
-            Console.WriteLine($"{serviceName} sarted. Press any key to stop.");
+            Console.WriteLine($"{serviceName} started. Press any key to stop.");
             Console.ReadLine();
 
             await endpointInstance.Stop();

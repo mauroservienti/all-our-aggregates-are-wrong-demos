@@ -37,7 +37,7 @@ namespace NServiceBus
             config.EnableInstallers();
 
             var persistence = config.UsePersistence<SqlPersistence>();
-            persistence.SqlDialect<SqlDialect.MsSqlServer>();
+            persistence.SqlDialect<SqlDialect.PostgreSql>();
             persistence.ConnectionBuilder(() => new SqlConnection(sqlPersistenceConnectionString));
 
             config.EnableOutbox();

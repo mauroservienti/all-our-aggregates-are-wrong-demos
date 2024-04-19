@@ -12,12 +12,12 @@ namespace Sales.Service
             Console.Title = serviceName;
 
             var config = new EndpointConfiguration(serviceName);
-            config.ApplyCommonConfigurationWithPersistence(@"Data Source=.;Initial Catalog=Sales;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True");
+            config.ApplyCommonConfigurationWithPersistence(@"Host=localhost;Port=7432;Username=db_user;Password=P@ssw0rd;Database=sales_database");
             config.AuditSagaStateChanges(serviceControlQueue: "Particular.ServiceControl");
 
             var endpointInstance = await Endpoint.Start(config);
 
-            Console.WriteLine($"{serviceName} sarted. Press any key to stop.");
+            Console.WriteLine($"{serviceName} started. Press any key to stop.");
             Console.ReadLine();
 
             await endpointInstance.Stop();
