@@ -1,111 +1,68 @@
 # All our Aggregates are Wrong - Demos
 
-A microservices powered e-commerce shopping cart sample - based on SOA principles. These are the demos for my [All our Aggregates are Wrong](https://milestone.topics.it/talks/all-our-aggregates-are-wrong.html) talk.
+A microservices-powered e-commerce shopping cart sample based on SOA principles. These are the demos for my [All our Aggregates are Wrong](https://milestone.topics.it/talks/all-our-aggregates-are-wrong.html) talk.
 
-The demo demoes a shopping cart behavior and all its implemented functionalities. Add items to the cart, observe the various "services" console windows they'll display log messages related to the ongoing processes. Leave the cart inactive for a few seconds and observe the stale cart policy kicking in, first raising a warning, finally deleting stale carts.
+The demo demonstrates a shopping cart behavior and all its implemented functionalities. Add items to the cart and observe the various "services" console windows, which display log messages related to the ongoing processes. Leave the cart inactive for a few seconds and observe the stale cart policy kick in, first raising a warning and finally deleting stale carts.
 
-## How to get the sample working locally
+## Requirements
 
-### Get a copy of this repository
+The following requirements must be met to run the demos successfully:
 
-Clone or download this repo locally on your machine.
+- [Visual Studio Code](https://code.visualstudio.com/) and the [Dev containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+- [Docker](https://www.docker.com/get-started) must be pre-installed on the machine.
+- The repository `devcontainer` setup requires `docker-compose` to be installed on the machine.
 
-> [!NOTE]
-> On Windows, If you're downloading a zip copy of the repo please make sure the zip file is unblocked before decompressing it. In order to unblock the zip file:
->
-> - Right-click on the downloaded copy
-> - Choose Property
-> - On the Property page tick the unblock checkbox
-> - Press OK
+## How to configure Visual Studio Code to run the demos
 
-### Requirements
+- Clone the repository
+  - On Windows, make sure to clone on a short path, e.g., `c:\dev`, to avoid any "path too long" error
+- Open one of the demo folders in Visual Studio Code
+- Make sure Docker is running
+  - If you're using Docker for Windows with Hyper-V, make sure that the cloned folder, or a parent folder, is mapped in Docker
+- Open the Visual Studio Code command palette (`F1` on all supported operating systems, for more information on VS Code keyboard shortcuts, refer to [this page](https://www.arungudelli.com/microsoft/visual-studio-code-keyboard-shortcut-cheat-sheet-windows-mac-linux/))
+- Type `Reopen in Container`, the command palette supports auto-completion; the command should be available by typing `reop`
 
-- .NET 7 or later
-- A SQL Server edition or SQL Server running in a Docker container.
+Wait for Visual Studio Code Dev containers extension to:
 
-The demo uses the following connection string to connect to the various required SQL databases:
+- download the required container images
+- configure the docker environment
+- configure the remote Visual Studio Code instance with the required extensions
 
-```sql
-Data Source=.;Initial Catalog=Sales;User Id=sa;Password=YourStrongPassw0rd;TrustServerCertificate=True
-```
+> Note: no changes will be made to your Visual Studio Code installation; all changes will be applied to the VS Code instance running in the remote container
 
-Adjust it to your needs.
+The repository `devcontainer` configuration will create:
 
-To run on a Mac woth Apple Silicon the `azure-sql-edge` container image can be used:
+- One or more container instances:
+  - One RabbitMQ instance with management plugin support
+  - One .NET-enabled container where the repository source code will be mapped
+  - A few PostgreSQL instances
+- Configure the VS Code remote instance with:
+  - The C# extension (`ms-dotnettools.csharp`)
+  - The PostgreSQL Explorer extension (`ckolkman.vscode-postgres`)
 
-```docker
-docker run -d \
-    --cap-add SYS_PTRACE \
-    -p '1433:1433' \
-                -e 'ACCEPT_EULA=1' \
-                -e 'MSSQL_SA_PASSWORD=YourStrongPassw0rd' \
-                mcr.microsoft.com/azure-sql-edge
-```
+Once the configuration is completed, VS Code will show a new `Ports` tab in the bottom-docked terminal area. The `Ports` tab will list all the ports the remote containers expose.
 
-### Databases creation
+## Containers connection information
 
-The demo expects the following databases to be available:
+The default RabbitMQ credentials are:
 
-- Marketing
-- Sales
-- Shipping
-- Warehouse
+- Username: `guest`
+- Password: `guest`
 
-The [scripts](scripts) folder in this repository contains a simple `Setup-Databases.sql` script that creates the required databases.
+The default PostgreSQL credentials are:
 
-### Createing the default dataset
+- User: `db_user`
+- Password: `P@ssw0rd`
 
-Run the `CreateRequiredDatabases` project to fill the created databases with a default dataset to run the demos.
+## How to run the demos
 
-## Startup projects
+To execute the demo, open the root folder in VS Code, press `F1`, and search for `Reopen in container`. Wait for the Dev Container to complete the setup process.
 
-Ensure the following projects are set as startup projects to run the default setup:
+Once the demo content has been reopened in the dev container:
 
-- WebApp
-- Sales.Api
-- Marketing.Api
-- Warehouse.Api
-- Shipping.Api
-- Sales.Service
-- Marketing.Service
-- Warehouse.Service
-- Shipping.Service
-
-## Demo (failed services)
-
-Demoes what happens when a back-end service is not available. Add an item to the cart, visualize the shopping cart and observe the different information displayed in relation to the shipping estimates. Ensure the following projects are set as startup projects:
-
-- WebApp
-- Sales.Api
-- Marketing.Api
-- Warehouse.Api
-- Shipping.Api
-- Sales.Service
-- Marketing.Service
-
-### Demo (Platform) — Windows only, at the moment
-
-Uses the [Particular Platform](https://particular.net/service-platform) Sample package to visualize monitoring information, and messages and policies (Sagas) runtime behaviors.
-
-- WebApp
-- Sales.Api
-- Marketing.Api
-- Warehouse.Api
-- Shipping.Api
-- Sales.Service
-- Marketing.Service
-- Warehouse.Service
-- Shipping.Service
-- PlatformLauncher
-
-## NServiceBus configuration
-
-This sample has no [NServiceBus](https://particular.net/nservicebus) related pre-requisites as it's configured to use [Learning Transport](https://docs.particular.net/nservicebus/learning-transport/) and [Learning Persistence](https://docs.particular.net/nservicebus/learning-persistence/), both explicitly designed for short term learning and experimentation purposes.
-
-They should also not be used for longer-term development, i.e. the same transport and persistence used in production should be used in development and debug scenarios. Select a production [transport](https://docs.particular.net/transports/) and [persistence](https://docs.particular.net/persistence/) before developing features.
-
-> NOTE: Do not use the learning transport or learning persistence to perform any kind of performance analysis.
+1. Press `F1`, search for `Run task`, and execute the desired task to build the solution or to build the solution and deploy the required data
+2. Go to the `Run and Debug` VS Code section and select the command you want to execute.
 
 ### Disclaimer
 
-Parts of this demo are built using [NServiceBus](https://particular.net/nservicebus), I work for [Particular Software](https://particular.net/), the makers of NServiceBus.
+This demo is built using [NServiceBus Sagas](https://docs.particular.net/nservicebus/sagas/); I work for [Particular Software](https://particular.net/), the makers of NServiceBus.
