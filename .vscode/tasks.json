@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build solution",
+            "command": "dotnet build ${workspaceFolder}/src/welcome-to-the-state-machine-demos.sln",
+            "type": "shell",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Create databases",
+            "command": "dotnet run --project ${workspaceFolder}/src/CreateRequiredDatabases/CreateRequiredDatabases.csproj",
+            "type": "shell",
+            "group": "none",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build & create databases",
+            "group": "build",
+            "dependsOn": ["Build solution", "Create databases"],
+            "dependsOrder": "sequence"
+        }
+    ]
+}
