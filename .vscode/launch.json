@@ -111,7 +111,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/src/Website/Views"
+                "/Views": "${workspaceFolder}/src/WebApp/Views"
             }
         }
     ],
