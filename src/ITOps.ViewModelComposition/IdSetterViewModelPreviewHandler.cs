@@ -7,12 +7,6 @@ namespace ITOps.ViewModelComposition
 {
     class IdSetterViewModelPreviewHandler : IViewModelPreviewHandler
     {
-        Task IViewModelPreviewHandler.Preview(dynamic viewModel)
-        {
-            //Obsolete: won't be ever invoked
-            throw new System.NotImplementedException();
-        }
-        
         public Task Preview(HttpRequest request)
         {
             var viewModel = request.GetComposedResponseModel();
