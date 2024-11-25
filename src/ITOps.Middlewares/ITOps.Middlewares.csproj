@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup Label="Address vulnerabilities">
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.2" />
+  </ItemGroup>
+
 </Project>
