@@ -1,7 +1,7 @@
 version: 2
 updates:
-- package-ecosystem: nuget
-  directory: "/targets"
+- package-ecosystem: github-actions
+  directory: "/"
   schedule:
     interval: daily
     time: '04:00'
