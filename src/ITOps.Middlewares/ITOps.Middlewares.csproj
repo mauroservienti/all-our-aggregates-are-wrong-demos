@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Address vulnerabilities">
-    <PackageReference Include="System.Text.Encodings.Web" Version="9.0.6" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="9.0.7" />
   </ItemGroup>
 
 </Project>
