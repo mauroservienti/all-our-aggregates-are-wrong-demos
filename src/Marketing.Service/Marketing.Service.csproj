@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Colorful.Console" Version="1.2.15" />
-    <PackageReference Include="NServiceBus" Version="9.2.8" />
-    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="4.1.0" />
+    <PackageReference Include="NServiceBus" Version="10.0.0" />
+    <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
