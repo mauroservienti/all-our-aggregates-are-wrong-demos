@@ -31,6 +31,15 @@ namespace WebApp
                         endpointConfiguration.ApplyCommonConfiguration();
                     }
 
+                    // Exclude backend service assemblies from scanning so that their
+                    // message handlers are not registered in the WebApp endpoint.
+                    endpointConfiguration.AssemblyScanner()
+                        .ExcludeAssemblies(
+                            "Sales.Service.dll",
+                            "Shipping.Service.dll",
+                            "Warehouse.Service.dll",
+                            "Marketing.Service.dll");
+
                     return endpointConfiguration;
                 })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
