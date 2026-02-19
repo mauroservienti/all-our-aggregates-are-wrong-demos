@@ -32,7 +32,7 @@ namespace Warehouse.ViewModelComposition
                     RequestId = @event.RequestId,
                     ProductId = int.Parse((string)request.HttpContext.GetRouteValue("id")),
                     Quantity = int.Parse(request.Form["quantity"][0]),
-                }, options);
+                }, options, request.HttpContext.RequestAborted);
             });
         }
     }

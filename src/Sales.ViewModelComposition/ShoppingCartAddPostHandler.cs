@@ -39,7 +39,7 @@ namespace Sales.ViewModelComposition
                 CartId = new Guid(request.Cookies["cart-id"]),
                 ProductId = int.Parse((string)request.HttpContext.GetRouteValue("id")),
                 Quantity = int.Parse(request.Form["quantity"][0]),
-            }, options);
+            }, options, request.HttpContext.RequestAborted);
         }
     }
 }

@@ -18,10 +18,10 @@ namespace ITOps.Middlewares
         {
             if (context.Request.Method == HttpMethods.Post)
             {
-                await transactionalSession.Open(new SqlPersistenceOpenSessionOptions());
+                await transactionalSession.Open(new SqlPersistenceOpenSessionOptions(), context.RequestAborted);
                 // If _next throws, Commit is never called and the session is rolled back on disposal
                 await _next(context);
-                await transactionalSession.Commit();
+                await transactionalSession.Commit(context.RequestAborted);
             }
             else
             {
