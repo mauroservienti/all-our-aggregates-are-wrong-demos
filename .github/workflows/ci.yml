@@ -31,7 +31,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v5.1.0
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
       - name: Build
         run: dotnet build src --configuration Release
       - name: Tests

@@ -2,7 +2,7 @@ version: '3'
 
 services:
    demo:
-      image: mcr.microsoft.com/devcontainers/dotnet:8.0
+      image: mcr.microsoft.com/devcontainers/dotnet:10.0
       volumes:
          - ../..:/workspaces:cached
       network_mode: service:rabbit
