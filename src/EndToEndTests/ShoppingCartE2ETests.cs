@@ -20,7 +20,7 @@ namespace EndToEndTests;
 ///       → ShoppingCartAddPostHandler + Shipping/Warehouse subscribers each call
 ///         transactionalSession.Send() to enqueue commands for their backend services
 ///       → Middleware commits the session; all three commands land in the outbox atomically
-///   2. NServiceBus background dispatcher dispatches commands from the outbox
+///   2. NServiceBus dispatches commands from the outbox table
 ///       → Sales.Service processes AddItemToCart and saves the item to the Sales database
 ///   3. GET /ShoppingCart (WebApp) polls until the item is visible
 ///       → ShoppingCartGetHandler calls Sales.Api which reads the Sales database
