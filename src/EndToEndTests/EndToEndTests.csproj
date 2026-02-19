@@ -26,11 +26,15 @@
   <!--
     References to the application projects give the test access to each service's
     Startup / Program types so they can be hosted in-process on real network ports.
-    Sales.Service is referenced to make NServiceBus discover AddItemToCartHandler.
+    Each *.Service project is referenced to make NServiceBus discover its message handlers.
   -->
   <ItemGroup>
     <ProjectReference Include="..\Sales.Api\Sales.Api.csproj" />
     <ProjectReference Include="..\Sales.Service\Sales.Service.csproj" />
+    <ProjectReference Include="..\Shipping.Api\Shipping.Api.csproj" />
+    <ProjectReference Include="..\Shipping.Service\Shipping.Service.csproj" />
+    <ProjectReference Include="..\Warehouse.Api\Warehouse.Api.csproj" />
+    <ProjectReference Include="..\Warehouse.Service\Warehouse.Service.csproj" />
     <ProjectReference Include="..\WebApp\WebApp.csproj" AdditionalProperties="LibraryRestore=false" />
   </ItemGroup>
 
