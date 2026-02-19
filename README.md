@@ -2,7 +2,41 @@
 
 A microservices-powered e-commerce shopping cart sample based on SOA principles. These are the demos for my [All our Aggregates are Wrong](https://milestone.topics.it/talks/all-our-aggregates-are-wrong.html) talk.
 
-The demo demonstrates a shopping cart behavior and all its implemented functionalities. Add items to the cart and observe the various "services" console windows, which display log messages related to the ongoing processes. Leave the cart inactive for a few seconds and observe the stale cart policy kick in, first raising a warning and finally deleting stale carts.
+The demo showcases a shopping cart and its associated behaviors. Add items to the cart and observe the log messages printed in the various service terminal windows as events are processed. Leave the cart inactive for a few seconds and observe the stale cart policy kick in: after 30 seconds of inactivity a `ShoppingCartGotStale` event is published, and after 60 seconds the cart is deleted and a `ShoppingCartGotInactive` event is published.
+
+## Solution overview
+
+The solution is organized into four business domains, each owning its own data and communicating asynchronously via NServiceBus over RabbitMQ.
+
+### Marketing
+
+Manages the product catalog. The `Marketing.Api` exposes product data (names, descriptions) used to compose product listing and shopping cart views. `Marketing.Data` provides the EF Core data access layer backed by a dedicated PostgreSQL database.
+
+### Sales
+
+Manages the shopping cart lifecycle. `Sales.Api` exposes endpoints to retrieve cart contents. `Sales.Service` is a background NServiceBus endpoint that handles `ProductAddedToCart` commands and runs the `ShoppingCartLifecyclePolicy` saga, which publishes `ShoppingCartGotStale` (after 30 seconds of inactivity) and `ShoppingCartGotInactive` (after 60 seconds of inactivity, also deleting the cart). `Sales.Data` provides the EF Core data access layer backed by a dedicated PostgreSQL database.
+
+### Shipping
+
+Handles shipping concerns when items are added to a cart. `Shipping.Api` exposes shipping-related cart data. `Shipping.Service` is a background NServiceBus endpoint that reacts to cart events. `Shipping.Data` provides the EF Core data access layer backed by a dedicated PostgreSQL database.
+
+### Warehouse
+
+Manages inventory. `Warehouse.Api` exposes stock availability data. `Warehouse.Service` is a background NServiceBus endpoint that reacts to cart events to track product reservations. `Warehouse.Data` provides the EF Core data access layer backed by a dedicated PostgreSQL database.
+
+### WebApp
+
+An ASP.NET Core web application that serves as the user interface. It composes views by coordinating responses from all service APIs using the ServiceComposer pattern (via `ITOps.ViewModelComposition`). It hosts a product catalog page and a shopping cart page.
+
+### Shared and infrastructure projects
+
+- **`ITOps.ViewModelComposition`** – ServiceComposer infrastructure for assembling composite view models from multiple services.
+- **`ITOps.Middlewares`** – ASP.NET Core middleware shared across services (e.g., shopping cart resolution).
+- **`NServiceBus.Shared`** – Common NServiceBus endpoint configuration (transport, persistence, metrics).
+- **`JsonUtils`** – JSON serialization utilities shared across the solution.
+- **`CreateRequiredDatabases`** – A utility project that creates and seeds the PostgreSQL databases required by all services.
+- **`*.Messages` / `*.Messages.Events`** – NServiceBus message contracts (commands and events) for each domain.
+- **`*.ViewModelComposition` / `*.ViewModelComposition.Events` / `*.ViewModelComposition.Messages`** – ServiceComposer handlers and events used to contribute data from each service to the composite view models.
 
 ## Requirements
 
@@ -16,7 +50,7 @@ The following requirements must be met to run the demos successfully:
 
 - Clone the repository
   - On Windows, make sure to clone on a short path, e.g., `c:\dev`, to avoid any "path too long" error
-- Open one of the demo folders in Visual Studio Code
+- Open the repository root folder in Visual Studio Code
 - Make sure Docker is running
   - If you're using Docker for Windows with Hyper-V, make sure that the cloned folder, or a parent folder, is mapped in Docker
 - Open the Visual Studio Code command palette (`F1` on all supported operating systems, for more information on VS Code keyboard shortcuts, refer to [this page](https://www.arungudelli.com/microsoft/visual-studio-code-keyboard-shortcut-cheat-sheet-windows-mac-linux/))
@@ -32,10 +66,10 @@ Wait for Visual Studio Code Dev containers extension to:
 
 The repository `devcontainer` configuration will create:
 
-- One or more container instances:
+- Container instances:
   - One RabbitMQ instance with management plugin support
   - One .NET-enabled container where the repository source code will be mapped
-  - A few PostgreSQL instances
+  - Four PostgreSQL instances (one per service domain: Marketing, Sales, Shipping, Warehouse)
 - Configure the VS Code remote instance with:
   - The C# extension (`ms-dotnettools.csharp`)
   - The PostgreSQL Explorer extension (`ckolkman.vscode-postgres`)
@@ -56,31 +90,19 @@ The default PostgreSQL credentials are:
 
 ## How to run the demos
 
-To execute the demo, open the root folder in VS Code, press `F1`, and search for `Reopen in container`. Wait for the Dev Container to complete the setup process.
+To execute the demo, open the repository root folder in VS Code, press `F1`, and search for `Reopen in container`. Wait for the Dev Container to complete the setup process.
 
-Once the demo content has been reopened in the dev container:
+Once the demo content has been reopened in the dev container, go to the `Run and Debug` VS Code section and select one of the available launch configurations:
 
-1. Press `F1`, search for `Run task`, and execute the desired task to build the solution or to build the solution and deploy the required data
-2. Go to the `Run and Debug` VS Code section and select the command you want to execute.
+- **`Demo - (build)`** – Builds the solution and then launches all services.
+- **`Demo - (build & deploy data)`** – Builds the solution, creates and seeds the databases, and then launches all services. Use this option on the first run or after resetting the databases.
+- **`Demo - (no build)`** – Launches all services without rebuilding first.
 
-## Test plan
+Each configuration launches all services simultaneously in integrated terminal windows:
 
-There is currently no automated test project in the solution. The recommended incremental test plan is:
-
-1. Add one xUnit test project for each core runtime area:
-   - `Sales.Service.Tests`
-   - `Warehouse.Service.Tests`
-   - `Shipping.Service.Tests`
-   - `Sales.Api.Tests` (for controller behavior)
-2. Start from high-value and deterministic business logic:
-   - `Sales.Service.Handlers.AddItemToCartHandler`, `Warehouse.Service.Handlers.AddItemToCartHandler`, and `Shipping.Service.Handlers.AddItemToCartHandler` (idempotency and persistence side effects)
-   - `ShoppingCartLifecyclePolicy` in Sales (timeout and publish behavior)
-3. Add API-focused tests for cart read models:
-   - `Sales.Api.Controllers.ShoppingCartController`
-   - `Warehouse.Api.Controllers.ShoppingCartController`
-4. Keep integration tests as a second step once unit coverage is in place:
-   - message flow from `ProductAddedToCart` to timeout notifications (`ShoppingCartGotStale` after 30 seconds and `ShoppingCartGotInactive` after 60 seconds of inactivity)
-   - end-to-end shopping cart query consistency across services
+- `Marketing.Api`, `Sales.Api`, `Shipping.Api`, `Warehouse.Api` – REST API endpoints
+- `Marketing.Service`, `Sales.Service`, `Shipping.Service`, `Warehouse.Service` – background NServiceBus message-processing endpoints
+- `WebApp` – the web frontend (opens automatically in the browser)
 
 ### Disclaimer
 
