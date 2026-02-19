@@ -63,6 +63,25 @@ Once the demo content has been reopened in the dev container:
 1. Press `F1`, search for `Run task`, and execute the desired task to build the solution or to build the solution and deploy the required data
 2. Go to the `Run and Debug` VS Code section and select the command you want to execute.
 
+## Test plan
+
+There is currently no automated test project in the solution. The recommended incremental test plan is:
+
+1. Add one xUnit test project for each core runtime area:
+   - `Sales.Service.Tests`
+   - `Warehouse.Service.Tests`
+   - `Shipping.Service.Tests`
+   - `Sales.Api.Tests` (for controller behavior)
+2. Start from high-value and deterministic business logic:
+   - `AddItemToCartHandler` in Sales, Warehouse, and Shipping (idempotency and persistence side effects)
+   - `ShoppingCartLifecyclePolicy` in Sales (timeout and publish behavior)
+3. Add API-focused tests for cart read models:
+   - `Sales.Api.Controllers.ShoppingCartController`
+   - `Warehouse.Api.Controllers.ShoppingCartController`
+4. Keep integration tests as a second step once unit coverage is in place:
+   - message flow from `ProductAddedToCart` to stale/inactive notifications
+   - end-to-end shopping cart query consistency across services
+
 ### Disclaimer
 
 This demo is built using [NServiceBus Sagas](https://docs.particular.net/nservicebus/sagas/); I work for [Particular Software](https://particular.net/), the makers of NServiceBus.
