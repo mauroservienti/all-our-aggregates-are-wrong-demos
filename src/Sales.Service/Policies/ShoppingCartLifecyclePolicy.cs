@@ -13,7 +13,7 @@ namespace Sales.Service.Policies
     {
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<ShoppingCartLifecyclePolicyData> mapper)
         {
-            mapper.ConfigureMapping<ProductAddedToCart>(msg => msg.CartId).ToSaga(data => data.CartId);
+            mapper.MapSaga(data => data.CartId).ToMessage<ProductAddedToCart>(msg => msg.CartId);
         }
 
         public class ShoppingCartLifecyclePolicyData : ContainSagaData
