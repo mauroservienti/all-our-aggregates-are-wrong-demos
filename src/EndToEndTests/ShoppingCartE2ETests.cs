@@ -37,24 +37,21 @@ public class ShoppingCartE2ETests : IAsyncLifetime
 {
     // Each database container uses a fixed host port matching the connection string
     // hardcoded in the corresponding DbContext / Service Program.cs.
-    readonly PostgreSqlContainer _salesDb = new PostgreSqlBuilder()
-        .WithImage("postgres:16")
+    readonly PostgreSqlContainer _salesDb = new PostgreSqlBuilder("postgres:16")
         .WithPortBinding(7432, 5432)
         .WithDatabase("sales_database")
         .WithUsername("db_user")
         .WithPassword("P@ssw0rd")
         .Build();
 
-    readonly PostgreSqlContainer _shippingDb = new PostgreSqlBuilder()
-        .WithImage("postgres:16")
+    readonly PostgreSqlContainer _shippingDb = new PostgreSqlBuilder("postgres:16")
         .WithPortBinding(8432, 5432)
         .WithDatabase("shipping_database")
         .WithUsername("db_user")
         .WithPassword("P@ssw0rd")
         .Build();
 
-    readonly PostgreSqlContainer _warehouseDb = new PostgreSqlBuilder()
-        .WithImage("postgres:16")
+    readonly PostgreSqlContainer _warehouseDb = new PostgreSqlBuilder("postgres:16")
         .WithPortBinding(9432, 5432)
         .WithDatabase("warehouse_database")
         .WithUsername("db_user")
@@ -62,8 +59,7 @@ public class ShoppingCartE2ETests : IAsyncLifetime
         .Build();
 
     // WebApp NServiceBus DB: dynamic port; connection string injected via configuration.
-    readonly PostgreSqlContainer _webAppDb = new PostgreSqlBuilder()
-        .WithImage("postgres:16")
+    readonly PostgreSqlContainer _webAppDb = new PostgreSqlBuilder("postgres:16")
         .Build();
 
     IHost? _salesServiceHost;
