@@ -73,13 +73,13 @@ There is currently no automated test project in the solution. The recommended in
    - `Shipping.Service.Tests`
    - `Sales.Api.Tests` (for controller behavior)
 2. Start from high-value and deterministic business logic:
-   - `AddItemToCartHandler` in Sales, Warehouse, and Shipping (idempotency and persistence side effects)
+   - `Sales.Service.Handlers.AddItemToCartHandler`, `Warehouse.Service.Handlers.AddItemToCartHandler`, and `Shipping.Service.Handlers.AddItemToCartHandler` (idempotency and persistence side effects)
    - `ShoppingCartLifecyclePolicy` in Sales (timeout and publish behavior)
 3. Add API-focused tests for cart read models:
    - `Sales.Api.Controllers.ShoppingCartController`
    - `Warehouse.Api.Controllers.ShoppingCartController`
 4. Keep integration tests as a second step once unit coverage is in place:
-   - message flow from `ProductAddedToCart` to stale/inactive notifications
+   - message flow from `ProductAddedToCart` to timeout notifications (`ShoppingCartGotStale` after 30 seconds and `ShoppingCartGotInactive` after 60 seconds of inactivity)
    - end-to-end shopping cart query consistency across services
 
 ### Disclaimer
