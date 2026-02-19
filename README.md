@@ -65,7 +65,14 @@ Once the demo content has been reopened in the dev container:
 
 ## Test plan
 
-There is currently no automated test project in the solution. The recommended incremental test plan is:
+There is currently no automated test project in the solution.
+
+Execution status:
+
+- ✅ Baseline execution attempted with `dotnet test src/All-our-Aggregates-are-Wrong-Demos.sln`
+- ⚠️ Execution is currently blocked in restricted environments because the `particular packages` feed (`https://f.feedz.io/particular-software/packages/nuget/index.json`) may be unreachable (restore error `NU1301`)
+
+Recommended incremental test plan:
 
 1. Add one xUnit test project for each core runtime area:
    - `Sales.Service.Tests`
