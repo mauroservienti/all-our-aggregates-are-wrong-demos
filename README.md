@@ -70,7 +70,7 @@ There is currently no automated test project in the solution.
 Execution status:
 
 - ✅ Baseline execution attempted with `dotnet test src/All-our-Aggregates-are-Wrong-Demos.sln`
-- ⚠️ Execution is currently blocked in restricted environments because the `Particular Software packages` feed (`https://f.feedz.io/particular-software/packages/nuget/index.json`) may be unreachable (restore error `NU1301`)
+- ⚠️ Execution is currently blocked in this sandbox due to intermittent connectivity/DNS resolution to the `Particular Software packages` feed endpoint (`https://f.feedz.io/particular-software/packages/nuget/index.json`), producing restore error `NU1301` (the feed itself may still be healthy)
 
 Recommended incremental test plan:
 
