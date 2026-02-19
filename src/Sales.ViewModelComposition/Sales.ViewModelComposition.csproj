@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="NServiceBus" Version="10.1.0" />
-    <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" Version="9.0.0" />
+    <PackageReference Include="NServiceBus.TransactionalSession" Version="4.0.0" />
     <PackageReference Include="ServiceComposer.AspNetCore" Version="4.1.3" />
   </ItemGroup>
 
@@ -16,7 +16,6 @@
     <ProjectReference Include="..\Marketing.ViewModelComposition.Events\Marketing.ViewModelComposition.Events.csproj" />
     <ProjectReference Include="..\Sales.Messages\Sales.Messages.csproj" />
     <ProjectReference Include="..\Sales.ViewModelComposition.Events\Sales.ViewModelComposition.Events.csproj" />
-    <ProjectReference Include="..\Sales.ViewModelComposition.Messages\Sales.ViewModelComposition.Messages.csproj" />
   </ItemGroup>
 
 </Project>

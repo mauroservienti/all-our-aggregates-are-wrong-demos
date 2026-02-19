@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Routing;
 using NServiceBus;
 using NServiceBus.TransactionalSession;
+using Sales.Messages.Commands;
 using Sales.ViewModelComposition.Events;
-using Sales.ViewModelComposition.Messages;
 using ServiceComposer.AspNetCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,27 +23,23 @@ namespace Sales.ViewModelComposition
         [HttpPost("shoppingcart/add/{id}")]
         public async Task Handle(HttpRequest request)
         {
-            var requestData = new Dictionary<string, string>()
-            {
-                { "sales-product-id", (string)request.HttpContext.GetRouteValue("id") },
-                { "sales-quantity", request.Form["quantity"][0] },
-            };
             var compositionContext = request.GetCompositionContext();
-            var vm = request.GetComposedResponseModel();
+
             await request.GetCompositionContext().RaiseEvent(new AddItemToCartRequested()
             {
                 CartId = request.Cookies["cart-id"],
                 RequestId = compositionContext.RequestId,
-                RequestData = requestData
             });
 
-            await transactionalSession.Open(new SqlPersistenceOpenSessionOptions());
-            await transactionalSession.SendLocal(new AddToCartRequest()
+            var options = new SendOptions();
+            options.SetDestination("Sales.Service");
+            await transactionalSession.Send(new AddItemToCart()
             {
                 RequestId = compositionContext.RequestId,
                 CartId = new Guid(request.Cookies["cart-id"]),
-                RequestData = requestData });
-            await transactionalSession.Commit();
+                ProductId = int.Parse((string)request.HttpContext.GetRouteValue("id")),
+                Quantity = int.Parse(request.Form["quantity"][0]),
+            }, options);
         }
     }
 }
