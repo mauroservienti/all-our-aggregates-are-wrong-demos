@@ -212,7 +212,7 @@ public class ShoppingCartE2ETests : IAsyncLifetime
 
             // Wait until all three services have processed their commands and all
             // composed data is present on the page.
-            if (pageContent.Contains("Q.ty: 2") &&
+            if (pageContent.Contains("Q.ty: 2, Item $ 10, Total $ 20") &&
                 pageContent.Contains("between 1 and 12 days") &&
                 pageContent.Contains("4 item(s) left in stock"))
                 break;
@@ -220,8 +220,9 @@ public class ShoppingCartE2ETests : IAsyncLifetime
             await Task.Delay(TimeSpan.FromMilliseconds(500), cts.Token);
         }
 
-        // Sales.Api: product 1 has seed price $10.00 -> total for qty 2 is $20.00
-        Assert.Contains("Q.ty: 2, Item $ 10.00, Total $ 20.00", pageContent);
+        // Sales.Api: product 1 seed price is 10.00 (decimal) which renders as 10 (double)
+        // via the Newtonsoft.Json ExpandoObject pipeline used by the composition layer.
+        Assert.Contains("Q.ty: 2, Item $ 10, Total $ 20", pageContent);
 
         // Shipping.Api: product 1 seed data -> options min 1 day, max 12 days
         Assert.Contains("between 1 and 12 days", pageContent);
