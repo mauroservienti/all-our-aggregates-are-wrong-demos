@@ -21,7 +21,15 @@ namespace WebApp
                 .UseNServiceBus(ctx =>
                 {
                     var endpointConfiguration = new EndpointConfiguration("WebApp");
-                    endpointConfiguration.ApplyCommonConfiguration();
+                    var connectionString = ctx.Configuration["NServiceBus:WebAppDatabase"];
+                    if (!string.IsNullOrEmpty(connectionString))
+                    {
+                        endpointConfiguration.ApplyCommonConfigurationWithPersistence(connectionString, "WebApp");
+                    }
+                    else
+                    {
+                        endpointConfiguration.ApplyCommonConfiguration();
+                    }
 
                     return endpointConfiguration;
                 })

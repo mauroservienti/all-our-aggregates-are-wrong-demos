@@ -4,7 +4,8 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "NServiceBus__WebAppDatabase": "Host=localhost;Port=5432;Username=db_user;Password=P@ssw0rd;Database=webapp_database"
       },
       "applicationUrl": "http://localhost:5030/"
     }

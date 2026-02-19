@@ -1,4 +1,9 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using NServiceBus.Persistence;
+using NServiceBus.TransactionalSession;
 using System.Net;
 using System.Text;
 using WebApp;
@@ -7,11 +12,11 @@ using WebApp;
 
 namespace WebApp.Tests;
 
-public class CompositionIntegrationTests : IClassFixture<WebApplicationFactory<Startup>>, IClassFixture<StubApiServers>
+public class CompositionIntegrationTests : IClassFixture<TestWebApplicationFactory>, IClassFixture<StubApiServers>
 {
-    readonly WebApplicationFactory<Startup> factory;
+    readonly TestWebApplicationFactory factory;
 
-    public CompositionIntegrationTests(WebApplicationFactory<Startup> factory, StubApiServers _)
+    public CompositionIntegrationTests(TestWebApplicationFactory factory, StubApiServers _)
     {
         this.factory = factory;
     }
@@ -193,4 +198,30 @@ public class StubApiServers : IAsyncLifetime
 
         return "{}";
     }
+}
+
+public class TestWebApplicationFactory : WebApplicationFactory<Startup>
+{
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureServices(services =>
+        {
+            services.TryAddScoped<ITransactionalSession, NoOpTransactionalSession>();
+        });
+    }
+}
+
+class NoOpTransactionalSession : ITransactionalSession
+{
+    public ISynchronizedStorageSession SynchronizedStorageSession => throw new NotSupportedException();
+    public string SessionId => string.Empty;
+
+    public Task Open(OpenSessionOptions options, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public Task Commit(CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public Task Send(object message, SendOptions options, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public Task Send<T>(Action<T> messageConstructor, SendOptions options, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public Task Publish(object message, PublishOptions options, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public Task Publish<T>(Action<T> messageConstructor, PublishOptions options, CancellationToken cancellationToken = default) => Task.CompletedTask;
+    public void Dispose() { }
+    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 }

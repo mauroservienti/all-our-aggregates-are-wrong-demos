@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using NServiceBus;
+using NServiceBus.TransactionalSession;
 using Sales.ViewModelComposition.Events;
 using Sales.ViewModelComposition.Messages;
 using ServiceComposer.AspNetCore;
@@ -13,11 +14,11 @@ namespace Sales.ViewModelComposition
 {
     class ShoppingCartAddPostHandler : ICompositionRequestsHandler
     {
-        IMessageSession messageSession;
+        ITransactionalSession transactionalSession;
 
-        public ShoppingCartAddPostHandler(IMessageSession messageSession)
+        public ShoppingCartAddPostHandler(ITransactionalSession transactionalSession)
         {
-            this.messageSession = messageSession;
+            this.transactionalSession = transactionalSession;
         }
 
         [HttpPost("shoppingcart/add/{id}")]
@@ -37,11 +38,13 @@ namespace Sales.ViewModelComposition
                 RequestData = requestData
             });
 
-            await messageSession.SendLocal(new AddToCartRequest()
+            await transactionalSession.Open(new SqlPersistenceOpenSessionOptions());
+            await transactionalSession.SendLocal(new AddToCartRequest()
             {
                 RequestId = compositionContext.RequestId,
                 CartId = new Guid(request.Cookies["cart-id"]),
                 RequestData = requestData });
+            await transactionalSession.Commit();
         }
     }
 }
