@@ -38,22 +38,6 @@ An ASP.NET Core web application that serves as the user interface. It composes v
 - **`*.Messages` / `*.Messages.Events`** – NServiceBus message contracts (commands and events) for each domain.
 - **`*.ViewModelComposition` / `*.ViewModelComposition.Events` / `*.ViewModelComposition.Messages`** – ServiceComposer handlers and events used to contribute data from each service to the composite view models.
 
-## Test plan
-
-The repository currently has CI support for `dotnet test` but no test projects. The following plan introduces tests with minimal disruption:
-
-1. Add dedicated test projects (for example, `WebApp.Tests` and `*.ViewModelComposition.Tests`) using xUnit and `Microsoft.AspNetCore.Mvc.Testing`.
-2. Cover core ViewModel composition behavior first:
-   - Composition bootstrapping in `WebApp.Startup` (`AddViewModelComposition()` and `MapCompositionHandlers()`).
-   - `IdSetterViewModelPreviewHandler` route-id projection.
-   - Handler-specific view model enrichment in `Marketing/Sales/Shipping/Warehouse.ViewModelComposition`.
-3. Add ServiceComposer composition integration tests for key routes:
-   - `GET /` (available products composition),
-   - `GET /ShoppingCart` (shopping cart composition),
-   - `GET /products/details/{id}` (product details composition across services).
-4. Mock downstream APIs (`Marketing.Api`, `Sales.Api`, `Shipping.Api`, `Warehouse.Api`) to assert composed output shape and failure handling.
-5. Incrementally expand coverage to NServiceBus-driven subscribers and message handlers after HTTP composition tests are stable.
-
 ## Requirements
 
 The following requirements must be met to run the demos successfully:

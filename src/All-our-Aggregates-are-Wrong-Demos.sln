@@ -72,6 +72,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.ViewModelComposition.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateRequiredDatabases", "CreateRequiredDatabases\CreateRequiredDatabases.csproj", "{60F05CA2-4346-478C-8E31-BD85DF788FE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Tests", "WebApp.Tests\WebApp.Tests.csproj", "{3D0ADADC-55A5-4851-AC7F-094455437D9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +196,10 @@ Global
 		{60F05CA2-4346-478C-8E31-BD85DF788FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60F05CA2-4346-478C-8E31-BD85DF788FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60F05CA2-4346-478C-8E31-BD85DF788FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0ADADC-55A5-4851-AC7F-094455437D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0ADADC-55A5-4851-AC7F-094455437D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0ADADC-55A5-4851-AC7F-094455437D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0ADADC-55A5-4851-AC7F-094455437D9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
