@@ -1,0 +1,36 @@
+{
+  "solution": {
+    "path": "All-our-Aggregates-are-Wrong-Demos.sln",
+    "projects": [
+      "CreateRequiredDatabases\\CreateRequiredDatabases.csproj",
+      "ITOps.Middlewares\\ITOps.Middlewares.csproj",
+      "ITOps.ViewModelComposition\\ITOps.ViewModelComposition.csproj",
+      "JsonUtils\\JsonUtils.csproj",
+      "Marketing.Api\\Marketing.Api.csproj",
+      "Marketing.Data\\Marketing.Data.csproj",
+      "Marketing.Service\\Marketing.Service.csproj",
+      "Marketing.ViewModelComposition\\Marketing.ViewModelComposition.csproj",
+      "Marketing.ViewModelComposition.Events\\Marketing.ViewModelComposition.Events.csproj",
+      "NServiceBus.Shared\\NServiceBus.Shared.csproj",
+      "Sales.Api\\Sales.Api.csproj",
+      "Sales.Data\\Sales.Data.csproj",
+      "Sales.Messages\\Sales.Messages.csproj",
+      "Sales.Messages.Events\\Sales.Messages.Events.csproj",
+      "Sales.Service\\Sales.Service.csproj",
+      "Sales.ViewModelComposition\\Sales.ViewModelComposition.csproj",
+      "Sales.ViewModelComposition.Events\\Sales.ViewModelComposition.Events.csproj",
+      "Shipping.Api\\Shipping.Api.csproj",
+      "Shipping.Data\\Shipping.Data.csproj",
+      "Shipping.Messages\\Shipping.Messages.csproj",
+      "Shipping.Service\\Shipping.Service.csproj",
+      "Shipping.ViewModelComposition\\Shipping.ViewModelComposition.csproj",
+      "Warehouse.Api\\Warehouse.Api.csproj",
+      "Warehouse.Data\\Warehouse.Data.csproj",
+      "Warehouse.Messages\\Warehouse.Messages.csproj",
+      "Warehouse.Service\\Warehouse.Service.csproj",
+      "Warehouse.ViewModelComposition\\Warehouse.ViewModelComposition.csproj",
+      "WebApp\\WebApp.csproj",
+      "WebApp.Tests\\WebApp.Tests.csproj"
+    ]
+  }
+}

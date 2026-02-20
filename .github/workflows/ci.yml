@@ -33,9 +33,9 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - name: Build
-        run: dotnet build src --configuration Release
+        run: dotnet build src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release
       - name: Tests
-        run: dotnet test src --configuration Release --no-build --filter "FullyQualifiedName!~EndToEndTests"
+        run: dotnet test src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release --no-build
 
   e2e-tests:
     name: End-to-end tests (Linux)
