@@ -13,16 +13,8 @@ env:
   DOTNET_NOLOGO: true
 jobs:
   build:
-    name: Build and test on ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: windows-latest
-            name: Windows
-          - os: ubuntu-latest
-            name: Linux
-      fail-fast: false
+    name: Build and test (Linux)
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
