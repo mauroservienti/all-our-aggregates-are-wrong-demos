@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.3.9" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Testcontainers.PostgreSql" Version="4.10.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <!--
+    References to the application projects give the test access to each service's
+    Startup / Program types so they can be hosted in-process on real network ports.
+    Each *.Service project is referenced to make NServiceBus discover its message handlers.
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\Sales.Api\Sales.Api.csproj" />
+    <ProjectReference Include="..\Sales.Service\Sales.Service.csproj" />
+    <ProjectReference Include="..\Shipping.Api\Shipping.Api.csproj" />
+    <ProjectReference Include="..\Shipping.Service\Shipping.Service.csproj" />
+    <ProjectReference Include="..\Warehouse.Api\Warehouse.Api.csproj" />
+    <ProjectReference Include="..\Warehouse.Service\Warehouse.Service.csproj" />
+    <ProjectReference Include="..\WebApp\WebApp.csproj" AdditionalProperties="LibraryRestore=false" />
+  </ItemGroup>
+
+</Project>

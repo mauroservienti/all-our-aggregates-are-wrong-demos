@@ -13,16 +13,8 @@ env:
   DOTNET_NOLOGO: true
 jobs:
   build:
-    name: Build and test on ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: windows-latest
-            name: Windows
-          - os: ubuntu-latest
-            name: Linux
-      fail-fast: false
+    name: Build and test (Linux)
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
@@ -33,6 +25,25 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - name: Build
-        run: dotnet build src --configuration Release
+        run: dotnet build src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release
       - name: Tests
-        run: dotnet test src --configuration Release --no-build
+        run: dotnet test src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release --no-build
+
+  e2e-tests:
+    name: End-to-end tests (Linux)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5.1.0
+        with:
+          dotnet-version: 10.0.x
+      - name: Build
+        run: dotnet build src/EndToEndTests --configuration Release
+      - name: End-to-end tests
+        run: dotnet test src/EndToEndTests --configuration Release --no-build

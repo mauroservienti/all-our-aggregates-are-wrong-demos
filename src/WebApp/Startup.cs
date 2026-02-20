@@ -24,6 +24,7 @@ namespace WebApp
 
             app.UseStaticFiles();
             app.UseMiddleware<ShoppingCartMiddleware>();
+            app.UseMiddleware<TransactionalSessionMiddleware>();
 
             app.UseRouting();
             app.UseEndpoints(endpoints =>

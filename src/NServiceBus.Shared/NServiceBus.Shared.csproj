@@ -11,6 +11,7 @@
     <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="6.0.0" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="5.0.0" />
 	  <PackageReference Include="NServiceBus.Persistence.Sql" Version="9.0.0" />
+	  <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

@@ -39,3 +39,9 @@ services:
       env_file: 
          - warehouse-database.env
       network_mode: service:rabbit
+
+   webapp-database:
+      image: postgres
+      env_file: 
+         - webapp-database.env
+      network_mode: service:rabbit

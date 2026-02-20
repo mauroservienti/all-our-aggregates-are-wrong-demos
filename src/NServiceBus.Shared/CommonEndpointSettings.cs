@@ -1,7 +1,7 @@
 ﻿using System;
 using Npgsql;
 using NpgsqlTypes;
-
+using NServiceBus.TransactionalSession;
 namespace NServiceBus
 {
     public static class CommonEndpointSettings
@@ -52,6 +52,8 @@ namespace NServiceBus
                 });
             persistence.ConnectionBuilder(
                 connectionBuilder: () => new NpgsqlConnection(sqlPersistenceConnectionString));
+
+            persistence.EnableTransactionalSession();
 
             config.EnableOutbox();
         }
