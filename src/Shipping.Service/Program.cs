@@ -11,20 +11,7 @@ namespace Shipping.Service
             var serviceName = typeof(Program).Namespace;
             Console.Title = serviceName;
 
-            var config = new EndpointConfiguration(serviceName);
-            config.ApplyCommonConfigurationWithPersistence(@"Host=localhost;Port=8432;Username=db_user;Password=P@ssw0rd;Database=shipping_database");
-
-            config.ReportCustomChecksTo(serviceControlQueue: "Particular.ServiceControl");
-            var recoverabilityConfig = config.Recoverability();
-            recoverabilityConfig.Immediate(immediate => 
-            {
-                immediate.NumberOfRetries(1);
-            });
-            recoverabilityConfig.Delayed(delayed =>
-            {
-                delayed.NumberOfRetries(1);
-                delayed.TimeIncrease(TimeSpan.FromSeconds(5));
-            });
+            var config = ShippingServiceConfig.Create();
 
             var endpointInstance = await Endpoint.Start(config);
 
