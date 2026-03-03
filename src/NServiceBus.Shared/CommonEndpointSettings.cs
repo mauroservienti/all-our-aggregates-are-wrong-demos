@@ -11,12 +11,14 @@ namespace NServiceBus
         {
             public void ApplyCommonConfiguration() 
             {
+                config.EnableInstallers();
+                
                 config.AuditProcessedMessagesTo("audit");
                 config.SendFailedMessagesTo("error");
 
                 config.UseSerialization<NewtonsoftJsonSerializer>();
                 var rabbitCs = Environment.GetEnvironmentVariable("RABBITMQ_CONNECTION_STRING")
-                               ?? "amqp://guest:guest@localhost";
+                               ?? "host=localhost";
                 var transport = new RabbitMQTransport(
                     RoutingTopology.Conventional(QueueType.Quorum), rabbitCs);
                 config.UseTransport(transport);
@@ -40,8 +42,6 @@ namespace NServiceBus
             public void ApplyCommonConfigurationWithPersistence(string sqlPersistenceConnectionString, string tablePrefix = null)
             {
                 ApplyCommonConfiguration(config);
-
-                config.EnableInstallers();
 
                 var persistence = config.UsePersistence<SqlPersistence>();
                 var dialect = persistence.SqlDialect<SqlDialect.PostgreSql>();
