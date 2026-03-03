@@ -1,11 +1,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using NServiceBus;
 using Sales.Data;
 using Shipping.Data;
 using System.Net;
 using System.Text;
-using Testcontainers.PostgreSql;
+using NServiceBus.IntegrationTesting;
 using Warehouse.Data;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
@@ -35,33 +34,7 @@ namespace EndToEndTests;
 /// </summary>
 public class ShoppingCartE2ETests : IAsyncLifetime
 {
-    // Each database container uses a fixed host port matching the connection string
-    // hardcoded in the corresponding DbContext / Service Program.cs.
-    readonly PostgreSqlContainer _salesDb = new PostgreSqlBuilder("postgres:16")
-        .WithPortBinding(7432, 5432)
-        .WithDatabase("sales_database")
-        .WithUsername("db_user")
-        .WithPassword("P@ssw0rd")
-        .Build();
-
-    readonly PostgreSqlContainer _shippingDb = new PostgreSqlBuilder("postgres:16")
-        .WithPortBinding(8432, 5432)
-        .WithDatabase("shipping_database")
-        .WithUsername("db_user")
-        .WithPassword("P@ssw0rd")
-        .Build();
-
-    readonly PostgreSqlContainer _warehouseDb = new PostgreSqlBuilder("postgres:16")
-        .WithPortBinding(9432, 5432)
-        .WithDatabase("warehouse_database")
-        .WithUsername("db_user")
-        .WithPassword("P@ssw0rd")
-        .Build();
-
-    // WebApp NServiceBus DB: dynamic port; connection string injected via configuration.
-    readonly PostgreSqlContainer _webAppDb = new PostgreSqlBuilder("postgres:16")
-        .Build();
-
+    TestEnvironment env;
     IHost? _salesServiceHost;
     IHost? _shippingServiceHost;
     IHost? _warehouseServiceHost;
@@ -74,14 +47,57 @@ public class ShoppingCartE2ETests : IAsyncLifetime
     readonly List<HttpListener> _stubListeners = [];
     readonly List<Task> _stubLoops = [];
 
+    static string FindSrcRoot()
+    {
+        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+        while (dir is not null && !dir.GetFiles("*.sln").Any())
+            dir = dir.Parent;
+        return dir?.FullName
+               ?? throw new InvalidOperationException(
+                   "Cannot locate src/ root. Ensure the test runs inside the repository.");
+    }
+
     public async Task InitializeAsync()
     {
-        // ── 1. Start all databases in parallel ───────────────────────────────────
-        await Task.WhenAll(
-            _salesDb.StartAsync(),
-            _shippingDb.StartAsync(),
-            _warehouseDb.StartAsync(),
-            _webAppDb.StartAsync());
+        // ── 1. Start all containers in parallel ──────────────────────────────────
+        var srcDir = FindSrcRoot();
+        env = await new TestEnvironmentBuilder()
+            .WithDockerfileDirectory(srcDir)
+            .UseRabbitMQ(containerBuilder: b => b
+                .WithUsername("guest")
+                .WithPassword("guest")
+                .WithPortBinding(5672, 5672)
+                .WithPortBinding(15672, 15672))
+            .UsePostgreSql(
+                containerOptions: options => { options.Key = "postgres-sales"; },
+                containerBuilder: b => b
+                    .WithPortBinding(7432, 5432)
+                    .WithDatabase("sales_database")
+                    .WithUsername("db_user")
+                    .WithPassword("P@ssw0rd"))
+            .UsePostgreSql(
+                containerOptions: options => { options.Key = "postgres-shipping"; },
+                containerBuilder: b => b
+                    .WithPortBinding(8432, 5432)
+                    .WithDatabase("shipping_database")
+                    .WithUsername("db_user")
+                    .WithPassword("P@ssw0rd"))
+            .UsePostgreSql(
+                containerOptions: options => { options.Key = "postgres-warehouse"; }, 
+                containerBuilder: b => b
+                    .WithPortBinding(9432, 5432)
+                    .WithDatabase("warehouse_database")
+                    .WithUsername("db_user")
+                    .WithPassword("P@ssw0rd"))
+            .UsePostgreSql(
+                containerOptions: options => { options.Key = "postgres-webapp"; }, 
+                containerBuilder: b => b
+                    .WithPortBinding(6432, 5432)
+                    .WithDatabase("webapp_database")
+                    .WithUsername("db_user")
+                    .WithPassword("P@ssw0rd"))
+            .StartAsync();
+
 
         // ── 2. Create EF Core schema + seed data in each service database ─────────
         //      EnsureCreated applies the HasData seed records defined in each context.
@@ -109,8 +125,8 @@ public class ShoppingCartE2ETests : IAsyncLifetime
             _warehouseServiceHost.StartAsync());
 
         // ── 4. Start API hosts on their well-known ports ──────────────────────────
-        _salesApiHost     = BuildApiHost(Sales.Api.Program.CreateHostBuilder([]),     "http://localhost:5031");
-        _shippingApiHost  = BuildApiHost(Shipping.Api.Program.CreateHostBuilder([]),  "http://localhost:5034");
+        _salesApiHost = BuildApiHost(Sales.Api.Program.CreateHostBuilder([]), "http://localhost:5031");
+        _shippingApiHost = BuildApiHost(Shipping.Api.Program.CreateHostBuilder([]), "http://localhost:5034");
         _warehouseApiHost = BuildApiHost(Warehouse.Api.Program.CreateHostBuilder([]), "http://localhost:5033");
 
         await Task.WhenAll(
@@ -125,7 +141,7 @@ public class ShoppingCartE2ETests : IAsyncLifetime
                 {
                     // Inject the Testcontainers connection string so that
                     // WebApp/Program.cs picks up the real SQL persistence path.
-                    ["NServiceBus:WebAppDatabase"] = _webAppDb.GetConnectionString(),
+                    ["NServiceBus:WebAppDatabase"] = "Host=localhost;Port=6432;Username=db_user;Password=P@ssw0rd;Database=webapp_database",
                     ["urls"] = "http://localhost:5030"
                 }))
             .Build();
@@ -152,7 +168,12 @@ public class ShoppingCartE2ETests : IAsyncLifetime
         if (_shippingServiceHost != null) await _shippingServiceHost.StopAsync();
         if (_warehouseServiceHost != null) await _warehouseServiceHost.StopAsync();
 
-        foreach (var l in _stubListeners) { l.Stop(); l.Close(); }
+        foreach (var l in _stubListeners)
+        {
+            l.Stop();
+            l.Close();
+        }
+
         await Task.WhenAll(_stubLoops);
 
         _webAppHost?.Dispose();
@@ -163,11 +184,7 @@ public class ShoppingCartE2ETests : IAsyncLifetime
         _shippingServiceHost?.Dispose();
         _warehouseServiceHost?.Dispose();
 
-        await Task.WhenAll(
-            _salesDb.DisposeAsync().AsTask(),
-            _shippingDb.DisposeAsync().AsTask(),
-            _warehouseDb.DisposeAsync().AsTask(),
-            _webAppDb.DisposeAsync().AsTask());
+        await env.DisposeAsync();
     }
 
     /// <summary>
@@ -285,8 +302,14 @@ public class ShoppingCartE2ETests : IAsyncLifetime
                     await ctx.Response.OutputStream.WriteAsync(bytes);
                     ctx.Response.Close();
                 }
-                catch (HttpListenerException) { break; }
-                catch (ObjectDisposedException) { break; }
+                catch (HttpListenerException)
+                {
+                    break;
+                }
+                catch (ObjectDisposedException)
+                {
+                    break;
+                }
             }
         }));
     }
