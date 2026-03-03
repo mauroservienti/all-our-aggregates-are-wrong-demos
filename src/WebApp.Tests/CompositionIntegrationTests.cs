@@ -18,6 +18,8 @@ public class CompositionIntegrationTests : IClassFixture<TestWebApplicationFacto
 
     public CompositionIntegrationTests(TestWebApplicationFactory factory, StubApiServers _, RabbitMqDependency __)
     {
+        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("en-US");
+        CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("en-US");
         this.factory = factory;
     }
 
