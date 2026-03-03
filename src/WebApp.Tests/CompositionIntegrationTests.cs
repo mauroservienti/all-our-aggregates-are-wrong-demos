@@ -1,22 +1,22 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NServiceBus.Persistence;
 using NServiceBus.TransactionalSession;
 using System.Net;
 using System.Text;
-using WebApp;
+using NServiceBus.IntegrationTesting;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace WebApp.Tests;
 
-public class CompositionIntegrationTests : IClassFixture<TestWebApplicationFactory>, IClassFixture<StubApiServers>
+public class CompositionIntegrationTests : IClassFixture<TestWebApplicationFactory>, IClassFixture<StubApiServers>, IClassFixture<RabbitMqDependency>
 {
     readonly TestWebApplicationFactory factory;
 
-    public CompositionIntegrationTests(TestWebApplicationFactory factory, StubApiServers _)
+    public CompositionIntegrationTests(TestWebApplicationFactory factory, StubApiServers _, RabbitMqDependency __)
     {
         this.factory = factory;
     }
@@ -63,6 +63,39 @@ public class CompositionIntegrationTests : IClassFixture<TestWebApplicationFacto
         Assert.Contains("Out of stock", response);
         Assert.Contains("Shipping: Standard, Express", response);
         Assert.Contains("Product #42", response);
+    }
+}
+
+public class RabbitMqDependency : IAsyncLifetime
+{
+    TestEnvironment _env;
+
+    public async Task InitializeAsync()
+    {
+        var srcDir = FindSrcRoot();
+        _env = await new TestEnvironmentBuilder()
+            .WithDockerfileDirectory(srcDir)
+            .UseRabbitMQ(containerBuilder: b => b
+                .WithUsername("guest")
+                .WithPassword("guest")
+                .WithPortBinding(5672, 5672)
+                .WithPortBinding(15672, 15672))
+            .StartAsync();
+    }
+
+    public Task DisposeAsync()
+    {
+        return _env.DisposeAsync().AsTask();
+    }
+    
+    static string FindSrcRoot()
+    {
+        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+        while (dir is not null && !dir.GetFiles("*.sln").Any())
+            dir = dir.Parent;
+        return dir?.FullName
+               ?? throw new InvalidOperationException(
+                   "Cannot locate src/ root. Ensure the test runs inside the repository.");
     }
 }
 
