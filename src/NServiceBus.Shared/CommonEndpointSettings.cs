@@ -28,15 +28,16 @@ namespace NServiceBus
                 messageConventions.DefiningEventsAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages.Events"));
                 messageConventions.DefiningCommandsAs(t => t.Namespace != null && t.Namespace.EndsWith(".Messages.Commands"));
 
-                config.SendHeartbeatTo(
-                    serviceControlQueue: "Particular.ServiceControl",
-                    frequency: TimeSpan.FromSeconds(10),
-                    timeToLive: TimeSpan.FromSeconds(5));
-
-                var metrics = config.EnableMetrics();
-                metrics.SendMetricDataToServiceControl(
-                    serviceControlMetricsAddress: "Particular.Monitoring",
-                    interval: TimeSpan.FromSeconds(5));
+                // TODO: re-enable this and the Saga Audit in sales
+                // config.SendHeartbeatTo(
+                //     serviceControlQueue: "Particular.ServiceControl",
+                //     frequency: TimeSpan.FromSeconds(10),
+                //     timeToLive: TimeSpan.FromSeconds(5));
+                //
+                // var metrics = config.EnableMetrics();
+                // metrics.SendMetricDataToServiceControl(
+                //     serviceControlMetricsAddress: "Particular.Monitoring",
+                //     interval: TimeSpan.FromSeconds(5));
             }
 
             public void ApplyCommonConfigurationWithPersistence(string sqlPersistenceConnectionString, string tablePrefix = null)
