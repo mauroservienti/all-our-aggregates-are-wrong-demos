@@ -35,3 +35,6 @@ x86/
 # macOS garbage
 .DS_Store
 src/.claude/settings.local.json
+
+# Local NuGet packages (copy .nupkg files here instead of pushing to a remote feed)
+src/local-packages/
