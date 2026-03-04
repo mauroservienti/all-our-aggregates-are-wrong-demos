@@ -1,47 +1,42 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
+using ITOps.Middlewares;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using ServiceComposer.AspNetCore;
 
-namespace WebApp
+namespace WebApp;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args) => Build(args).Run();
+
+    public static WebApplication Build(string[] args, Action<WebApplicationBuilder> configure = null)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+        configure?.Invoke(builder);
+
+        builder.Services.AddControllersWithViews();
+        builder.Services.AddViewModelComposition(options =>
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            options.EnableCompositionOverControllers(true);
+        });
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, loggingBuilder) =>
-                {
-                    loggingBuilder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                })
-                .UseNServiceBus(ctx =>
-                {
-                    var endpointConfiguration = new EndpointConfiguration("WebApp");
-                    var connectionString = ctx.Configuration["NServiceBus:WebAppDatabase"];
-                    if (!string.IsNullOrEmpty(connectionString))
-                    {
-                        endpointConfiguration.ApplyCommonConfigurationWithPersistence(connectionString, "WebApp");
-                    }
-                    else
-                    {
-                        endpointConfiguration.ApplyCommonConfiguration();
-                    }
+        builder.Host.UseNServiceBus(ctx =>
+        {
+            var endpointConfiguration = WebAppConfig.Create(ctx.Configuration);
+            return endpointConfiguration;
+        });
 
-                    // Exclude backend service assemblies from scanning so that their
-                    // message handlers are not registered in the WebApp endpoint.
-                    endpointConfiguration.AssemblyScanner()
-                        .ExcludeAssemblies(
-                            "Sales.Service.dll",
-                            "Shipping.Service.dll",
-                            "Warehouse.Service.dll",
-                            "Marketing.Service.dll");
+        var app = builder.Build();
 
-                    return endpointConfiguration;
-                })
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        app.UseBrowserLink();
+        app.UseStaticFiles();
+        app.UseMiddleware<ShoppingCartMiddleware>();
+        app.UseMiddleware<TransactionalSessionMiddleware>();
+        app.MapControllers();
+        app.MapCompositionHandlers();
+
+        return app;
     }
 }

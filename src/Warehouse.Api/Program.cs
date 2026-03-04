@@ -1,22 +1,23 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Warehouse.Api
+namespace Warehouse.Api;
+
+public class Program
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    public static void Main(string[] args) => Build(args).Run();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, loggingBuilder) =>
-                {
-                    loggingBuilder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                })
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+    public static WebApplication Build(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddCors(options =>
+            options.AddPolicy("AllowAllOrigins", b => b.AllowAnyOrigin()));
+        builder.Services.AddControllers();
+
+        var app = builder.Build();
+        app.UseCors("AllowAllOrigins");
+        app.MapControllers();
+
+        return app;
     }
 }
