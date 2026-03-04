@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Sales.Data.Models;
 
 namespace Sales.Data
@@ -13,7 +14,10 @@ namespace Sales.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"Host=localhost;Port=7432;Username=db_user;Password=P@ssw0rd;Database=sales_database");
+            var connectionString = Environment.GetEnvironmentVariable("POSTGRES_SALES_CONNECTION_STRING")
+                                   ?? "Host=localhost;Port=7432;Username=db_user;Password=P@ssw0rd;Database=sales_database";
+            
+            optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

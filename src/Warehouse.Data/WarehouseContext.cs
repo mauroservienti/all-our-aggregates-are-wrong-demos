@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Warehouse.Data.Models;
 
 namespace Warehouse.Data
@@ -13,7 +14,9 @@ namespace Warehouse.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"Host=localhost;Port=9432;Username=db_user;Password=P@ssw0rd;Database=warehouse_database");
+            var connectionString = Environment.GetEnvironmentVariable("POSTGRES_WAREHOUSE_CONNECTION_STRING")
+                                   ?? "Host=localhost;Port=9432;Username=db_user;Password=P@ssw0rd;Database=warehouse_database";
+            optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

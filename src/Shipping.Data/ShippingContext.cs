@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Shipping.Data.Models;
 
 namespace Shipping.Data
@@ -13,7 +14,9 @@ namespace Shipping.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"Host=localhost;Port=8432;Username=db_user;Password=P@ssw0rd;Database=shipping_database");
+            var connectionString = Environment.GetEnvironmentVariable("POSTGRES_SHIPPING_CONNECTION_STRING")
+                                   ?? "Host=localhost;Port=8432;Username=db_user;Password=P@ssw0rd;Database=shipping_database";
+            optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

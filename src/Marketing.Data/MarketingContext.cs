@@ -1,17 +1,19 @@
-﻿using Marketing.Data.Models;
+﻿using System;
+using Marketing.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketing.Data
 {
     public class MarketingContext : DbContext
     {
-        public MarketingContext() { }
-
         public DbSet<ProductDetails> ProductsDetails { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"Host=localhost;Port=6432;Username=db_user;Password=P@ssw0rd;Database=marketing_database");
+            var connectionString = Environment.GetEnvironmentVariable("POSTGRES_MARKETING_CONNECTION_STRING")
+                                   ?? "Host=localhost;Port=6432;Username=db_user;Password=P@ssw0rd;Database=marketing_database";
+            
+            optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
