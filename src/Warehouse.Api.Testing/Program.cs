@@ -1,0 +1,1 @@
+Warehouse.Api.Program.Main(args);
