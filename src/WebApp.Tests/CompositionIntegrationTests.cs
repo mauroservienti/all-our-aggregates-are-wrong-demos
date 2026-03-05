@@ -235,7 +235,7 @@ public class StubApiServers : IAsyncLifetime
     }
 }
 
-public class TestWebApplicationFactory : WebApplicationFactory<Startup>
+public class TestWebApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
