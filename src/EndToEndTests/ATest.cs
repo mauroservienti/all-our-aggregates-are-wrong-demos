@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using NServiceBus.IntegrationTesting;
 using Xunit.Abstractions;
 
@@ -21,7 +22,8 @@ public class ATest(ITestOutputHelper testOutput, ATestDependencies dependencies)
         var response = await client.GetAsync("/");
         var result = await response.Content.ReadAsStringAsync();
 
-        await Verify(result);
+        await Verify(result)
+            .ScrubLinesWithReplace(line => Regex.Replace(line, @"site\.js\?v=[^""]+", "site.js"));
         _testPassed = true;
     }
 
