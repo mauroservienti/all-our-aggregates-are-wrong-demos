@@ -79,8 +79,7 @@ static class BuilderExtensions
                         options.EnvironmentVariables.Add("WAREHOUSE_API_BASE_ADDRESS", "http://warehouse-api:8080/api");
                     },
                     containerBuilder: b => b
-                        //WebApp is configured to listen on port 5030/HTTP
-                        .WithPortBinding(5030, assignRandomHostPort: true));
+                        .WithPortBinding(8080, assignRandomHostPort: true));
         }
 
         public TestEnvironmentBuilder AddSales()
