@@ -27,8 +27,8 @@ static class BuilderExtensions
             
             var postgreSql = testEnvironment.GetInfrastructure($"postgres-{discriminator.ToLowerInvariant()}");
             await postgreSql.ExecAsync(["dropdb", "-U", "db_user", $"{discriminator.ToLowerInvariant()}_database"]);
-            await postgreSql.ExecAsync(["createdb", "-U", "db_user", "sales_database"]);
-            
+            await postgreSql.ExecAsync(["createdb", "-U", "db_user", $"{discriminator.ToLowerInvariant()}_database"]);
+
             await serviceEndpoint.StartAsync();
         }
 
@@ -38,10 +38,10 @@ static class BuilderExtensions
             var serviceEndpoint = testEnvironment.GetEndpoint($"{discriminator}.Service");
             //await apiEndpoint.StopAsync();
             await serviceEndpoint.StopAsync();
-            
+
             var postgreSql = testEnvironment.GetInfrastructure($"postgres-{discriminator.ToLowerInvariant()}");
             await postgreSql.ExecAsync(["dropdb", "-U", "db_user", $"{discriminator.ToLowerInvariant()}_database"]);
-            await postgreSql.ExecAsync(["createdb", "-U", "db_user", "sales_database"]);
+            await postgreSql.ExecAsync(["createdb", "-U", "db_user", $"{discriminator.ToLowerInvariant()}_database"]);
             
             //await apiEndpoint.StartAsync();
             await serviceEndpoint.StartAsync();
@@ -79,7 +79,7 @@ static class BuilderExtensions
                         options.EnvironmentVariables.Add("WAREHOUSE_API_BASE_ADDRESS", "http://warehouse-api:8080/api");
                     },
                     containerBuilder: b => b
-                        //.WithLogger(logger)
+                        //WebApp is configured to listen on port 5030/HTTP
                         .WithPortBinding(5030, assignRandomHostPort: true));
         }
 
@@ -94,10 +94,7 @@ static class BuilderExtensions
         {
             return testEnvironmentBuilder.UsePostgreSqlForService("shipping")
                 .AddEndpoint("Shipping.Service", "Shipping.Service.Testing/Dockerfile")
-                .AddContainer("Shipping.Api", "Shipping.Api.Testing/Dockerfile", options => options.NetworkAlias = "shipping-api", containerBuilder: b =>
-                {
-                    return b.WithOutputConsumer(Consume.RedirectStdoutAndStderrToConsole());
-                });
+                .AddContainer("Shipping.Api", "Shipping.Api.Testing/Dockerfile", options => options.NetworkAlias = "shipping-api");
         }
 
         public TestEnvironmentBuilder AddMarketing()
