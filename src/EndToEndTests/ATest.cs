@@ -13,7 +13,7 @@ public class ATest(ITestOutputHelper testOutput, ATestDependencies dependencies)
     {
         var webApp = environment!.GetEndpoint("WebApp");
         var webAppBaseUrl = webApp.GetBaseUrl(8080);
-        var client = new HttpClient()
+        var client = new HttpClient
         {
             BaseAddress = new Uri(webAppBaseUrl)
         };
@@ -21,6 +21,7 @@ public class ATest(ITestOutputHelper testOutput, ATestDependencies dependencies)
         var response = await client.GetAsync("/");
         var result = await response.Content.ReadAsStringAsync();
 
+        await Verify(result);
         _testPassed = true;
     }
 
