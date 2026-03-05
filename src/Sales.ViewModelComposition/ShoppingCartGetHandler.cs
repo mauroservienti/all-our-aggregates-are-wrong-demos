@@ -1,4 +1,4 @@
-﻿using JsonUtils;
+using JsonUtils;
 using Microsoft.AspNetCore.Http;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
@@ -12,16 +12,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Sales.ViewModelComposition
 {
-    class ShoppingCartGetHandler : ICompositionRequestsHandler
+    class ShoppingCartGetHandler(IHttpClientFactory httpClientFactory) : ICompositionRequestsHandler
     {
         [HttpGet("/ShoppingCart")]
         public async Task Handle(HttpRequest request)
         {
             var id = request.Cookies["cart-id"];
 
-            var url = $"http://localhost:5031/api/shopping-cart/{id}";
-            var client = new HttpClient();
-            var response = await client.GetAsync(url);
+            var client = httpClientFactory.CreateClient("sales-api");
+            var response = await client.GetAsync($"shopping-cart/{id}");
 
             dynamic shoppingCart = await response.Content.AsExpando();
             var vm = request.GetComposedResponseModel();

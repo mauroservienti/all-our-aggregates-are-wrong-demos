@@ -1,4 +1,4 @@
-﻿using JsonUtils;
+using JsonUtils;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
 using System;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketing.ViewModelComposition
 {
-    public class ShoppingCartItemsLoadedSubscriber : ICompositionEventsSubscriber
+    public class ShoppingCartItemsLoadedSubscriber(IHttpClientFactory httpClientFactory) : ICompositionEventsSubscriber
     {
         [HttpGet("/ShoppingCart")]
         public void Subscribe(ICompositionEventsPublisher publisher)
@@ -16,10 +16,8 @@ namespace Marketing.ViewModelComposition
             {
                 var ids = String.Join(",", @event.CartItemsViewModel.Keys);
 
-                var url = $"http://localhost:5032/api/product-details/products/{ids}";
-                var client = new HttpClient();
-
-                var response = await client.GetAsync(url).ConfigureAwait(false);
+                var client = httpClientFactory.CreateClient("marketing-api");
+                var response = await client.GetAsync($"product-details/products/{ids}").ConfigureAwait(false);
 
                 dynamic[] productDetails = await response.Content.AsExpandoArray().ConfigureAwait(false);
 

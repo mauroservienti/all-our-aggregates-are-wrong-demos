@@ -1,4 +1,4 @@
-﻿using JsonUtils;
+using JsonUtils;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
 using System;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Shipping.ViewModelComposition
 {
-    public class ShoppingCartItemsLoadedSubscriber : ICompositionEventsSubscriber
+    public class ShoppingCartItemsLoadedSubscriber(IHttpClientFactory httpClientFactory) : ICompositionEventsSubscriber
     {
         [HttpGet("/ShoppingCart")]
         public void Subscribe(ICompositionEventsPublisher publisher)
@@ -16,10 +16,8 @@ namespace Shipping.ViewModelComposition
             {
                 var ids = String.Join(",", @event.CartItemsViewModel.Keys);
 
-                var url = $"http://localhost:5034/api/shopping-cart/products/{ids}";
-                var client = new HttpClient();
-
-                var response = await client.GetAsync(url);
+                var client = httpClientFactory.CreateClient("shipping-api");
+                var response = await client.GetAsync($"shopping-cart/products/{ids}");
 
                 dynamic[] shippingDetails = await response.Content.AsExpandoArray();
                 if (shippingDetails == null || shippingDetails.Length == 0)

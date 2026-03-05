@@ -73,10 +73,10 @@ static class BuilderExtensions
                 .AddEndpoint("WebApp", "WebApp.Testing/Dockerfile",
                     containerOptions: options =>
                     {
-                        options.EnvironmentVariables.Add("MARKETING_API_BASE_ADDRESS", "http://marketing-api:8080/api");
-                        options.EnvironmentVariables.Add("SALES_API_BASE_ADDRESS", "http://sales-api:8080/api");
-                        options.EnvironmentVariables.Add("SHIPPING_API_BASE_ADDRESS", "http://shipping-api:8080/api");
-                        options.EnvironmentVariables.Add("WAREHOUSE_API_BASE_ADDRESS", "http://warehouse-api:8080/api");
+                        options.EnvironmentVariables.Add("MARKETING_API_BASE_ADDRESS", "http://marketing-api:8080/api/");
+                        options.EnvironmentVariables.Add("SALES_API_BASE_ADDRESS", "http://sales-api:8080/api/");
+                        options.EnvironmentVariables.Add("SHIPPING_API_BASE_ADDRESS", "http://shipping-api:8080/api/");
+                        options.EnvironmentVariables.Add("WAREHOUSE_API_BASE_ADDRESS", "http://warehouse-api:8080/api/");
                     },
                     containerBuilder: b => b
                         .WithPortBinding(8080, assignRandomHostPort: true));

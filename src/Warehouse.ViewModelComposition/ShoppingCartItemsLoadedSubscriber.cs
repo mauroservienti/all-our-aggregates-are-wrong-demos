@@ -1,4 +1,4 @@
-﻿using JsonUtils;
+using JsonUtils;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
 using System;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Warehouse.ViewModelComposition
 {
-    public class ShoppingCartItemsLoadedSubscriber : ICompositionEventsSubscriber
+    public class ShoppingCartItemsLoadedSubscriber(IHttpClientFactory httpClientFactory) : ICompositionEventsSubscriber
     {
         [HttpGet("/ShoppingCart")]
         public void Subscribe(ICompositionEventsPublisher publisher)
@@ -16,10 +16,8 @@ namespace Warehouse.ViewModelComposition
             {
                 var ids = String.Join(",", @event.CartItemsViewModel.Keys);
 
-                var url = $"http://localhost:5033/api/shopping-cart/products/{ids}";
-                var client = new HttpClient();
-
-                var response = await client.GetAsync(url);
+                var client = httpClientFactory.CreateClient("warehouse-api");
+                var response = await client.GetAsync($"shopping-cart/products/{ids}");
 
                 dynamic[] inventoryDetails = await response.Content.AsExpandoArray();
                 if (inventoryDetails == null || inventoryDetails.Length == 0)

@@ -11,14 +11,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketing.ViewModelComposition
 {
-    class AvailableProductsGetHandler : ICompositionRequestsHandler
+    class AvailableProductsGetHandler(IHttpClientFactory httpClientFactory) : ICompositionRequestsHandler
     {
         [HttpGet("/")]
         public async Task Handle(HttpRequest request)
         {
-            var url = $"http://localhost:5032/api/available/products";
-            var client = new HttpClient();
-            var response = await client.GetAsync(url);
+            var client = httpClientFactory.CreateClient("marketing-api");
+            var response = await client.GetAsync("available/products");
 
             var availableProducts = await response.Content.As<int[]>();
             var availableProductsViewModel = MapToDictionary(availableProducts);

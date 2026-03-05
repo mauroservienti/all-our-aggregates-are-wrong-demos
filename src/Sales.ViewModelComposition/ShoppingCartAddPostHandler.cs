@@ -6,6 +6,7 @@ using Sales.Messages.Commands;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
