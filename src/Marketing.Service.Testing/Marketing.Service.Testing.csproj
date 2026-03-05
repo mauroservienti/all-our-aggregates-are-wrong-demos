@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NServiceBus.IntegrationTesting.AgentV10" Version="3.0.0-beta.7.3" />
+    <PackageReference Include="NServiceBus.IntegrationTesting.AgentV10" Version="3.0.0-beta.8" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Marketing.Data\Marketing.Data.csproj" />
