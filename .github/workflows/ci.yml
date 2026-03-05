@@ -27,8 +27,7 @@ jobs:
       - name: Build
         run: dotnet build src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release
       - name: Tests
-        run: dotnet test src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release --no-build
-
+        run: dotnet test src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release --no-build      
   e2e-tests:
     name: End-to-end tests (Linux)
     runs-on: ubuntu-latest
@@ -45,5 +44,43 @@ jobs:
           dotnet-version: 10.0.x
       - name: Build
         run: dotnet build src/EndToEndTests --configuration Release
+      - name: Pre-build endpoint Docker images
+        run: |
+          docker build \
+            -f src/WebApp.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/webapp:latest \
+            src/
+          docker build \
+            -f src/Marketing.Service.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/marketing.service:latest \
+            src/
+          docker build \
+            -f src/Marketing.Api.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/marketing.api:latest \
+            src/
+          docker build \
+            -f src/Sales.Service.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/sales.service:latest \
+            src/
+          docker build \
+            -f src/Sales.Api.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/sales.api:latest \
+            src/
+          docker build \
+            -f src/Shipping.Service.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/shipping.service:latest \
+            src/
+          docker build \
+            -f src/Shipping.Api.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/shipping.api:latest \
+            src/
+          docker build \
+            -f src/Warehouse.Service.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/warehouse.service:latest \
+            src/
+          docker build \
+            -f src/Warehouse.Api.Testing/Dockerfile \
+            -t localhost/nsb-integration-testing/warehouse.api:latest \
+            src/
       - name: End-to-end tests
         run: dotnet test src/EndToEndTests --configuration Release --no-build
