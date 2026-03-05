@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using ITOps.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -54,9 +55,7 @@ static class WebAppConfig
 
     public static EndpointConfiguration CreateNServiceBusConfiguration(HostBuilderContext ctx)
     {
-        var pgCs = Environment.GetEnvironmentVariable("POSTGRES_WEBAPP_CONNECTION_STRING")
-                   ?? ctx.Configuration?["NServiceBus:WebAppDatabase"]
-                   ?? "Host=localhost;Port=7432;Username=db_user;Password=P@ssw0rd;Database=webapp_database";
+        var pgCs = ctx.Configuration["POSTGRES_WEBAPP_CONNECTION_STRING"];
 
         var config = new EndpointConfiguration("WebApp");
         config.ApplyCommonConfigurationWithPersistence(pgCs, "WebApp");
