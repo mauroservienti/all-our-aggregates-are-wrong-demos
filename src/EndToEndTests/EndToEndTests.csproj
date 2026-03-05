@@ -31,6 +31,7 @@
     Each *.Service project is referenced to make NServiceBus discover its message handlers.
   -->
   <ItemGroup>
+    <ProjectReference Include="..\Marketing.Data\Marketing.Data.csproj" />
     <ProjectReference Include="..\Sales.Api\Sales.Api.csproj" />
     <ProjectReference Include="..\Sales.Service\Sales.Service.csproj" />
     <ProjectReference Include="..\Shipping.Api\Shipping.Api.csproj" />
