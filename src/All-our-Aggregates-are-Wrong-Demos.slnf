@@ -29,7 +29,6 @@
       "Warehouse.Messages\\Warehouse.Messages.csproj",
       "Warehouse.Service\\Warehouse.Service.csproj",
       "Warehouse.ViewModelComposition\\Warehouse.ViewModelComposition.csproj",
-      "WebApp\\WebApp.csproj",
       "WebApp.Tests\\WebApp.Tests.csproj"
     ]
   }
