@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="10.0.1" />
+    <PackageReference Include="Npgsql" Version="10.0.2" />
     <PackageReference Include="NServiceBus" Version="10.1.0" />
     <PackageReference Include="NServiceBus.Heartbeat" Version="6.0.0" />
     <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="6.0.0" />
