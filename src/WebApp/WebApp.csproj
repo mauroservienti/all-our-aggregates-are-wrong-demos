@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="3.0.71" />
-    <PackageReference Include="NServiceBus" Version="10.1.1" />
+    <PackageReference Include="NServiceBus" Version="10.1.2" />
     <PackageReference Include="NServiceBus.Extensions.Hosting" Version="4.0.0" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="5.0.0" />
     <PackageReference Include="ServiceComposer.AspNetCore" Version="5.2.0" />
