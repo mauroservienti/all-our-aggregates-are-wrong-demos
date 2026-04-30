@@ -9,7 +9,7 @@ services:
       command: sleep infinity
 
    rabbit:
-      image: rabbitmq:3.10-management
+      image: rabbitmq:3.13-management
       restart: unless-stopped
       hostname: rabbit
       environment:
