@@ -10,8 +10,8 @@
     <PackageReference Include="NServiceBus.Heartbeat" Version="6.0.1" />
     <PackageReference Include="NServiceBus.Metrics.ServiceControl" Version="6.0.1" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="5.0.1" />
-	  <PackageReference Include="NServiceBus.Persistence.Sql" Version="9.0.1" />
-	  <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" Version="9.0.2" />
+    <PackageReference Include="NServiceBus.Persistence.Sql" Version="9.0.2" />
+    <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" Version="9.0.2" />
   </ItemGroup>
 
 </Project>
