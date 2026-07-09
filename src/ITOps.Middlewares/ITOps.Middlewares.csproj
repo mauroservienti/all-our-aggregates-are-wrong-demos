@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.11" />
     <PackageReference Include="NServiceBus" Version="10.2.7" />
-    <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" Version="9.0.1" />
+    <PackageReference Include="NServiceBus.Persistence.Sql.TransactionalSession" Version="9.0.2" />
     <PackageReference Include="NServiceBus.TransactionalSession" Version="4.1.0" />
   </ItemGroup>
 
