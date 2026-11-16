@@ -3,15 +3,18 @@ name: Add to project board
 on:
   issues:
     types: [opened, reopened, transferred]
-  # pull_request_target (not pull_request) so PRs from forks can read the secret.
-  # Safe here: this workflow never checks out or runs the PR's code.
-  pull_request_target:
+  pull_request:
     types: [opened, reopened]
 
 permissions: {}
 
 jobs:
   add-to-project:
+    # PRs from forks and from Dependabot don't get the secret, so skip them.
+    if: >-
+      github.event_name == 'issues' ||
+      (github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/add-to-project@v2.0.1
