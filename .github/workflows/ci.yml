@@ -23,7 +23,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v6.1.0
         with:
-          dotnet-version: 10.0.x
+          dotnet-version: 11.0.x
       - name: Build
         run: dotnet build src/All-our-Aggregates-are-Wrong-Demos.slnf --configuration Release
       - name: Tests
@@ -42,7 +42,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v6.1.0
         with:
-          dotnet-version: 10.0.x
+          dotnet-version: 11.0.x
       - name: Build
         run: dotnet build src/EndToEndTests --configuration Release
       - name: End-to-end tests
