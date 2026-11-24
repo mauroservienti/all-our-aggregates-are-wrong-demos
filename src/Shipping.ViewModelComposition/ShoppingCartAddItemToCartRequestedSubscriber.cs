@@ -1,6 +1,6 @@
+using Heyi;
 using Microsoft.AspNetCore.Routing;
 using NServiceBus;
-using NServiceBus.TransactionalSession;
 using Sales.ViewModelComposition.Events;
 using ServiceComposer.AspNetCore;
 using Shipping.Messages.Commands;
@@ -12,11 +12,11 @@ namespace Shipping.ViewModelComposition
 {
     public class ShoppingCartAddItemToCartRequestedSubscriber : ICompositionEventsSubscriber
     {
-        ITransactionalSession transactionalSession;
+        IOutgoingMessages messages;
 
-        public ShoppingCartAddItemToCartRequestedSubscriber(ITransactionalSession transactionalSession)
+        public ShoppingCartAddItemToCartRequestedSubscriber(IOutgoingMessages messages)
         {
-            this.transactionalSession = transactionalSession;
+            this.messages = messages;
         }
 
         [HttpPost("shoppingcart/add/{id}")]
@@ -26,7 +26,7 @@ namespace Shipping.ViewModelComposition
             {
                 var options = new SendOptions();
                 options.SetDestination("Shipping.Service");
-                await transactionalSession.Send(new AddItemToCart()
+                await messages.Send(new AddItemToCart()
                 {
                     CartId = new Guid(@event.CartId),
                     RequestId = @event.RequestId,
