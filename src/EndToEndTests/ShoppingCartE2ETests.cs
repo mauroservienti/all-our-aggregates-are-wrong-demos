@@ -18,10 +18,11 @@ namespace EndToEndTests;
 /// The test starts the full application stack in-process on real Kestrel ports and
 /// drives it through real HTTP:
 ///   1. POST /shoppingcart/add/{id}  (WebApp, port 5030)
-///       → TransactionalSessionMiddleware opens an ITransactionalSession
+///       → Heyi opens an ITransactionalSession around the controller action and the
+///         composition handlers composing over it
 ///       → ShoppingCartAddPostHandler + Shipping/Warehouse subscribers each call
-///         transactionalSession.Send() to enqueue commands for their backend services
-///       → Middleware commits the session; all three commands land in the outbox atomically
+///         IOutgoingMessages.Send() to enqueue commands for their backend services
+///       → Heyi commits the session; all three commands land in the outbox atomically
 ///   2. NServiceBus dispatches commands from the outbox table
 ///       → Sales.Service processes AddItemToCart and saves the item to the Sales database
 ///       → Shipping.Service processes AddItemToCart and saves the delivery estimate
